@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+/**
+ * Team Collection - 团队成员
+ */
 export const TeamCollection: CollectionConfig = {
   slug: 'team',
   admin: {
@@ -23,10 +26,6 @@ export const TeamCollection: CollectionConfig = {
       name: 'avatar',
       type: 'upload',
       relationTo: 'media',
-    },
-    {
-      name: 'email',
-      type: 'email',
     },
     {
       name: 'order',

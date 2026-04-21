@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+/**
+ * Banner Collection - 首页轮播图
+ */
 export const BannerCollection: CollectionConfig = {
   slug: 'banners',
   admin: {
@@ -14,10 +17,6 @@ export const BannerCollection: CollectionConfig = {
     {
       name: 'subtitle',
       type: 'text',
-    },
-    {
-      name: 'description',
-      type: 'richText',
     },
     {
       name: 'image',

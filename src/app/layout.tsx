@@ -2,13 +2,9 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Bio-Web | Scientific Research Platform',
-  description: 'One-stop scientific research service platform for biologists',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
+  title: 'deermap - 一站式科研服务平台',
+  description: '鹿图科技提供基础制图、个性化制图、论文服务、生信分析等科研服务',
+  keywords: ['科研', '制图', '生物信息学', '论文服务'],
 }
 
 export default function RootLayout({
@@ -17,10 +13,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="antialiased">
-        {children}
-      </body>
+    <html lang="zh-CN">
+      <body>{children}</body>
     </html>
   )
 }

@@ -1,68 +1,68 @@
-import type { ApiResponse } from '@/types'
-
-const API_BASE = process.env.NESTJS_API_URL || 'http://localhost:3001'
-
 /**
- * Generic API client for calling NestJS backend
+ * NestJS API 客户端
  */
-export async function apiCall<T = unknown>(
-  endpoint: string,
-  options: RequestInit = {}
-): Promise<ApiResponse<T>> {
-  try {
-    const url = `${API_BASE}${endpoint}`
+
+import type { ApiResponse, PaginatedResponse } from '@/types'
+
+const API_BASE_URL = process.env.NESTJS_API_URL || 'http://localhost:3001'
+
+export class ApiClient {
+  private static instance: ApiClient
+
+  private constructor() {}
+
+  static getInstance(): ApiClient {
+    if (!ApiClient.instance) {
+      ApiClient.instance = new ApiClient()
+    }
+    return ApiClient.instance
+  }
+
+  async request<T>(
+    path: string,
+    options: RequestInit & { method?: string } = {}
+  ): Promise<T> {
+    const url = `${API_BASE_URL}${path}`
+    const headers = {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    }
+
     const response = await fetch(url, {
       ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
+      headers,
     })
 
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`)
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
     }
 
-    return await response.json()
-  } catch (error) {
-    console.error('API call failed:', error)
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
-    }
+    return response.json()
+  }
+
+  get<T>(path: string, options?: RequestInit): Promise<T> {
+    return this.request<T>(path, { ...options, method: 'GET' })
+  }
+
+  post<T>(path: string, body?: unknown, options?: RequestInit): Promise<T> {
+    return this.request<T>(path, {
+      ...options,
+      method: 'POST',
+      body: body ? JSON.stringify(body) : undefined,
+    })
+  }
+
+  put<T>(path: string, body?: unknown, options?: RequestInit): Promise<T> {
+    return this.request<T>(path, {
+      ...options,
+      method: 'PUT',
+      body: body ? JSON.stringify(body) : undefined,
+    })
+  }
+
+  delete<T>(path: string, options?: RequestInit): Promise<T> {
+    return this.request<T>(path, { ...options, method: 'DELETE' })
   }
 }
 
-/**
- * Fetch chart types available
- */
-export async function getChartTypes() {
-  return apiCall('/charts/types')
-}
-
-/**
- * Create new order
- */
-export async function createOrder(data: unknown) {
-  return apiCall('/orders', {
-    method: 'POST',
-    body: JSON.stringify(data),
-  })
-}
-
-/**
- * Get user orders
- */
-export async function getUserOrders(userId: string) {
-  return apiCall(`/orders?userId=${userId}`)
-}
-
-/**
- * Check guest chart limit
- */
-export async function checkGuestChartLimit(fingerprint: string) {
-  return apiCall('/charts/guest-limit', {
-    method: 'POST',
-    body: JSON.stringify({ fingerprint }),
-  })
-}
+export const apiClient = ApiClient.getInstance()

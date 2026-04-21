@@ -1,5 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
+/**
+ * News Collection - 行业讯息
+ * 无独立页面，仅在首页子模块展示
+ * 点击跳转至企业微信公众号对应文章
+ */
 export const NewsCollection: CollectionConfig = {
   slug: 'news',
   admin: {
@@ -12,41 +17,28 @@ export const NewsCollection: CollectionConfig = {
       required: true,
     },
     {
-      name: 'slug',
-      type: 'text',
-      required: true,
-      unique: true,
-    },
-    {
       name: 'excerpt',
-      type: 'text',
+      type: 'textarea',
     },
     {
       name: 'content',
       type: 'richText',
     },
     {
-      name: 'coverImage',
+      name: 'wechatArticleUrl',
+      type: 'text',
+      label: '微信公众号文章链接',
+      required: true,
+    },
+    {
+      name: 'thumbnail',
       type: 'upload',
       relationTo: 'media',
     },
     {
-      name: 'author',
-      type: 'text',
-    },
-    {
-      name: 'category',
-      type: 'select',
-      options: ['Industry News', 'Research Trends', 'Policy Updates', 'Case Studies'],
-    },
-    {
       name: 'publishedAt',
       type: 'date',
-    },
-    {
-      name: 'isPublished',
-      type: 'checkbox',
-      defaultValue: true,
+      required: true,
     },
   ],
 }

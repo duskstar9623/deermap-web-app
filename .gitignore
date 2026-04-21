@@ -1,6 +1,5 @@
 # Env Config
-.env.local
-.env.*.local
+.env.*
 
 # Deploy and Hosting
 .vercel
@@ -10,14 +9,16 @@
 *.swo
 *~
 
-# logs
+# Debug
 *.log
 
 # System files
 .DS_Store
+Thumbs.db
 
 # Dependency and build outputs
 node_modules/
+.pnpm-store/
 .next/
 out/
 build/
@@ -30,3 +31,4 @@ dist/
 .idea/
 
 # Others
+.nyc_output/

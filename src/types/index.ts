@@ -1,110 +1,126 @@
-// API Request/Response Types
-export interface ApiResponse<T = unknown> {
-  success: boolean
-  data?: T
-  message?: string
-  error?: string
-}
+/**
+ * 全局 TypeScript 类型定义
+ * 与 NestJS API 类型保持同步
+ */
 
-// User Types
+/**
+ * 用户信息
+ */
 export interface User {
   id: string
-  email: string
-  phone?: string
-  name?: string
-  role: 'guest' | 'user' | 'member' | 'admin'
-  membershipStatus?: 'free' | 'monthly' | 'yearly'
-  membershipExpiresAt?: Date
-  createdAt: Date
-  updatedAt: Date
+  phoneNumber: string
+  nickname?: string
+  avatar?: string
+  wechatOpenId?: string
+  alipayOpenId?: string
+  createdAt: string
+  updatedAt: string
 }
 
-// Chart Types
-export interface ChartGenerationRequest {
-  chartType: ChartType
-  dataFile: File
-  options?: ChartOptions
+/**
+ * 会员档位枚举
+ */
+export enum MembershipTier {
+  DAILY = 'daily',
+  MONTHLY = 'monthly',
+  QUARTERLY = 'quarterly',
+  YEARLY = 'yearly',
 }
 
-export type ChartType =
-  | 'heatmap'
-  | 'volcano'
-  | 'boxplot'
-  | 'survival'
-  | 'contour'
-  | 'ternary'
-
-export interface ChartOptions {
-  title?: string
-  xLabel?: string
-  yLabel?: string
-  colors?: string[]
-  [key: string]: unknown
-}
-
-export interface ChartResult {
+/**
+ * 会员信息
+ */
+export interface Membership {
   id: string
-  type: ChartType
-  imageUrl: string
-  svgData?: string
-  createdAt: Date
-  expiresAt: Date
+  userId: string
+  tier: MembershipTier
+  startDate: string
+  expiryDate: string
+  isActive: boolean
+  createdAt: string
+  updatedAt: string
 }
 
-// Order Types
+/**
+ * 订单状态枚举
+ */
+export enum OrderStatus {
+  PENDING = 'pending',
+  PAID = 'paid',
+  PROCESSING = 'processing',
+  COMPLETED = 'completed',
+  CANCELLED = 'cancelled',
+}
+
+/**
+ * 订单类型枚举
+ */
+export enum OrderType {
+  BASIC_CHART = 'basic_chart',
+  CUSTOM_CHART = 'custom_chart',
+  MEMBERSHIP = 'membership',
+}
+
+/**
+ * 订单信息
+ */
 export interface Order {
   id: string
   userId: string
-  type: 'chart' | 'custom_design' | 'paper_service'
-  amount: number
-  currency: 'CNY' | 'USD'
-  status: 'pending' | 'completed' | 'failed' | 'refunded'
-  paymentMethod?: string
-  createdAt: Date
-  updatedAt: Date
-}
-
-// Payload CMS Types
-export interface Banner {
-  id: string
-  title: string
-  subtitle?: string
+  type: OrderType
+  status: OrderStatus
+  originalPrice: number
+  discountAmount?: number
+  finalPrice: number
+  couponCode?: string
+  promotionId?: string
   description?: string
-  image?: { url: string }
-  ctaText?: string
-  ctaUrl?: string
-  isActive: boolean
-  order: number
+  createdAt: string
+  updatedAt: string
+  paidAt?: string
 }
 
-export interface TeamMember {
+/**
+ * 制图任务状态
+ */
+export enum ChartJobStatus {
+  PENDING = 'pending',
+  PROCESSING = 'processing',
+  COMPLETED = 'completed',
+  FAILED = 'failed',
+}
+
+/**
+ * 制图任务
+ */
+export interface ChartJob {
   id: string
-  name: string
-  title?: string
-  bio?: string
-  avatar?: { url: string }
-  email?: string
-  order: number
+  orderId: string
+  userId: string
+  chartType: string
+  inputData: Record<string, unknown>
+  status: ChartJobStatus
+  outputUrl?: string
+  errorMessage?: string
+  createdAt: string
+  updatedAt: string
 }
 
-export interface NewsArticle {
-  id: string
-  title: string
-  slug: string
-  excerpt?: string
-  content?: string
-  coverImage?: { url: string }
-  author?: string
-  category: 'Industry News' | 'Research Trends' | 'Policy Updates' | 'Case Studies'
-  publishedAt: Date
-  isPublished: boolean
+/**
+ * API 响应通用格式
+ */
+export interface ApiResponse<T = unknown> {
+  code: number
+  message: string
+  data?: T
 }
 
-export interface SiteSettings {
-  title: string
-  description?: string
-  logo?: { url: string }
-  contactEmail?: string
-  contactPhone?: string
-  wechatCode?: { url: string }
+/**
+ * 分页响应
+ */
+export interface PaginatedResponse<T> {
+  items: T[]
+  total: number
+  page: number
+  pageSize: number
 }
