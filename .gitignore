@@ -1,0 +1,32 @@
+# Env Config
+.env.local
+.env.*.local
+
+# Deploy and Hosting
+.vercel
+
+# Swap files
+*.swp
+*.swo
+*~
+
+# logs
+*.log
+
+# System files
+.DS_Store
+
+# Dependency and build outputs
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+# Others
