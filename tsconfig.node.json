@@ -1,10 +1,13 @@
+// 管理除 src 目录外，工具配置文件的类型检查
+// 使用 nodejs 环境的类型检查，形成应用代码与工具配置代码的类型隔离
 {
   "compilerOptions": {
-    "composite": true,
+    "target": "ES2022",
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "strict": true
   },
   "include": ["vite.config.ts"]
 }

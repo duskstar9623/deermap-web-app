@@ -1,25 +1,26 @@
 {
+  // https://www.typescriptlang.org/tsconfig/
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    "target": "ES2022",
+    "useDefineForClassFields": true,              // 使用 ES2022 的类字段语法
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],     // 告诉 TS 在编译器可以使用哪些全局类型定义
+    "module": "ESNext",                           // 生成代码使用 ESNext 模块系统，不转换为 CommonJS
     "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
+    "moduleResolution": "bundler",                // 支持无扩展名 import、exports 等，适合现代打包工具
+    "allowImportingTsExtensions": true,           // 允许直接导入 .ts/.tsx 文件，需配合 noEmit: true 使用
+    "resolveJsonModule": true,                    // 允许直接导入 JSON 文件并获得类型推断
+    "isolatedModules": true,                      // 要求每个文件可作为单独模块编译，而不依赖跨文件类型信息
+    "noEmit": true,                               // TS 只做类型检查，不生成输出文件，适合使用独立的构建工具（如 Vite）进行编译
+    "jsx": "react-jsx",                           // 使用 React 17+ 的 JSX 转换，不需要在每个文件显式 import React from 'react'
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
-    "paths": {
+    "noUnusedLocals": true,                       // 报告未使用的局部变量
+    "noUnusedParameters": true,                   // 报告未使用的函数参数
+    "noFallthroughCasesInSwitch": true,           // 报告 switch 语句中 case 分支的贯穿（缺少 break / return）
+    "noUncheckedSideEffectImports": true,         // 报告导入的模块具有副作用，确保文件真实存在并且被正确解析
+    "baseUrl": ".",                               // 设置非相对路径的解析基准目录为项目根目录
+    "paths": {                                    // 为 TS 提供别名解析能力
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src"]                              // 只将 src 目录下的文件包含在编译范围内
 }

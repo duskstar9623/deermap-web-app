@@ -1,0 +1,46 @@
+{
+  "baseURL": "/api/v1",
+  "timeout": 15000,
+  "endpoints": {
+    "auth": {
+      "login": "/auth/login",
+      "logout": "/auth/logout",
+      "refreshToken": "/auth/refresh",
+      "sendSmsCode": "/auth/sms-code",
+      "wechatLogin": "/auth/wechat"
+    },
+    "user": {
+      "profile": "/users/me",
+      "updateProfile": "/users/me",
+      "membership": "/users/me/membership"
+    },
+    "orders": {
+      "list": "/orders",
+      "detail": "/orders/:id",
+      "create": "/orders",
+      "cancel": "/orders/:id/cancel",
+      "pay": "/orders/:id/pay"
+    },
+    "charts": {
+      "list": "/charts",
+      "export": "/charts/export"
+    },
+    "services": {
+      "bioinformatics": "/services/bioinformatics",
+      "multiomics": "/services/multiomics",
+      "academic": "/services/academic",
+      "consulting": "/services/consulting"
+    },
+    "content": {
+      "articles": "/content/articles",
+      "banners": "/content/banners"
+    },
+    "contact": {
+      "submit": "/contact/submit"
+    },
+    "promotions": {
+      "active": "/promotions/active",
+      "verifyCoupon": "/promotions/coupon/verify"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+﻿{
+  "page": {
+    "title": "Multi-omics Integration",
+    "subtitle": "Multi-dimensional data integration analysis revealing deep biological mechanisms"
+  },
+  "section": {
+    "omicsTypes": "Omics Types",
+    "omicsSubtitle": "Click the cards below to learn more about each omics type",
+    "hoverBadge": "Click for details"
+  },
+  "omics": {
+    "genomics": { "title": "Genomics", "desc": "DNA sequence variants, copy number variations, structural variant analysis" },
+    "transcriptomics": { "title": "Transcriptomics", "desc": "Gene expression profiling, alternative splicing, fusion gene analysis" },
+    "proteomics": { "title": "Proteomics", "desc": "Protein identification, quantitative analysis, post-translational modifications" },
+    "metabolomics": { "title": "Metabolomics", "desc": "Metabolite identification, pathway analysis, metabolic network construction" }
+  },
+  "detailPage": {
+    "backButton": "Back to Multi-omics",
+    "coreAnalysis": "Core Analysis",
+    "results": "Sample Results",
+    "workflowTitle": "Standard Analysis Workflow"
+  },
+  "genomics": {
+    "title": "Genomics Analysis",
+    "subtitle": "Comprehensive analysis of DNA sequence variants, CNVs, and structural variants",
+    "workflowSubtitle": "Following international best practices to ensure accuracy and reproducibility",
+    "ctaTitle": "Start Genomics Analysis",
+    "analysisTypes": {
+      "variant": { "title": "Variant Calling", "desc": "Identify SNPs, InDels and other genomic variants from sequencing data", "apps": ["Pathogenic Mutation Screening", "Pharmacogenomics"] },
+      "cnv": { "title": "CNV Analysis", "desc": "Detect copy number gains or losses in genomic regions", "apps": ["Tumor Genomics", "Genetic Disease Diagnosis"] },
+      "sv": { "title": "Structural Variants", "desc": "Identify large-scale genomic structural rearrangements", "apps": ["Cancer Genomics", "Rare Diseases"] },
+      "gwas": { "title": "GWAS", "desc": "Find genetic loci associated with diseases or traits", "apps": ["Complex Diseases", "Trait Mapping"] }
+    },
+    "results": {
+      "manhattan": { "title": "Manhattan Plot", "desc": "GWAS results" },
+      "cnv": { "title": "CNV Profile", "desc": "Copy number variation distribution" },
+      "ideogram": { "title": "Ideogram", "desc": "Chromosome-level genomic features" }
+    }
+  },
+  "transcriptomics": {
+    "title": "Transcriptomics Analysis",
+    "subtitle": "Comprehensive analysis of gene expression, alternative splicing, and fusion genes",
+    "workflowSubtitle": "Complete pipeline from raw sequencing data to biological insights",
+    "ctaTitle": "Start Transcriptomics Analysis",
+    "analysisTypes": {
+      "de": { "title": "Differential Expression", "desc": "Compare gene expression level changes under different conditions", "apps": ["Disease Biomarkers", "Drug Response"] },
+      "splicing": { "title": "Alternative Splicing", "desc": "Identify and quantify different mRNA splice isoforms", "apps": ["Tumor Heterogeneity", "Neurological Diseases"] },
+      "fusion": { "title": "Fusion Gene Detection", "desc": "Discover gene fusion events and identify oncogenic fusion genes", "apps": ["Cancer Diagnosis", "Targeted Therapy"] },
+      "pathway": { "title": "Pathway Enrichment", "desc": "Analyze biological functions and signaling pathways of differential genes", "apps": ["Mechanism Research", "Target Screening"] }
+    },
+    "results": {
+      "volcano": { "title": "Volcano Plot", "desc": "Differentially expressed gene distribution" },
+      "heatmap": { "title": "Heatmap", "desc": "Gene expression patterns" },
+      "goBubble": { "title": "GO Enrichment Bubble", "desc": "Functional enrichment analysis" }
+    }
+  },
+  "proteomics": {
+    "title": "Proteomics Analysis",
+    "subtitle": "In-depth analysis of protein expression, modifications, and interaction networks",
+    "workflowSubtitle": "Mass spectrometry-based proteomics analysis pipeline",
+    "ctaTitle": "Start Proteomics Analysis",
+    "analysisTypes": {
+      "identification": { "title": "Protein ID & Quantification", "desc": "Mass spectrometry-based protein identification and relative/absolute quantification", "apps": ["Biomarker Discovery", "Protein Expression Profiling"] },
+      "ptm": { "title": "Post-translational Modifications", "desc": "Comprehensive analysis of phosphorylation, acetylation, ubiquitination modifications", "apps": ["Signaling Pathways", "Drug Targets"] },
+      "ppi": { "title": "Protein Interaction Network", "desc": "Build and analyze protein-protein interaction networks", "apps": ["Complex Prediction", "Functional Modules"] },
+      "integration": { "title": "Multi-omics Integration", "desc": "Correlation analysis of proteomics with transcriptomics and metabolomics", "apps": ["Systems Biology", "Precision Medicine"] }
+    },
+    "results": {
+      "heatmap": { "title": "Protein Heatmap", "desc": "Protein expression differential patterns" },
+      "volcano": { "title": "Differential Protein Volcano", "desc": "Differentially expressed protein distribution" },
+      "network": { "title": "PPI Network", "desc": "Protein-protein interaction network" }
+    }
+  },
+  "metabolomics": {
+    "title": "Metabolomics Analysis",
+    "subtitle": "Comprehensive detection and quantification of small molecule metabolites",
+    "workflowSubtitle": "Complete pipeline from sample to metabolic insights",
+    "ctaTitle": "Start Metabolomics Analysis",
+    "analysisTypes": {
+      "identification": { "title": "Metabolite ID & Quantification", "desc": "LC-MS/GC-MS based untargeted and targeted metabolite detection", "apps": ["Biomarker Screening", "Metabolic Phenotype"] },
+      "pathway": { "title": "Metabolic Pathway Analysis", "desc": "Metabolite enrichment analysis and pathway visualization", "apps": ["Pathway Perturbation", "Drug Mechanisms"] },
+      "lipidomics": { "title": "Lipidomics", "desc": "Comprehensive identification and quantification of lipids", "apps": ["Membrane Biology", "Inflammation Research"] },
+      "flux": { "title": "Metabolic Flux Analysis", "desc": "Stable isotope tracing-based metabolic flux analysis", "apps": ["Metabolic Engineering", "Tumor Metabolism"] }
+    },
+    "results": {
+      "heatmap": { "title": "Metabolite Heatmap", "desc": "Metabolite differential expression patterns" },
+      "pca": { "title": "PCA Analysis", "desc": "Inter-sample metabolic similarity" },
+      "kegg": { "title": "KEGG Pathway Enrichment", "desc": "Metabolic pathway analysis" }
+    }
+  },
+  "workflow": {
+    "genomics": {
+      "steps": [
+        { "title": "Sample Prep", "desc": "DNA extraction + QC" },
+        { "title": "Library Prep", "desc": "Fragmentation + adapter ligation" },
+        { "title": "Sequencing", "desc": "Illumina/Nanopore" },
+        { "title": "Quality Control", "desc": "Adapter trimming + low-quality filtering" },
+        { "title": "Alignment", "desc": "Map to reference genome" },
+        { "title": "Variant Calling", "desc": "SNP/InDel/SV" }
+      ]
+    },
+    "transcriptomics": {
+      "steps": [
+        { "title": "RNA Extraction", "desc": "Total RNA + mRNA enrichment" },
+        { "title": "Library Prep", "desc": "Fragmentation + cDNA synthesis" },
+        { "title": "Sequencing", "desc": "PE150/SE50" },
+        { "title": "QC Filtering", "desc": "rRNA removal + low-quality filtering" },
+        { "title": "Alignment & Quant", "desc": "STAR alignment + expression quantification" },
+        { "title": "Differential Analysis", "desc": "DESeq2/edgeR" }
+      ]
+    },
+    "proteomics": {
+      "steps": [
+        { "title": "Protein Extraction", "desc": "Lysis + quantification" },
+        { "title": "Digestion", "desc": "Trypsin + peptide purification" },
+        { "title": "LC Separation", "desc": "Liquid chromatography + peptide separation" },
+        { "title": "MS Detection", "desc": "DDA/DIA" },
+        { "title": "Database Search", "desc": "MaxQuant + protein identification" },
+        { "title": "Functional Analysis", "desc": "GO/KEGG + interaction network" }
+      ]
+    },
+    "metabolomics": {
+      "steps": [
+        { "title": "Sample Prep", "desc": "Metabolite extraction + IS addition" },
+        { "title": "MS Detection", "desc": "LC-MS/GC-MS" },
+        { "title": "Peak Extraction", "desc": "Feature peaks + alignment" },
+        { "title": "Identification", "desc": "Database matching + metabolite ID" },
+        { "title": "Differential Analysis", "desc": "Multivariate statistics + differential metabolites" },
+        { "title": "Pathway Analysis", "desc": "KEGG + metabolic pathways" }
+      ]
+    }
+  }
+}

@@ -1,1 +1,32 @@
+# Dependencies
 node_modules
+package-lock.json
+
+# Build output
+dist
+
+# TypeScript
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+
+# Environment & secrets
+*.local
+.env
+.env.*
+
+# Editor
+.vscode/*
+!.vscode/settings.json
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

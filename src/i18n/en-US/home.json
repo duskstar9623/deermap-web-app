@@ -1,0 +1,34 @@
+{
+  "hero": {
+    "badge": "Professional Bioinformatics Platform",
+    "titleLine1": "Precision Bioinformatics",
+    "titleHighlight": "Solutions",
+    "subtitle": "Accelerate your scientific research with cutting-edge computational precision, providing researchers with high-quality data analysis and visualization solutions"
+  },
+  "stats": {
+    "services": "Services",
+    "partners": "Partners",
+    "tools": "Pro Tools",
+    "satisfaction": "Satisfaction"
+  },
+  "features": {
+    "sectionTitle": "Core Services",
+    "sectionSubtitle": "Comprehensive bioinformatics solutions to empower your research projects",
+    "bioinformatics": {
+      "title": "Bioinformatics Analysis",
+      "desc": "Comprehensive analysis services for genomics, transcriptomics, proteomics, and metabolomics"
+    },
+    "visualization": {
+      "title": "Data Visualization",
+      "desc": "40+ professional research charts with interactive online generation and download"
+    },
+    "multiomics": {
+      "title": "Multi-omics Integration",
+      "desc": "Multi-dimensional data integration revealing deep biological mechanisms"
+    },
+    "academic": {
+      "title": "Academic Writing",
+      "desc": "SCI paper polishing, data analysis reports, and chart optimization"
+    }
+  }
+}

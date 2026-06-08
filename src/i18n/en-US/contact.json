@@ -1,0 +1,22 @@
+{
+  "page": {
+    "title": "Contact Us",
+    "subtitle": "Have questions or needs? We're always here to help"
+  },
+  "info": {
+    "title": "Contact Information",
+    "phone": "Phone",
+    "phoneValue": "+86 400-123-4567",
+    "email": "Email",
+    "emailValue": "support@bioinfopro.com",
+    "address": "Address",
+    "addressValue": "Zhongguancun Science Park, Haidian District, Beijing"
+  },
+  "form": {
+    "title": "Online Consultation",
+    "name": "Name",
+    "email": "Email",
+    "organization": "Organization",
+    "content": "Message"
+  }
+}

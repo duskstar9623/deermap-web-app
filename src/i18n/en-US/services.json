@@ -1,0 +1,56 @@
+{
+  "page": {
+    "title": "Bioinformatics Services",
+    "subtitle": "Comprehensive bioinformatics analysis services, from quality control to in-depth interpretation"
+  },
+  "items": {
+    "rnaseq": {
+      "title": "RNA-seq Analysis",
+      "desc": "Differential expression, alternative splicing, fusion gene detection",
+      "price": "From ¥2,999",
+      "features": ["Differential Expression", "Alternative Splicing", "Fusion Gene Detection", "Pathway Enrichment"]
+    },
+    "chipseq": {
+      "title": "ChIP-seq Analysis",
+      "desc": "Peak calling, motif analysis, annotation",
+      "price": "From ¥3,499",
+      "features": ["Peak Calling", "Motif Analysis", "Functional Annotation", "Visualization Report"]
+    },
+    "gwas": {
+      "title": "GWAS Analysis",
+      "desc": "Genome-wide association study, population genetics",
+      "price": "From ¥4,999",
+      "features": ["Association Analysis", "Manhattan Plot", "QQ Plot", "Gene Annotation"]
+    },
+    "singleCell": {
+      "title": "Single-cell Sequencing",
+      "desc": "Cell clustering, trajectory inference, cell communication",
+      "price": "From ¥5,999",
+      "features": ["Cell Clustering", "Trajectory Inference", "Cell Communication", "Marker Analysis"]
+    },
+    "methylation": {
+      "title": "Methylation Analysis",
+      "desc": "Differential methylation, functional enrichment, association analysis",
+      "price": "From ¥3,999",
+      "features": ["Differential Methylation", "Functional Enrichment", "Association Analysis", "Visualization"]
+    },
+    "metagenome": {
+      "title": "Metagenomics",
+      "desc": "Species annotation, functional prediction, differential analysis",
+      "price": "From ¥2,999",
+      "features": ["Species Annotation", "Functional Prediction", "Differential Analysis", "Network Analysis"]
+    },
+    "proteomics": {
+      "title": "Proteomics Analysis",
+      "desc": "Protein identification & quantification, differential analysis, PTM analysis",
+      "price": "From ¥3,999",
+      "features": ["Protein ID & Quantification", "Differential Protein Analysis", "Post-translational Modification", "Protein Interaction Network"]
+    },
+    "metabolomics": {
+      "title": "Metabolomics Analysis",
+      "desc": "Metabolite detection, pathway analysis, lipidomics",
+      "price": "From ¥3,499",
+      "features": ["Metabolite ID & Quantification", "Metabolic Pathway Analysis", "Lipidomics", "Metabolic Flux Analysis"]
+    }
+  }
+}

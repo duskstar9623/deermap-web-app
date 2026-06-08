@@ -1,0 +1,39 @@
+{
+  "brand": {
+    "name": "BioInfo Pro"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "visualization": "Visualization",
+    "multiomics": "Multi-omics",
+    "academic": "Academic",
+    "pricing": "Pricing",
+    "contact": "Contact"
+  },
+  "action": {
+    "startConsult": "Get Started",
+    "consult": "Consult Now",
+    "explore": "Explore Services",
+    "viewPlans": "View Plans",
+    "submit": "Submit",
+    "back": "Back",
+    "prev": "Previous",
+    "next": "Next",
+    "selectFile": "Select File",
+    "generate": "Generate Chart",
+    "exportPng": "Export PNG",
+    "exportPdf": "Export PDF"
+  },
+  "footer": {
+    "description": "Professional bioinformatics analysis platform providing high-quality data analysis and visualization for research.",
+    "services": "Services",
+    "resources": "Resources",
+    "chartTool": "Chart Tool",
+    "pricingPlan": "Pricing",
+    "contact": "Contact",
+    "email": "support@bioinfopro.com",
+    "phone": "+86 400-123-4567",
+    "rights": "All rights reserved."
+  }
+}

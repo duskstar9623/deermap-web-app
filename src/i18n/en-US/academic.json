@@ -1,0 +1,32 @@
+{
+  "page": {
+    "title": "Academic Writing Services",
+    "subtitle": "Professional academic writing team to help publish your research"
+  },
+  "items": {
+    "sciWriting": {
+      "title": "SCI Paper Writing",
+      "desc": "Professional SCI paper writing and polishing services, full support from experimental design to publication",
+      "features": ["Paper Writing", "Language Polishing", "Formatting", "Submission Guidance"],
+      "detail": "Full-text writing services from abstract, introduction, methods, results to discussion, completed by a PhD team with extensive publication experience"
+    },
+    "patent": {
+      "title": "Patent Application",
+      "desc": "Bioinformatics patent writing and application services to protect your intellectual property",
+      "features": ["Patent Search", "Claims", "Specification", "Office Action Response"],
+      "detail": "Covering invention patent applications for bioinformatics algorithms, analysis methods, and databases"
+    },
+    "funding": {
+      "title": "Grant Application",
+      "desc": "Writing and revision services for NSFC and provincial/municipal grant applications",
+      "features": ["Topic Justification", "Research Plan", "Feasibility Analysis", "Budget Planning"],
+      "detail": "Personalized application strategies and high-quality proposals for NSFC and various funding levels"
+    },
+    "report": {
+      "title": "Data Analysis Report",
+      "desc": "Professional bioinformatics analysis report writing for project completion and presentations",
+      "features": ["Result Interpretation", "Chart Creation", "Methods Description", "Conclusions"],
+      "detail": "Transform complex bioinformatics analysis results into clear, professional academic reports"
+    }
+  }
+}

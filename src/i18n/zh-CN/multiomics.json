@@ -1,0 +1,133 @@
+﻿{
+  "page": {
+    "title": "多组学整合分析",
+    "subtitle": "多维度数据整合分析，揭示深层生物学机制"
+  },
+  "section": {
+    "omicsTypes": "组学类型",
+    "omicsSubtitle": "点击下方卡片了解各组学详情",
+    "hoverBadge": "点击查看详情"
+  },
+  "omics": {
+    "genomics": { "title": "基因组学 (Genomics)", "desc": "DNA序列变异、拷贝数变异、结构变异分析" },
+    "transcriptomics": { "title": "转录组学 (Transcriptomics)", "desc": "基因表达谱、可变剪接、融合基因分析" },
+    "proteomics": { "title": "蛋白质组学 (Proteomics)", "desc": "蛋白质鉴定、定量分析、修饰分析" },
+    "metabolomics": { "title": "代谢组学 (Metabolomics)", "desc": "代谢物鉴定、通路分析、代谢网络构建" }
+  },
+  "detailPage": {
+    "backButton": "返回多组学",
+    "coreAnalysis": "核心分析内容",
+    "results": "经典结果展示",
+    "workflowTitle": "标准分析流程"
+  },
+  "genomics": {
+    "title": "基因组学分析",
+    "subtitle": "全面解析DNA序列变异、拷贝数变异和结构变异",
+    "workflowSubtitle": "遵循国际最佳实践，确保结果的准确性和可重复性",
+    "ctaTitle": "开始基因组学分析",
+    "analysisTypes": {
+      "variant": { "title": "变异检测", "desc": "从测序数据中识别SNP、InDel等基因组变异", "apps": ["致病突变筛查", "药物基因组学"] },
+      "cnv": { "title": "CNV分析", "desc": "检测基因组区域的拷贝数增加或缺失", "apps": ["肿瘤基因组", "遗传病诊断"] },
+      "sv": { "title": "结构变异", "desc": "识别大片段的基因组结构重排", "apps": ["癌症基因组学", "罕见病"] },
+      "gwas": { "title": "GWAS", "desc": "寻找与疾病或性状相关的遗传位点", "apps": ["复杂疾病", "性状定位"] }
+    },
+    "results": {
+      "manhattan": { "title": "曼哈顿图", "desc": "全基因组关联分析结果" },
+      "cnv": { "title": "CNV图谱", "desc": "拷贝数变异分布" },
+      "ideogram": { "title": "染色体图谱", "desc": "染色体水平基因组特征" }
+    }
+  },
+  "transcriptomics": {
+    "title": "转录组学分析",
+    "subtitle": "全面解析基因表达谱、可变剪接和融合基因",
+    "workflowSubtitle": "从原始测序数据到生物学洞察的完整流程",
+    "ctaTitle": "开始转录组学分析",
+    "analysisTypes": {
+      "de": { "title": "差异表达分析", "desc": "比较不同条件下基因表达水平的变化", "apps": ["疾病标志物", "药物响应"] },
+      "splicing": { "title": "可变剪接分析", "desc": "识别和定量不同的mRNA剪接异构体", "apps": ["肿瘤异质性", "神经疾病"] },
+      "fusion": { "title": "融合基因检测", "desc": "发现基因融合事件，识别致癌融合基因", "apps": ["癌症诊断", "靶向治疗"] },
+      "pathway": { "title": "通路富集分析", "desc": "解析差异基因的生物学功能和信号通路", "apps": ["机制研究", "靶点筛选"] }
+    },
+    "results": {
+      "volcano": { "title": "火山图", "desc": "差异表达基因分布" },
+      "heatmap": { "title": "热图", "desc": "基因表达模式" },
+      "goBubble": { "title": "GO富集气泡图", "desc": "功能富集分析" }
+    }
+  },
+  "proteomics": {
+    "title": "蛋白质组学分析",
+    "subtitle": "深度解析蛋白质表达、修饰和互作网络",
+    "workflowSubtitle": "基于质谱技术的蛋白质组学分析流程",
+    "ctaTitle": "开始蛋白质组学分析",
+    "analysisTypes": {
+      "identification": { "title": "蛋白质鉴定定量", "desc": "基于质谱的蛋白质鉴定和相对/绝对定量", "apps": ["标志物发现", "蛋白表达谱"] },
+      "ptm": { "title": "翻译后修饰分析", "desc": "磷酸化、乙酰化、泛素化等修饰全景分析", "apps": ["信号通路", "药物靶点"] },
+      "ppi": { "title": "蛋白互作网络", "desc": "构建和分析蛋白质之间的相互作用网络", "apps": ["复合物预测", "功能模块"] },
+      "integration": { "title": "多组学整合", "desc": "蛋白质组与转录组、代谢组的关联分析", "apps": ["系统生物学", "精准医学"] }
+    },
+    "results": {
+      "heatmap": { "title": "蛋白表达热图", "desc": "蛋白质表达差异模式" },
+      "volcano": { "title": "差异蛋白火山图", "desc": "差异表达蛋白分布" },
+      "network": { "title": "蛋白互作网络", "desc": "蛋白质相互作用网络" }
+    }
+  },
+  "metabolomics": {
+    "title": "代谢组学分析",
+    "subtitle": "全面检测和定量小分子代谢物，揭示代谢表型",
+    "workflowSubtitle": "从样本到代谢洞察的完整流程",
+    "ctaTitle": "开始代谢组学分析",
+    "analysisTypes": {
+      "identification": { "title": "代谢物鉴定定量", "desc": "基于LC-MS/GC-MS的非靶向和靶向代谢物检测", "apps": ["标志物筛选", "代谢表型"] },
+      "pathway": { "title": "代谢通路分析", "desc": "代谢物富集分析和代谢通路可视化", "apps": ["通路扰动", "药物机制"] },
+      "lipidomics": { "title": "脂质组学分析", "desc": "脂质的全面鉴定和定量分析", "apps": ["膜生物学", "炎症研究"] },
+      "flux": { "title": "代谢流分析", "desc": "基于稳定同位素示踪的代谢通量分析", "apps": ["代谢工程", "肿瘤代谢"] }
+    },
+    "results": {
+      "heatmap": { "title": "代谢物热图", "desc": "代谢物表达差异模式" },
+      "pca": { "title": "PCA分析", "desc": "样本间代谢相似性" },
+      "kegg": { "title": "KEGG通路富集", "desc": "代谢通路分析" }
+    }
+  },
+  "workflow": {
+    "genomics": {
+      "steps": [
+        { "title": "样本制备", "desc": "DNA提取 + 质检" },
+        { "title": "文库构建", "desc": "打断 + 接头连接" },
+        { "title": "上机测序", "desc": "Illumina/Nanopore" },
+        { "title": "数据质控", "desc": "去接头 + 去低质量" },
+        { "title": "序列比对", "desc": "比对到参考基因组" },
+        { "title": "变异检测", "desc": "SNP/InDel/SV" }
+      ]
+    },
+    "transcriptomics": {
+      "steps": [
+        { "title": "RNA提取", "desc": "Total RNA + mRNA富集" },
+        { "title": "文库构建", "desc": "片段化 + cDNA合成" },
+        { "title": "上机测序", "desc": "PE150/SE50" },
+        { "title": "质控过滤", "desc": "去除rRNA + 低质量过滤" },
+        { "title": "比对定量", "desc": "STAR比对 + 表达量计算" },
+        { "title": "差异分析", "desc": "DESeq2/edgeR" }
+      ]
+    },
+    "proteomics": {
+      "steps": [
+        { "title": "蛋白提取", "desc": "裂解 + 定量" },
+        { "title": "酶切消化", "desc": "胰蛋白酶 + 肽段纯化" },
+        { "title": "LC分离", "desc": "液相色谱 + 肽段分离" },
+        { "title": "质谱检测", "desc": "DDA/DIA" },
+        { "title": "数据库搜索", "desc": "MaxQuant + 蛋白鉴定" },
+        { "title": "功能分析", "desc": "GO/KEGG + 互作网络" }
+      ]
+    },
+    "metabolomics": {
+      "steps": [
+        { "title": "样本制备", "desc": "代谢物提取 + 内标添加" },
+        { "title": "质谱检测", "desc": "LC-MS/GC-MS" },
+        { "title": "峰提取", "desc": "特征峰 + 识别对齐" },
+        { "title": "鉴定注释", "desc": "数据库匹配 + 代谢物鉴定" },
+        { "title": "差异分析", "desc": "多元统计 + 差异代谢物" },
+        { "title": "通路分析", "desc": "KEGG + 代谢通路" }
+      ]
+    }
+  }
+}

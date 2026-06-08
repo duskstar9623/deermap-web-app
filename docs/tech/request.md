@@ -1,0 +1,309 @@
+# 统一请求机制
+
+> 本文档说明项目中 HTTP 请求层的架构设计、使用方法与扩展指南。  
+> 最后更新：2026-05-30
+
+---
+
+## 一、架构总览
+
+```
+src/
+├── configs/
+│   └── requests.json          ← API 端点地址 & 全局配置
+└── services/
+    ├── index.ts               ← 统一出口（导出所有便捷方法、API 模块、错误类型）
+    ├── http-client.ts         ← axios 实例 + 请求/响应拦截器 + 便捷方法
+    ├── error-handler.ts       ← ApiError 类 + ErrorCode 枚举 + 全局错误处理器
+    └── api/
+        ├── index.ts           ← API 模块聚合导出
+        ├── auth.ts            ← 认证相关
+        ├── orders.ts          ← 订单相关
+        └── contact.ts         ← 联系表单
+```
+
+**设计原则：**
+
+- 所有 API 端点路径集中在 `requests.json`，不散落在业务代码中
+- 请求/响应拦截器统一处理 Token 注入与错误转换
+- 错误以类型安全的 `ApiError` 类抛出，业务层可精确 catch
+- 全局错误处理器可替换，方便接入 UI 通知组件
+
+---
+
+## 二、配置文件 `src/configs/requests.json`
+
+```json
+{
+  "baseURL": "/api/v1",
+  "timeout": 15000,
+  "endpoints": {
+    "auth": {
+      "login": "/auth/login",
+      "logout": "/auth/logout",
+      "refreshToken": "/auth/refresh",
+      "sendSmsCode": "/auth/sms-code",
+      "wechatLogin": "/auth/wechat"
+    },
+    "user": { ... },
+    "orders": { ... },
+    "charts": { ... },
+    "services": { ... },
+    "content": { ... },
+    "contact": { ... },
+    "promotions": { ... }
+  }
+}
+```
+
+| 字段 | 说明 |
+|------|------|
+| `baseURL` | 所有请求的基础路径前缀。开发时通过 Vite proxy 转发，生产环境由 Nginx 反代 |
+| `timeout` | 全局超时时间（毫秒） |
+| `endpoints` | 按业务模块组织的端点路径，支持 `:id` 路径参数占位符 |
+
+**新增 API 时**：只需在 `endpoints` 中添加对应路径，再到 `services/api/` 下创建对应模块即可。
+
+---
+
+## 三、HTTP 客户端 `services/http-client.ts`
+
+### 3.1 请求拦截器
+
+- **Token 注入**：从 `localStorage` 读取 `access_token`，自动附加 `Authorization: Bearer <token>` 请求头
+- **开发日志**：`DEV` 模式下打印请求方法 + URL
+
+### 3.2 响应拦截器
+
+- 成功响应直接返回
+- 错误响应自动转换为 `ApiError` 实例并触发全局错误处理器
+
+### 3.3 便捷方法
+
+```ts
+import { get, post, put, patch, del } from '@/services'
+
+// 泛型 T 为 response.data.data 的类型
+const res = await get<User[]>('/users')
+const users = res.data.data // 类型为 User[]
+
+// 所有方法签名：
+// get<T>(url, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+// post<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+// put<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+// patch<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+// del<T>(url, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+```
+
+### 3.4 Token 管理
+
+```ts
+import { getToken, setToken, removeToken } from '@/services'
+
+setToken('eyJhbG...')   // 登录后存储
+getToken()              // 读取
+removeToken()           // 登出时清除
+```
+
+---
+
+## 四、错误处理 `services/error-handler.ts`
+
+### 4.1 `ApiError` 类
+
+```ts
+class ApiError extends Error {
+  code: ErrorCode      // 业务错误码枚举
+  status: number       // HTTP 状态码（无响应时为 0）
+  details?: Record<string, unknown>  // 后端返回的额外信息
+
+  get isAuthError(): boolean     // 401 / Token 过期
+  get isNetworkError(): boolean  // 网络断开 / 超时
+}
+```
+
+### 4.2 错误码 `ErrorCode`
+
+| 错误码 | 含义 | 触发场景 |
+|--------|------|----------|
+| `NETWORK_ERROR` | 网络异常 | 无响应 |
+| `TIMEOUT` | 请求超时 | 超过 `timeout` 配置 |
+| `CANCELLED` | 请求取消 | 主动 abort |
+| `UNAUTHORIZED` | 未认证 | HTTP 401 |
+| `TOKEN_EXPIRED` | Token 过期 | 后端返回特定 code |
+| `FORBIDDEN` | 无权限 | HTTP 403 |
+| `NOT_FOUND` | 资源不存在 | HTTP 404 |
+| `CONFLICT` | 资源冲突 | HTTP 409 |
+| `VALIDATION_ERROR` | 参数校验失败 | HTTP 422 |
+| `RATE_LIMITED` | 限流 | HTTP 429 |
+| `SERVER_ERROR` | 服务器错误 | HTTP 5xx |
+| `UNKNOWN` | 未知错误 | 其他 |
+
+### 4.3 全局错误处理器
+
+默认行为是 console 输出。可在应用初始化时替换为接入 UI 通知：
+
+```ts
+import { setGlobalErrorHandler, ApiError, ErrorCode } from '@/services'
+import { toast } from 'your-toast-library'
+
+setGlobalErrorHandler((error: ApiError) => {
+  if (error.isAuthError) {
+    toast.error('登录已过期，请重新登录')
+    // 跳转登录页
+    return
+  }
+  if (error.code === ErrorCode.RATE_LIMITED) {
+    toast.warning('操作过于频繁，请稍后再试')
+    return
+  }
+  toast.error(error.message)
+})
+```
+
+---
+
+## 五、使用示例
+
+### 5.1 基本调用
+
+```ts
+import { authApi } from '@/services'
+
+async function handleLogin(phone: string, code: string) {
+  const res = await authApi.login({ phone, code })
+  const { accessToken, user } = res.data.data
+
+  setToken(accessToken)
+  // 更新用户状态...
+}
+```
+
+### 5.2 带错误处理
+
+```ts
+import { ordersApi, ApiError, ErrorCode } from '@/services'
+
+async function loadOrders() {
+  try {
+    const res = await ordersApi.getOrders({ page: 1, pageSize: 10 })
+    return res.data.data
+  } catch (err) {
+    if (err instanceof ApiError) {
+      if (err.code === ErrorCode.UNAUTHORIZED) {
+        // 引导用户登录
+      } else if (err.code === ErrorCode.NOT_FOUND) {
+        // 显示空状态
+      }
+      // 其他错误已被全局处理器处理
+    }
+    return null
+  }
+}
+```
+
+### 5.3 路径参数替换
+
+对于包含 `:id` 占位符的端点，API 方法内部已自动替换：
+
+```ts
+// orders.ts 内部实现
+export function getOrderDetail(id: string) {
+  const url = endpoints.detail.replace(':id', id)
+  return get<Order>(url)
+}
+
+// 调用方
+await ordersApi.getOrderDetail('order_abc123')
+// 实际请求: GET /api/v1/orders/order_abc123
+```
+
+---
+
+## 六、后端响应约定
+
+所有后端接口应返回统一 JSON 结构：
+
+```json
+{
+  "code": 0,
+  "message": "success",
+  "data": { ... }
+}
+```
+
+错误响应：
+
+```json
+{
+  "code": "VALIDATION_ERROR",
+  "message": "手机号格式不正确",
+  "details": {
+    "field": "phone",
+    "constraint": "isMobilePhone"
+  }
+}
+```
+
+---
+
+## 七、开发环境代理配置
+
+在 `vite.config.ts` 中配置代理以避免跨域：
+
+```ts
+export default defineConfig({
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      },
+    },
+  },
+})
+```
+
+---
+
+## 八、扩展指南
+
+### 新增一个 API 模块
+
+1. 在 `src/configs/requests.json` 的 `endpoints` 中添加路径
+2. 在 `src/services/api/` 下创建新文件（如 `charts.ts`）
+3. 在 `src/services/api/index.ts` 中导出新模块
+4. 完成，可在业务组件中通过 `import { chartsApi } from '@/services'` 使用
+
+### 需要请求取消（如搜索防抖）
+
+```ts
+import httpClient from '@/services/http-client'
+
+const controller = new AbortController()
+
+httpClient.get('/search', {
+  params: { q: keyword },
+  signal: controller.signal,
+})
+
+// 取消请求
+controller.abort()
+```
+
+### 需要文件上传
+
+```ts
+import { post } from '@/services'
+
+const formData = new FormData()
+formData.append('file', file)
+
+await post('/media/upload', formData, {
+  headers: { 'Content-Type': 'multipart/form-data' },
+  onUploadProgress: (e) => {
+    const percent = Math.round((e.loaded * 100) / (e.total ?? 1))
+    setProgress(percent)
+  },
+})
+```
