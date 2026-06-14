@@ -17,7 +17,6 @@
     "noUnusedParameters": true,                   // 报告未使用的函数参数
     "noFallthroughCasesInSwitch": true,           // 报告 switch 语句中 case 分支的贯穿（缺少 break / return）
     "noUncheckedSideEffectImports": true,         // 报告导入的模块具有副作用，确保文件真实存在并且被正确解析
-    "baseUrl": ".",                               // 设置非相对路径的解析基准目录为项目根目录
     "paths": {                                    // 为 TS 提供别名解析能力
       "@/*": ["./src/*"]
     }

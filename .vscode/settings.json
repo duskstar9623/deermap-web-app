@@ -3,12 +3,12 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
   "search.exclude": {
     "**/node_modules": true,
     "**/dist": true
   },
   "files.associations": {
     "*.css": "css"
-  }
+  },
+  "css.lint.unknownAtRules": "ignore"
 }
