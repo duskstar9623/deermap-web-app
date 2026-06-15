@@ -12,4 +12,4 @@ export const THEME_COLORS = {
   transcriptomics: '#c0392b',
   proteomics: '#6c5ce7',
   metabolomics: '#00b894',
-} as const
+} as const;

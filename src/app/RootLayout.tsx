@@ -1,12 +1,12 @@
-import { Suspense } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
-import { PageTransition } from '@/components/layout/PageTransition'
+import { Suspense } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import { PageTransition } from '@/components/layout/PageTransition';
 
 export function RootLayout() {
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <div className="min-h-screen bg-white">
@@ -22,5 +22,5 @@ export function RootLayout() {
         <Footer />
       </main>
     </div>
-  )
+  );
 }

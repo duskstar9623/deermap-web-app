@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 interface VisualizationState {
   /** Currently selected chart type id */
@@ -23,4 +23,4 @@ export const useVisualizationStore = create<VisualizationState>((set) => ({
   updateChartParams: (params) =>
     set((state) => ({ chartParams: { ...state.chartParams, ...params } })),
   resetParams: () => set({ selectedChart: null, chartParams: {} }),
-}))
+}));

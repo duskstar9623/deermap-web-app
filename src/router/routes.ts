@@ -15,6 +15,6 @@ export const ROUTES = {
   academic: '/academic',
   pricing: '/pricing',
   contact: '/contact',
-} as const
+} as const;
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES]

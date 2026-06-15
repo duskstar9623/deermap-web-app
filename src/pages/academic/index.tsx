@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion'
-import { useTranslation } from 'react-i18next'
-import { FileText, BarChart3, Check, PieChart as PieChartIcon, MessageSquare } from 'lucide-react'
-import { THEME_COLORS } from '@/constants/theme'
-import { ASSETS } from '@/constants/assets'
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { FileText, BarChart3, Check, PieChart as PieChartIcon, MessageSquare } from 'lucide-react';
+import { THEME_COLORS } from '@/constants/theme';
+import { ASSETS } from '@/constants/assets';
 
 function AcademicPage() {
-  const { t } = useTranslation('academic')
+  const { t } = useTranslation('academic');
   const services = [
     {
       titleKey: 'items.sciWriting.title',
@@ -43,7 +43,7 @@ function AcademicPage() {
       color: '#8b5cf6',
       bgImage: ASSETS.cards.academicReport,
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen pt-20">
@@ -91,7 +91,7 @@ function AcademicPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default AcademicPage
+export default AcademicPage;

@@ -1,4 +1,4 @@
-import type { AppRouteObject } from './types'
+import type { AppRouteObject } from './types';
 
 /**
  * Creates a lazy route loader compatible with React Router's `lazy` property.
@@ -8,7 +8,7 @@ export function lazyPage(
   importFn: () => Promise<{ default: React.ComponentType }>
 ): NonNullable<AppRouteObject['lazy']> {
   return async () => {
-    const module = await importFn()
-    return { Component: module.default }
-  }
+    const module = await importFn();
+    return { Component: module.default };
+  };
 }

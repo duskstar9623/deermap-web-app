@@ -1,8 +1,8 @@
-import animate from 'tailwindcss-animate'
+import animate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{ts,tsx}'],     // 配置 tailwind 在构建时会扫描的文件，提取 class 名以生成对应的 CSS
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],     // 配置 tailwind 在构建时会扫描的文件，提取 class 名以生成对应的 CSS
   future: {
     hoverOnlyWhenSupported: true,                       // 仅在浏览器支持 hover 功能时启用 hover 样式，提升性能和用户体验
   },
@@ -30,4 +30,4 @@ export default {
     },
   },
   plugins: [animate],
-}
+};

@@ -136,4 +136,4 @@ export const ASSETS = {
     metabolomicsStep5: '/images/workflow-steps/metabolomics-step5.png',
     metabolomicsStep6: '/images/workflow-steps/metabolomics-step6.png',
   },
-} as const
+} as const;

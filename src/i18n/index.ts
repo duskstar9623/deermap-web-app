@@ -1,9 +1,9 @@
-﻿import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-import zhCN from './zh-CN'
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import { DEFAULT_LANGUAGE, LANGUAGES, type LanguageCode } from '@/constants/const';
+import zhCN from './zh-CN';
 
-export const defaultNS = 'common'
-
+export const defaultNS = 'common';
 export const namespaces = [
   'common',
   'home',
@@ -14,40 +14,48 @@ export const namespaces = [
   'pricing',
   'industry-consulting',
   'contact',
-] as const
+  'errors',
+] as const;
 
-export type Namespace = (typeof namespaces)[number]
-export type Locale = 'zh-CN' | 'en-US'
+export type Locale = LanguageCode;
+export type Namespace = (typeof namespaces)[number];
 
-const savedLocale = (typeof window !== 'undefined'
-  ? localStorage.getItem('locale')
-  : null) as Locale | null
+function getSavedLanguage(): LanguageCode {
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
+  const saved = localStorage.getItem('lang');
+  return saved === LANGUAGES.zh || saved === LANGUAGES.en ? saved : DEFAULT_LANGUAGE;
+}
+
+const savedLanguage = getSavedLanguage();
 
 i18n.use(initReactI18next).init({
   resources: {
-    'zh-CN': zhCN,
+    [DEFAULT_LANGUAGE]: zhCN,
   },
-  lng: savedLocale || 'zh-CN',
-  fallbackLng: 'zh-CN',
+  lng: savedLanguage,
+  fallbackLng: DEFAULT_LANGUAGE,
   defaultNS,
   ns: namespaces as unknown as string[],
   interpolation: {
     escapeValue: false,
   },
-})
+});
 
 /**
- * Lazily load a locale's resources and register them into i18next.
+ * Lazily load a language's resources and register them into i18next.
  * zh-CN is already loaded synchronously; only en-US requires a network round-trip.
  */
-export async function loadLocale(locale: Locale): Promise<void> {
-  if (locale === 'zh-CN') return
-  if (i18n.hasResourceBundle(locale, 'common')) return
+export async function loadLanguage(language: LanguageCode): Promise<void> {
+  if (language === DEFAULT_LANGUAGE) return;
+  if (i18n.hasResourceBundle(language, defaultNS)) return;
 
-  const { default: resources } = await import('./en-US')
+  const { default: resources } = await import('./en-US');
   for (const [ns, bundle] of Object.entries(resources)) {
-    i18n.addResourceBundle(locale, ns, bundle, true, false)
+    i18n.addResourceBundle(language, ns, bundle, true, false);
   }
 }
 
-export default i18n
+// Keep legacy alias for backward compatibility.
+export const loadLocale = loadLanguage;
+
+export default i18n;

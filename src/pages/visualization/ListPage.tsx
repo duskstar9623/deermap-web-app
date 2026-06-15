@@ -1,13 +1,13 @@
-﻿import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { CHART_TYPES, getChartI18nKey } from './config'
-import { ROUTES } from '@/router/routes'
-import { ASSETS } from '@/constants/assets'
+﻿import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { CHART_TYPES, getChartI18nKey } from './config';
+import { ROUTES } from '@/router/routes';
+import { ASSETS } from '@/constants/assets';
 
 function VisualizationListPage() {
-  const navigate = useNavigate()
-  const { t } = useTranslation('visualization')
+  const navigate = useNavigate();
+  const { t } = useTranslation('visualization');
   return (
     <div className="min-h-screen pt-20">
       <section className="relative py-20 bg-gradient-to-br from-primary-light to-accent overflow-hidden">
@@ -31,8 +31,8 @@ function VisualizationListPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {CHART_TYPES.map((c, i) => {
-              const i18nKey = getChartI18nKey(c.id)
-              const chartName = t(`data.${i18nKey}`)
+              const i18nKey = getChartI18nKey(c.id);
+              const chartName = t(`data.${i18nKey}`);
               return (
                 <motion.div key={c.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.03 }} viewport={{ once: true }}
@@ -51,13 +51,13 @@ function VisualizationListPage() {
                     </div>
                   </div>
                 </motion.div>
-              )
+              );
             })}
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default VisualizationListPage
+export default VisualizationListPage;

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback } from 'react';
 
 interface OptimizedImageProps {
   /** Image source URL */
@@ -23,7 +23,7 @@ interface OptimizedImageProps {
   onLoad?: () => void
 }
 
-const FALLBACK_PLACEHOLDER = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23f3f4f6" width="400" height="300"/%3E%3C/svg%3E'
+const FALLBACK_PLACEHOLDER = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23f3f4f6" width="400" height="300"/%3E%3C/svg%3E';
 
 /**
  * OptimizedImage — Performance-optimized image component.
@@ -48,19 +48,19 @@ export function OptimizedImage({
   fallbackSrc,
   onLoad,
 }: OptimizedImageProps) {
-  const [loaded, setLoaded] = useState(false)
-  const [error, setError] = useState(false)
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleLoad = useCallback(() => {
-    setLoaded(true)
-    onLoad?.()
-  }, [onLoad])
+    setLoaded(true);
+    onLoad?.();
+  }, [onLoad]);
 
   const handleError = useCallback(() => {
-    setError(true)
-  }, [])
+    setError(true);
+  }, []);
 
-  const imgSrc = error ? (fallbackSrc || FALLBACK_PLACEHOLDER) : src
+  const imgSrc = error ? (fallbackSrc || FALLBACK_PLACEHOLDER) : src;
 
   return (
     <div
@@ -83,7 +83,7 @@ export function OptimizedImage({
         style={{ objectFit }}
       />
     </div>
-  )
+  );
 }
 
-export default OptimizedImage
+export default OptimizedImage;

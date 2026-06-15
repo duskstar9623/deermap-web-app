@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
-import { THEME_COLORS } from '@/constants/theme'
-import { ASSETS } from '@/constants/assets'
+import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
+import { THEME_COLORS } from '@/constants/theme';
+import { ASSETS } from '@/constants/assets';
 
 const WORKFLOW_STEPS: Record<string, { num: string; titleKey: string; descKey: string; img: string }[]> = {
   genomics: [
@@ -36,19 +36,19 @@ const WORKFLOW_STEPS: Record<string, { num: string; titleKey: string; descKey: s
     { num: '5', titleKey: 'workflow.metabolomics.steps.4.title', descKey: 'workflow.metabolomics.steps.4.desc', img: ASSETS.workflowSteps.metabolomicsStep5 },
     { num: '6', titleKey: 'workflow.metabolomics.steps.5.title', descKey: 'workflow.metabolomics.steps.5.desc', img: ASSETS.workflowSteps.metabolomicsStep6 },
   ],
-}
+};
 
 const OMICS_COLOR: Record<string, string> = {
   genomics: THEME_COLORS.genomics,
   transcriptomics: THEME_COLORS.transcriptomics,
   proteomics: THEME_COLORS.proteomics,
   metabolomics: THEME_COLORS.metabolomics,
-}
+};
 
 function WorkflowSection({ omicsKey, subtitle }: { omicsKey: string; subtitle: string }) {
-  const { t } = useTranslation('multiomics')
-  const steps = WORKFLOW_STEPS[omicsKey] || []
-  const color = OMICS_COLOR[omicsKey] || THEME_COLORS.primary
+  const { t } = useTranslation('multiomics');
+  const steps = WORKFLOW_STEPS[omicsKey] || [];
+  const color = OMICS_COLOR[omicsKey] || THEME_COLORS.primary;
 
   return (
     <section className="py-16 bg-white">
@@ -91,7 +91,7 @@ function WorkflowSection({ omicsKey, subtitle }: { omicsKey: string; subtitle: s
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default WorkflowSection
+export default WorkflowSection;

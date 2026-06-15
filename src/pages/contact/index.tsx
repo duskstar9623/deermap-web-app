@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion'
-import { useTranslation } from 'react-i18next'
-import { Phone, Globe, MessageSquare } from 'lucide-react'
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { Phone, Globe, MessageSquare } from 'lucide-react';
 
 function ContactPage() {
-  const { t } = useTranslation('contact')
-  const { t: tc } = useTranslation('common')
+  const { t } = useTranslation('contact');
+  const { t: tc } = useTranslation('common');
 
   return (
     <div className="min-h-screen pt-20">
@@ -62,7 +62,7 @@ function ContactPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default ContactPage
+export default ContactPage;

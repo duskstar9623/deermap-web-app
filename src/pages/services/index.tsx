@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion'
-import { useTranslation } from 'react-i18next'
-import { Activity, Target, Globe, Microscope, Database, Beaker, Check, FlaskConical as Flask } from 'lucide-react'
-import { THEME_COLORS } from '@/constants/theme'
-import { ASSETS } from '@/constants/assets'
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { Activity, Target, Globe, Microscope, Database, Beaker, Check, FlaskConical as Flask } from 'lucide-react';
+import { THEME_COLORS } from '@/constants/theme';
+import { ASSETS } from '@/constants/assets';
 
 function ServicesPage() {
-  const { t } = useTranslation('services')
+  const { t } = useTranslation('services');
   const services = [
     { titleKey: 'items.rnaseq.title', descKey: 'items.rnaseq.desc', featuresKey: 'items.rnaseq.features', icon: Activity, priceKey: 'items.rnaseq.price', bgImage: ASSETS.cards.transcriptomics, color: '#e17055' },
     { titleKey: 'items.chipseq.title', descKey: 'items.chipseq.desc', featuresKey: 'items.chipseq.features', icon: Target, priceKey: 'items.chipseq.price', bgImage: ASSETS.cards.genomics, color: THEME_COLORS.primary },
@@ -15,7 +15,7 @@ function ServicesPage() {
     { titleKey: 'items.metagenome.title', descKey: 'items.metagenome.desc', featuresKey: 'items.metagenome.features', icon: Flask, priceKey: 'items.metagenome.price', bgImage: ASSETS.cards.metagenome, color: '#22c55e' },
     { titleKey: 'items.proteomics.title', descKey: 'items.proteomics.desc', featuresKey: 'items.proteomics.features', icon: Target, priceKey: 'items.proteomics.price', bgImage: ASSETS.cards.proteomics, color: THEME_COLORS.accentLight },
     { titleKey: 'items.metabolomics.title', descKey: 'items.metabolomics.desc', featuresKey: 'items.metabolomics.features', icon: Beaker, priceKey: 'items.metabolomics.price', bgImage: ASSETS.cards.metabolomics, color: '#00b894' },
-  ]
+  ];
 
   return (
     <div className="min-h-screen pt-20">
@@ -63,7 +63,7 @@ function ServicesPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default ServicesPage
+export default ServicesPage;

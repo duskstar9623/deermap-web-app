@@ -1,10 +1,10 @@
 /**
  * 联系我们 / 表单提交 API
  */
-import { post } from '../http-client'
-import requestsConfig from '@/configs/requests.json'
+import { post } from '../http-client';
+import requestsConfig from '@/configs/requests.json';
 
-const endpoints = requestsConfig.endpoints.contact
+const endpoints = requestsConfig.endpoints.contact;
 
 export interface ContactFormParams {
   name: string
@@ -16,5 +16,5 @@ export interface ContactFormParams {
 
 /** 提交联系表单 */
 export function submitContactForm(params: ContactFormParams) {
-  return post<null>(endpoints.submit, params)
+  return post<null>(endpoints.submit, params);
 }

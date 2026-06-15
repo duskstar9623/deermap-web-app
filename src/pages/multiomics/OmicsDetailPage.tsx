@@ -1,15 +1,15 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   Dna, BarChart3, Search, Layers, Target, Share2, TrendingUp,
   ScatterChart, Beaker, ArrowRight
-} from 'lucide-react'
-import WorkflowSection from '@/components/shared/WorkflowSection'
-import { ROUTES } from '@/router/routes'
-import { THEME_COLORS } from '@/constants/theme'
-import { ASSETS } from '@/constants/assets'
+} from 'lucide-react';
+import WorkflowSection from '@/components/shared/WorkflowSection';
+import { ROUTES } from '@/router/routes';
+import { THEME_COLORS } from '@/constants/theme';
+import { ASSETS } from '@/constants/assets';
 
 /* ───────────────────  OmicsPageConfig  ─────────────────── */
 
@@ -90,19 +90,19 @@ const omicsPageConfigs: Record<string, OmicsPageConfig> = {
       { img: ASSETS.charts.keggPathway, i18nKey: 'metabolomics.results.kegg' },
     ],
   },
-}
+};
 
 /* ───────────────────  OmicsDetailPage  ─────────────────── */
 
 function OmicsDetailPage() {
-  const navigate = useNavigate()
-  const { t } = useTranslation('multiomics')
-  const { t: tc } = useTranslation('common')
-  const location = useLocation()
+  const navigate = useNavigate();
+  const { t } = useTranslation('multiomics');
+  const { t: tc } = useTranslation('common');
+  const location = useLocation();
   // Derive configKey from URL: /multiomics/genomics → "genomics"
-  const configKey = location.pathname.split('/').pop() || 'genomics'
-  const cfg = omicsPageConfigs[configKey]
-  if (!cfg) return null
+  const configKey = location.pathname.split('/').pop() || 'genomics';
+  const cfg = omicsPageConfigs[configKey];
+  if (!cfg) return null;
 
   return (
     <div className="min-h-screen pt-20">
@@ -183,7 +183,7 @@ function OmicsDetailPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default OmicsDetailPage
+export default OmicsDetailPage;

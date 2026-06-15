@@ -1,9 +1,9 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
-import { RootLayout } from '@/app/RootLayout'
-import { visualizationRoutes } from '@/pages/visualization/routes'
-import { multiomicsRoutes } from '@/pages/multiomics/routes'
-import { lazyPage } from './utils'
-import type { AppRouteObject } from './types'
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { RootLayout } from '@/app/RootLayout';
+import { visualizationRoutes } from '@/pages/visualization/routes';
+import { multiomicsRoutes } from '@/pages/multiomics/routes';
+import { lazyPage } from './utils';
+import type { AppRouteObject } from './types';
 
 const simplePages: AppRouteObject[] = [
   { path: '/', lazy: lazyPage(() => import('@/pages/home')) },
@@ -11,7 +11,7 @@ const simplePages: AppRouteObject[] = [
   { path: '/academic', lazy: lazyPage(() => import('@/pages/academic')) },
   { path: '/pricing', lazy: lazyPage(() => import('@/pages/pricing')) },
   { path: '/contact', lazy: lazyPage(() => import('@/pages/contact')) },
-]
+];
 
 export const router = createBrowserRouter([
   {
@@ -23,4 +23,4 @@ export const router = createBrowserRouter([
       { path: '*', element: <Navigate to="/" replace /> },
     ],
   },
-])
+]);

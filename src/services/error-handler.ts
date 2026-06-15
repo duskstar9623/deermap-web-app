@@ -1,6 +1,7 @@
 /**
  * API 错误类型定义与统一错误处理
  */
+import i18n from '@/i18n';
 
 /** 后端标准错误响应结构 */
 export interface ApiErrorResponse {
@@ -32,9 +33,9 @@ export enum ErrorCode {
 
 /** 统一的 API 错误类 */
 export class ApiError extends Error {
-  readonly code: ErrorCode
-  readonly status: number
-  readonly details?: Record<string, unknown>
+  readonly code: ErrorCode;
+  readonly status: number;
+  readonly details?: Record<string, unknown>;
 
   constructor(
     code: ErrorCode,
@@ -42,21 +43,21 @@ export class ApiError extends Error {
     status: number = 0,
     details?: Record<string, unknown>,
   ) {
-    super(message)
-    this.name = 'ApiError'
-    this.code = code
-    this.status = status
-    this.details = details
+    super(message);
+    this.name = 'ApiError';
+    this.code = code;
+    this.status = status;
+    this.details = details;
   }
 
   /** 是否为认证错误（需要重新登录） */
   get isAuthError(): boolean {
-    return this.code === ErrorCode.UNAUTHORIZED || this.code === ErrorCode.TOKEN_EXPIRED
+    return this.code === ErrorCode.UNAUTHORIZED || this.code === ErrorCode.TOKEN_EXPIRED;
   }
 
   /** 是否为网络层错误 */
   get isNetworkError(): boolean {
-    return this.code === ErrorCode.NETWORK_ERROR || this.code === ErrorCode.TIMEOUT
+    return this.code === ErrorCode.NETWORK_ERROR || this.code === ErrorCode.TIMEOUT;
   }
 }
 
@@ -64,21 +65,23 @@ export class ApiError extends Error {
 export function mapHttpStatusToErrorCode(status: number): ErrorCode {
   switch (status) {
     case 401:
-      return ErrorCode.UNAUTHORIZED
+      return ErrorCode.UNAUTHORIZED;
     case 403:
-      return ErrorCode.FORBIDDEN
+      return ErrorCode.FORBIDDEN;
     case 404:
-      return ErrorCode.NOT_FOUND
+      return ErrorCode.NOT_FOUND;
     case 409:
-      return ErrorCode.CONFLICT
+      return ErrorCode.CONFLICT;
     case 422:
-      return ErrorCode.VALIDATION_ERROR
+      return ErrorCode.VALIDATION_ERROR;
     case 429:
-      return ErrorCode.RATE_LIMITED
+      return ErrorCode.RATE_LIMITED;
     default:
-      return status >= 500 ? ErrorCode.SERVER_ERROR : ErrorCode.UNKNOWN
+      return status >= 500 ? ErrorCode.SERVER_ERROR : ErrorCode.UNKNOWN;
   }
 }
+
+const translateError = (key: string) => i18n.t(key, { ns: 'errors', defaultValue: '' }) as string;
 
 /**
  * 全局错误处理器
@@ -89,18 +92,18 @@ export type ErrorHandler = (error: ApiError) => void
 let globalErrorHandler: ErrorHandler = (error: ApiError) => {
   // 默认行为：控制台输出，实际项目中可接入 toast/notification
   if (error.isAuthError) {
-    console.warn('[API] 认证失效，请重新登录', error.message)
+    console.warn('[API]', translateError('console.authWarning'), error.message);
   } else if (error.isNetworkError) {
-    console.warn('[API] 网络异常', error.message)
+    console.warn('[API]', translateError('console.networkWarning'), error.message);
   } else {
-    console.error('[API] 请求错误', error.code, error.message)
+    console.error('[API]', translateError('console.requestError'), error.code, error.message);
   }
-}
+};
 
 export function setGlobalErrorHandler(handler: ErrorHandler): void {
-  globalErrorHandler = handler
+  globalErrorHandler = handler;
 }
 
 export function getGlobalErrorHandler(): ErrorHandler {
-  return globalErrorHandler
+  return globalErrorHandler;
 }

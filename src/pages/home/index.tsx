@@ -1,27 +1,27 @@
-import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { Database, BarChart3, Layers, FileText, ArrowRight } from 'lucide-react'
-import { ROUTES } from '@/router/routes'
-import { THEME_COLORS } from '@/constants/theme'
-import { ASSETS } from '@/constants/assets'
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Database, BarChart3, Layers, FileText, ArrowRight } from 'lucide-react';
+import { ROUTES } from '@/router/routes';
+import { THEME_COLORS } from '@/constants/theme';
+import { ASSETS } from '@/constants/assets';
 
 function HomePage() {
-  const navigate = useNavigate()
-  const { t } = useTranslation('home')
-  const { t: tc } = useTranslation('common')
+  const navigate = useNavigate();
+  const { t } = useTranslation('home');
+  const { t: tc } = useTranslation('common');
   const stats = [
     { num: '1000+', labelKey: 'stats.services' },
     { num: '500+', labelKey: 'stats.partners' },
     { num: '50+', labelKey: 'stats.tools' },
     { num: '99.9%', labelKey: 'stats.satisfaction' },
-  ]
+  ];
   const features = [
     { icon: Database, titleKey: 'features.bioinformatics.title', descKey: 'features.bioinformatics.desc', color: THEME_COLORS.primary, bgImage: ASSETS.cards.genomics, route: ROUTES.services },
     { icon: BarChart3, titleKey: 'features.visualization.title', descKey: 'features.visualization.desc', color: THEME_COLORS.primaryLight, bgImage: ASSETS.cards.transcriptomics, route: ROUTES.visualization },
     { icon: Layers, titleKey: 'features.multiomics.title', descKey: 'features.multiomics.desc', color: THEME_COLORS.accent, bgImage: ASSETS.cards.proteomics, route: ROUTES.multiomics },
     { icon: FileText, titleKey: 'features.academic.title', descKey: 'features.academic.desc', color: THEME_COLORS.accentLight, bgImage: ASSETS.cards.metabolomics, route: ROUTES.academic },
-  ]
+  ];
 
   return (
     <div className="min-h-screen">
@@ -115,7 +115,7 @@ function HomePage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

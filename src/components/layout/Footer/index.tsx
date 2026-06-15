@@ -1,10 +1,10 @@
-import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-import { Logo } from '@/assets/icons'
-import { ROUTES } from '@/router/routes'
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { Logo } from '@/assets/icons';
+import { ROUTES } from '@/router/routes';
 
 function Footer() {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('common');
 
   return (
     <footer className="bg-primary text-white py-12">
@@ -46,7 +46,7 @@ function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

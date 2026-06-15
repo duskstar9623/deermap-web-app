@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
-import { ThemeProvider } from './ThemeProvider'
-import { I18nProvider } from './I18nProvider'
-import { AuthProvider } from './AuthProvider'
+import type { ReactNode } from 'react';
+import { ThemeProvider } from './ThemeProvider';
+import { I18nProvider } from './I18nProvider';
+import { AuthProvider } from './AuthProvider';
 
 /**
  * Composes all global providers in correct nesting order.
@@ -16,5 +16,5 @@ export function AppProviders({ children }: { children: ReactNode }) {
         </AuthProvider>
       </I18nProvider>
     </ThemeProvider>
-  )
+  );
 }

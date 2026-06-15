@@ -1,4 +1,4 @@
-import { ASSETS } from '@/constants/assets'
+import { ASSETS } from '@/constants/assets';
 
 export const CHART_TYPES = [
   { id: 'heatmap', img: ASSETS.charts.heatmap },
@@ -41,7 +41,7 @@ export const CHART_TYPES = [
   { id: 'splicing', img: ASSETS.charts.splicing },
   { id: 'atacseq', img: ASSETS.charts.atacseq },
   { id: 'methylation', img: ASSETS.charts.methylation },
-]
+];
 
 /** Maps chart IDs with special characters to their i18n keys */
 export function getChartI18nKey(id: string): string {
@@ -49,20 +49,21 @@ export function getChartI18nKey(id: string): string {
     'go-bubble': 'goBubble',
     'kegg-pathway': 'keggPathway',
     'stackedbar': 'stackedBar',
-  }
-  return mapping[id] ?? id
+  };
+  return mapping[id] ?? id;
 }
 
+/** Color palette definitions. Names are translation keys under `visualization.palettes`. */
 export const COLOR_PALETTES = [
-  { name: 'Nature', colors: ['#E64B35', '#4DBBD5', '#00A087', '#3C5488', '#F39B7F', '#8491B4', '#91D1C2', '#DC0000'], filter: 'none' },
-  { name: 'Science', colors: ['#08519C', '#3182BD', '#6BAED6', '#BDD7E7', '#74C476', '#FDBB84', '#FC9272', '#FB6A4A'], filter: 'hue-rotate(-10deg) saturate(1.1)' },
-  { name: 'Cell', colors: ['#D62728', '#FF7F0E', '#FFBB78', '#2CA02C', '#98DF8A', '#1F77B4', '#AEC7E8', '#9467BD'], filter: 'hue-rotate(25deg) saturate(1.15)' },
-  { name: 'Lancet', colors: ['#005A8C', '#4A90A4', '#7BAE7C', '#B8D4A0', '#F5D491', '#E8A838', '#D4634F', '#A33B3B'], filter: 'hue-rotate(-35deg) saturate(0.95)' },
-  { name: 'NEJM', colors: ['#006BA4', '#3B8EA5', '#7EB8A2', '#BFD3B0', '#F4D06F', '#E8A838', '#C46A53', '#A33B3B'], filter: 'hue-rotate(-30deg) saturate(0.9)' },
-  { name: 'JAMA', colors: ['#6B5B95', '#88B04B', '#F7CAC9', '#92A8D1', '#955251', '#B565A7', '#009B77', '#DD4124'], filter: 'hue-rotate(60deg) saturate(1.05)' },
-  { name: 'IEEE', colors: ['#003F5C', '#2F4B7C', '#665191', '#A05195', '#D45087', '#F95D6A', '#FF7C43', '#FFA600'], filter: 'hue-rotate(-50deg) saturate(1.2)' },
-  { name: 'Pastel', colors: ['#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF', '#E6B3FF', '#FFB3E6', '#B3FFF0'], filter: 'saturate(0.6) brightness(1.1)' },
-]
+  { nameKey: 'palettes.nature', colors: ['#E64B35', '#4DBBD5', '#00A087', '#3C5488', '#F39B7F', '#8491B4', '#91D1C2', '#DC0000'], filter: 'none' },
+  { nameKey: 'palettes.science', colors: ['#08519C', '#3182BD', '#6BAED6', '#BDD7E7', '#74C476', '#FDBB84', '#FC9272', '#FB6A4A'], filter: 'hue-rotate(-10deg) saturate(1.1)' },
+  { nameKey: 'palettes.cell', colors: ['#D62728', '#FF7F0E', '#FFBB78', '#2CA02C', '#98DF8A', '#1F77B4', '#AEC7E8', '#9467BD'], filter: 'hue-rotate(25deg) saturate(1.15)' },
+  { nameKey: 'palettes.lancet', colors: ['#005A8C', '#4A90A4', '#7BAE7C', '#B8D4A0', '#F5D491', '#E8A838', '#D4634F', '#A33B3B'], filter: 'hue-rotate(-35deg) saturate(0.95)' },
+  { nameKey: 'palettes.nejm', colors: ['#006BA4', '#3B8EA5', '#7EB8A2', '#BFD3B0', '#F4D06F', '#E8A838', '#C46A53', '#A33B3B'], filter: 'hue-rotate(-30deg) saturate(0.9)' },
+  { nameKey: 'palettes.jama', colors: ['#6B5B95', '#88B04B', '#F7CAC9', '#92A8D1', '#955251', '#B565A7', '#009B77', '#DD4124'], filter: 'hue-rotate(60deg) saturate(1.05)' },
+  { nameKey: 'palettes.ieee', colors: ['#003F5C', '#2F4B7C', '#665191', '#A05195', '#D45087', '#F95D6A', '#FF7C43', '#FFA600'], filter: 'hue-rotate(-50deg) saturate(1.2)' },
+  { nameKey: 'palettes.pastel', colors: ['#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF', '#E6B3FF', '#FFB3E6', '#B3FFF0'], filter: 'saturate(0.6) brightness(1.1)' },
+];
 
 export const DEMO_LINE_DATA = [
   { name: '1h', geneA: 2.1, geneB: 1.8, geneC: 3.2 },
@@ -71,4 +72,4 @@ export const DEMO_LINE_DATA = [
   { name: '8h', geneA: 4.5, geneB: 2.8, geneC: 4.1 },
   { name: '12h', geneA: 5.8, geneB: 3.2, geneC: 4.5 },
   { name: '24h', geneA: 7.2, geneB: 3.8, geneC: 5.0 },
-]
+];

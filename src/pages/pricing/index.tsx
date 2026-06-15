@@ -1,19 +1,19 @@
-import { motion } from 'framer-motion'
-import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
-import { Check } from 'lucide-react'
-import { ROUTES } from '@/router/routes'
-import { THEME_COLORS } from '@/constants/theme'
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { Check } from 'lucide-react';
+import { ROUTES } from '@/router/routes';
+import { THEME_COLORS } from '@/constants/theme';
 
 function PricingPage() {
-  const { t } = useTranslation('pricing')
-  const { t: tc } = useTranslation('common')
-  const navigate = useNavigate()
+  const { t } = useTranslation('pricing');
+  const { t: tc } = useTranslation('common');
+  const navigate = useNavigate();
   const plans = [
     { nameKey: 'plans.basic.name', priceKey: 'plans.basic.price', periodKey: 'plans.basic.period', descKey: 'plans.basic.desc', featuresKey: 'plans.basic.features', color: THEME_COLORS.primaryLight, popular: false },
     { nameKey: 'plans.pro.name', priceKey: 'plans.pro.price', periodKey: 'plans.pro.period', descKey: 'plans.pro.desc', featuresKey: 'plans.pro.features', color: THEME_COLORS.primary, popular: true },
     { nameKey: 'plans.custom.name', priceKey: 'plans.custom.price', periodKey: 'plans.custom.period', descKey: 'plans.custom.desc', featuresKey: 'plans.custom.features', color: '#6366f1', popular: false },
-  ]
+  ];
 
   return (
     <div className="min-h-screen pt-20">
@@ -63,7 +63,7 @@ function PricingPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default PricingPage
+export default PricingPage;

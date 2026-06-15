@@ -1,0 +1,13 @@
+{
+  "http": {
+    "cancelled": "Request cancelled",
+    "timeout": "Request timed out, please try again later",
+    "networkError": "Network connection error, please check your network",
+    "unknown": "Unknown error"
+  },
+  "console": {
+    "authWarning": "Authentication expired, please log in again",
+    "networkWarning": "Network error",
+    "requestError": "Request error"
+  }
+}

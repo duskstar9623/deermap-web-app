@@ -1,20 +1,20 @@
-import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { Dna, Activity, Target, Beaker, ArrowRight } from 'lucide-react'
-import { ROUTES } from '@/router/routes'
-import { THEME_COLORS } from '@/constants/theme'
-import { ASSETS } from '@/constants/assets'
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Dna, Activity, Target, Beaker, ArrowRight } from 'lucide-react';
+import { ROUTES } from '@/router/routes';
+import { THEME_COLORS } from '@/constants/theme';
+import { ASSETS } from '@/constants/assets';
 
 function MultiomicsListPage() {
-  const navigate = useNavigate()
-  const { t } = useTranslation('multiomics')
+  const navigate = useNavigate();
+  const { t } = useTranslation('multiomics');
   const omicsTypes = [
     { titleKey: 'omics.genomics.title', descKey: 'omics.genomics.desc', icon: Dna, color: THEME_COLORS.primary, bgImage: ASSETS.cards.genomics, route: ROUTES.genomics },
     { titleKey: 'omics.transcriptomics.title', descKey: 'omics.transcriptomics.desc', icon: Activity, color: THEME_COLORS.transcriptomics, bgImage: ASSETS.cards.transcriptomics, route: ROUTES.transcriptomics },
     { titleKey: 'omics.proteomics.title', descKey: 'omics.proteomics.desc', icon: Target, color: THEME_COLORS.proteomics, bgImage: ASSETS.cards.proteomics, route: ROUTES.proteomics },
     { titleKey: 'omics.metabolomics.title', descKey: 'omics.metabolomics.desc', icon: Beaker, color: THEME_COLORS.metabolomics, bgImage: ASSETS.cards.metabolomics, route: ROUTES.metabolomics },
-  ]
+  ];
 
   return (
     <div className="min-h-screen pt-20">
@@ -62,7 +62,7 @@ function MultiomicsListPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default MultiomicsListPage
+export default MultiomicsListPage;

@@ -1,80 +1,741 @@
-﻿{
+{
   "page": {
     "title": "Data Visualization Tools",
     "subtitle": "Professional research chart tools supporting multiple chart types for intuitive data presentation",
     "cta": "Start Creating"
   },
-  "sidebar": { "chartType": "Chart Type" },
+  "sidebar": {
+    "chartType": "Chart Type"
+  },
   "upload": {
     "title": "Data Upload",
     "dragHint": "Drag and drop data files here or click to upload",
     "formatHint": "Supports CSV, TSV, Excel formats",
     "pasteHint": "Or paste data directly (CSV format)"
   },
-  "preview": { "title": "Interactive Preview" },
+  "preview": {
+    "title": "Interactive Preview"
+  },
   "params": {
     "title": "Parameters",
     "palette": "Color Palette",
     "fontSize": "Font Size",
-    "fontLabels": { "title": "Title", "xAxis": "X-Axis Label", "yAxis": "Y-Axis Label", "legend": "Legend", "tick": "Tick" },
+    "fontLabels": {
+      "title": "Title",
+      "xAxis": "X-Axis Label",
+      "yAxis": "Y-Axis Label",
+      "legend": "Legend",
+      "tick": "Tick"
+    },
     "chartSize": "Chart Size (px)",
-    "dimensions": { "xLength": "X Length", "yLength": "Y Length" },
-    "presets": { "a4Landscape": "A4 Landscape", "a4Portrait": "A4 Portrait", "square": "Square", "widescreen": "Widescreen" },
-    "summary": { "palette": "Palette", "fontSize": "Font", "size": "Size" }
+    "dimensions": {
+      "xLength": "X Length",
+      "yLength": "Y Length"
+    },
+    "presets": {
+      "a4Landscape": "A4 Landscape",
+      "a4Portrait": "A4 Portrait",
+      "square": "Square",
+      "widescreen": "Widescreen"
+    },
+    "summary": {
+      "palette": "Palette",
+      "fontSize": "Font",
+      "size": "Size"
+    }
   },
   "data": {
-    "heatmap": "Heatmap", "volcano": "Volcano Plot", "pca": "PCA Plot", "venn": "Venn Diagram",
-    "line": "Line Chart", "bar": "Bar Chart", "scatter": "Scatter Plot", "pie": "Pie Chart",
-    "boxplot": "Box Plot", "violin": "Violin Plot", "bubble": "Bubble Chart", "radar": "Radar Chart",
-    "sankey": "Sankey Diagram", "survival": "Survival Curve", "roc": "ROC Curve", "waterfall": "Waterfall Chart",
-    "network": "Network Graph", "manhattan": "Manhattan Plot", "qqplot": "QQ Plot", "dendrogram": "Dendrogram",
-    "area": "Area Chart", "stackedBar": "Stacked Bar Chart", "sunburst": "Sunburst Chart", "errorbar": "Error Bar Chart",
-    "goBubble": "GO Enrichment Bubble", "keggPathway": "KEGG Pathway Map", "gsea": "GSEA Enrichment Plot",
-    "correlation": "Correlation Matrix", "kmeans": "K-means Clustering", "umap": "UMAP Reduction",
-    "wgcna": "WGCNA Network", "ideogram": "Ideogram", "cnv": "CNV Plot", "fusion": "Fusion Gene Plot",
-    "oncoplot": "Oncoplot", "alignment": "Sequence Alignment", "phylogenetic": "Phylogenetic Tree",
-    "splicing": "Splicing Plot", "atacseq": "ATAC-seq Plot", "methylation": "Methylation Map"
+    "heatmap": "Heatmap",
+    "volcano": "Volcano Plot",
+    "pca": "PCA Plot",
+    "venn": "Venn Diagram",
+    "line": "Line Chart",
+    "bar": "Bar Chart",
+    "scatter": "Scatter Plot",
+    "pie": "Pie Chart",
+    "boxplot": "Box Plot",
+    "violin": "Violin Plot",
+    "bubble": "Bubble Chart",
+    "radar": "Radar Chart",
+    "sankey": "Sankey Diagram",
+    "survival": "Survival Curve",
+    "roc": "ROC Curve",
+    "waterfall": "Waterfall Chart",
+    "network": "Network Graph",
+    "manhattan": "Manhattan Plot",
+    "qqplot": "QQ Plot",
+    "dendrogram": "Dendrogram",
+    "area": "Area Chart",
+    "stackedBar": "Stacked Bar Chart",
+    "sunburst": "Sunburst Chart",
+    "errorbar": "Error Bar Chart",
+    "goBubble": "GO Enrichment Bubble",
+    "keggPathway": "KEGG Pathway Map",
+    "gsea": "GSEA Enrichment Plot",
+    "correlation": "Correlation Matrix",
+    "kmeans": "K-means Clustering",
+    "umap": "UMAP Reduction",
+    "wgcna": "WGCNA Network",
+    "ideogram": "Ideogram",
+    "cnv": "CNV Plot",
+    "fusion": "Fusion Gene Plot",
+    "oncoplot": "Oncoplot",
+    "alignment": "Sequence Alignment",
+    "phylogenetic": "Phylogenetic Tree",
+    "splicing": "Splicing Plot",
+    "atacseq": "ATAC-seq Plot",
+    "methylation": "Methylation Map"
   },
   "descriptions": {
-    "heatmap": { "desc": "Visualize gene expression matrices or correlation matrices", "tags": ["Clustered Heatmap", "Correlation Heatmap", "Differential Heatmap"] },
-    "volcano": { "desc": "Display statistical significance and fold change of differentially expressed genes", "tags": ["Gene Annotation", "Threshold Lines", "Multi-group Comparison"] },
-    "pca": { "desc": "Show sample similarities and differences via dimensionality reduction", "tags": ["Cluster Analysis", "Batch Effect", "Sample Grouping"] },
-    "venn": { "desc": "Show intersections and unions among multiple datasets", "tags": ["Proportional Venn", "UpSet Plot", "Intersection Analysis"] },
-    "line": { "desc": "Show data trends over time or conditions", "tags": ["Line Chart", "Area Chart", "Multi-series Comparison"] },
-    "bar": { "desc": "Compare numerical values between different groups", "tags": ["Grouped Bar", "Stacked Bar", "Error Bars"] },
-    "scatter": { "desc": "Show correlation between two variables", "tags": ["Correlation Analysis", "Regression Line", "Density Scatter"] },
-    "pie": { "desc": "Show proportional relationships of parts to the whole", "tags": ["Pie Chart", "Donut Chart", "Nightingale Chart"] },
-    "boxplot": { "desc": "Display data distribution with median, quartiles, and outliers", "tags": ["Box Plot", "Violin Plot", "Beeswarm Plot"] },
-    "violin": { "desc": "Show data distribution density and statistical features", "tags": ["Violin Plot", "Split Violin", "With Box Plot"] },
-    "bubble": { "desc": "Show relationships in 3D data where size represents an additional dimension", "tags": ["Bubble Chart", "Interactive", "Dynamic Display"] },
-    "radar": { "desc": "Display comprehensive performance across multiple dimensions", "tags": ["Radar Chart", "Spider Chart", "Capability Assessment"] },
-    "sankey": { "desc": "Show flow distribution and conversion between nodes", "tags": ["Sankey Diagram", "Flow Chart", "Conversion Analysis"] },
-    "survival": { "desc": "Time-to-event analysis of survival data", "tags": ["KM Curve", "Risk Table", "Group Comparison"] },
-    "roc": { "desc": "Evaluate classification model performance and cutoff selection", "tags": ["ROC Curve", "Multi-model Comparison", "AUC Calculation"] },
-    "waterfall": { "desc": "Show cumulative impact of changes on the total", "tags": ["Waterfall Chart", "Bridge Chart", "Financial Analysis"] },
-    "network": { "desc": "Display gene/protein interaction relationships", "tags": ["Network Graph", "Regulatory Network", "Interaction Analysis"] },
-    "manhattan": { "desc": "Show chromosome positioning results from GWAS", "tags": ["Manhattan Plot", "Significance Threshold", "Gene Annotation"] },
-    "qqplot": { "desc": "Assess whether data distribution matches theoretical distribution", "tags": ["QQ Plot", "Normality Test", "Outlier Detection"] },
-    "dendrogram": { "desc": "Display tree structure of hierarchical clustering", "tags": ["Dendrogram", "Cluster Analysis", "Phylogenetic Tree"] },
-    "area": { "desc": "Show cumulative total changes over time", "tags": ["Area Chart", "Stacked Area", "Stream Graph"] },
-    "stackedBar": { "desc": "Show contribution of parts to the total", "tags": ["Stacked Bar", "Percentage Stack", "Group Comparison"] },
-    "sunburst": { "desc": "Show hierarchical data as ring proportions", "tags": ["Sunburst Chart", "Multi-layer Ring", "Path Analysis"] },
-    "errorbar": { "desc": "Display data mean and error range", "tags": ["Error Bar Chart", "Confidence Interval", "SD/SEM"] },
-    "goBubble": { "desc": "Show GO enrichment terms, gene counts, and significance", "tags": ["Bubble Plot", "Enrichment Analysis", "Three-in-one"] },
-    "keggPathway": { "desc": "Show gene enrichment in KEGG pathways", "tags": ["Pathway Map", "Enrichment Mapping", "Network Pathway"] },
-    "gsea": { "desc": "Show dynamic cumulative distribution of gene set enrichment", "tags": ["GSEA", "Enrichment Score", "Leading Edge"] },
-    "correlation": { "desc": "Display correlation coefficient matrix among multiple variables", "tags": ["Correlation Matrix", "Value Annotation", "Significance Marking"] },
-    "kmeans": { "desc": "Show K-means clustering grouping results", "tags": ["Cluster Scatter", "Centroids", "Silhouette Analysis"] },
-    "umap": { "desc": "Show non-linear dimensionality reduction clustering of high-dimensional data", "tags": ["UMAP", "Density Clustering", "Cell Subpopulation"] },
-    "wgcna": { "desc": "Show weighted gene co-expression network analysis results", "tags": ["Module Clustering", "Trait Correlation", "Network Graph"] },
-    "ideogram": { "desc": "Display chromosome-level genomic feature distribution", "tags": ["Ideogram", "Gene Density", "Variant Sites"] },
-    "cnv": { "desc": "Show regions and extent of copy number variations", "tags": ["CNV Profile", "Gene Level", "Chromosome View"] },
-    "fusion": { "desc": "Show structure and position of gene fusion events", "tags": ["Fusion Gene Plot", "Genome View", "Breakpoint Annotation"] },
-    "oncoplot": { "desc": "Display mutation spectrum matrix across multiple samples", "tags": ["Mutation Spectrum", "Co-mutation", "Mutual Exclusivity"] },
-    "alignment": { "desc": "Show sequence alignment results and consistency", "tags": ["Sequence Alignment", "Variant Annotation", "Coverage"] },
-    "phylogenetic": { "desc": "Show phylogenetic relationships of species or genes", "tags": ["Phylogenetic Tree", "Timeline", "Branch Annotation"] },
-    "splicing": { "desc": "Show alternative splicing event patterns and frequencies", "tags": ["Sashimi Plot", "Exon Skipping", "Isoforms"] },
-    "atacseq": { "desc": "Show signal distribution of chromatin accessibility regions", "tags": ["Signal Peaks", "Genome Browser", "Open Regions"] },
-    "methylation": { "desc": "Show genomic distribution of DNA methylation levels", "tags": ["Methylation Heatmap", "CpG Islands", "Differential Methylation"] }
+    "heatmap": {
+      "desc": "Visualize gene expression matrices or correlation matrices",
+      "tags": [
+        "Clustered Heatmap",
+        "Correlation Heatmap",
+        "Differential Heatmap"
+      ]
+    },
+    "volcano": {
+      "desc": "Display statistical significance and fold change of differentially expressed genes",
+      "tags": [
+        "Gene Annotation",
+        "Threshold Lines",
+        "Multi-group Comparison"
+      ]
+    },
+    "pca": {
+      "desc": "Show sample similarities and differences via dimensionality reduction",
+      "tags": [
+        "Cluster Analysis",
+        "Batch Effect",
+        "Sample Grouping"
+      ]
+    },
+    "venn": {
+      "desc": "Show intersections and unions among multiple datasets",
+      "tags": [
+        "Proportional Venn",
+        "UpSet Plot",
+        "Intersection Analysis"
+      ]
+    },
+    "line": {
+      "desc": "Show data trends over time or conditions",
+      "tags": [
+        "Line Chart",
+        "Area Chart",
+        "Multi-series Comparison"
+      ]
+    },
+    "bar": {
+      "desc": "Compare numerical values between different groups",
+      "tags": [
+        "Grouped Bar",
+        "Stacked Bar",
+        "Error Bars"
+      ]
+    },
+    "scatter": {
+      "desc": "Show correlation between two variables",
+      "tags": [
+        "Correlation Analysis",
+        "Regression Line",
+        "Density Scatter"
+      ]
+    },
+    "pie": {
+      "desc": "Show proportional relationships of parts to the whole",
+      "tags": [
+        "Pie Chart",
+        "Donut Chart",
+        "Nightingale Chart"
+      ]
+    },
+    "boxplot": {
+      "desc": "Display data distribution with median, quartiles, and outliers",
+      "tags": [
+        "Box Plot",
+        "Violin Plot",
+        "Beeswarm Plot"
+      ]
+    },
+    "violin": {
+      "desc": "Show data distribution density and statistical features",
+      "tags": [
+        "Violin Plot",
+        "Split Violin",
+        "With Box Plot"
+      ]
+    },
+    "bubble": {
+      "desc": "Show relationships in 3D data where size represents an additional dimension",
+      "tags": [
+        "Bubble Chart",
+        "Interactive",
+        "Dynamic Display"
+      ]
+    },
+    "radar": {
+      "desc": "Display comprehensive performance across multiple dimensions",
+      "tags": [
+        "Radar Chart",
+        "Spider Chart",
+        "Capability Assessment"
+      ]
+    },
+    "sankey": {
+      "desc": "Show flow distribution and conversion between nodes",
+      "tags": [
+        "Sankey Diagram",
+        "Flow Chart",
+        "Conversion Analysis"
+      ]
+    },
+    "survival": {
+      "desc": "Time-to-event analysis of survival data",
+      "tags": [
+        "KM Curve",
+        "Risk Table",
+        "Group Comparison"
+      ]
+    },
+    "roc": {
+      "desc": "Evaluate classification model performance and cutoff selection",
+      "tags": [
+        "ROC Curve",
+        "Multi-model Comparison",
+        "AUC Calculation"
+      ]
+    },
+    "waterfall": {
+      "desc": "Show cumulative impact of changes on the total",
+      "tags": [
+        "Waterfall Chart",
+        "Bridge Chart",
+        "Financial Analysis"
+      ]
+    },
+    "network": {
+      "desc": "Display gene/protein interaction relationships",
+      "tags": [
+        "Network Graph",
+        "Regulatory Network",
+        "Interaction Analysis"
+      ]
+    },
+    "manhattan": {
+      "desc": "Show chromosome positioning results from GWAS",
+      "tags": [
+        "Manhattan Plot",
+        "Significance Threshold",
+        "Gene Annotation"
+      ]
+    },
+    "qqplot": {
+      "desc": "Assess whether data distribution matches theoretical distribution",
+      "tags": [
+        "QQ Plot",
+        "Normality Test",
+        "Outlier Detection"
+      ]
+    },
+    "dendrogram": {
+      "desc": "Display tree structure of hierarchical clustering",
+      "tags": [
+        "Dendrogram",
+        "Cluster Analysis",
+        "Phylogenetic Tree"
+      ]
+    },
+    "area": {
+      "desc": "Show cumulative total changes over time",
+      "tags": [
+        "Area Chart",
+        "Stacked Area",
+        "Stream Graph"
+      ]
+    },
+    "stackedBar": {
+      "desc": "Show contribution of parts to the total",
+      "tags": [
+        "Stacked Bar",
+        "Percentage Stack",
+        "Group Comparison"
+      ]
+    },
+    "sunburst": {
+      "desc": "Show hierarchical data as ring proportions",
+      "tags": [
+        "Sunburst Chart",
+        "Multi-layer Ring",
+        "Path Analysis"
+      ]
+    },
+    "errorbar": {
+      "desc": "Display data mean and error range",
+      "tags": [
+        "Error Bar Chart",
+        "Confidence Interval",
+        "SD/SEM"
+      ]
+    },
+    "goBubble": {
+      "desc": "Show GO enrichment terms, gene counts, and significance",
+      "tags": [
+        "Bubble Plot",
+        "Enrichment Analysis",
+        "Three-in-one"
+      ]
+    },
+    "keggPathway": {
+      "desc": "Show gene enrichment in KEGG pathways",
+      "tags": [
+        "Pathway Map",
+        "Enrichment Mapping",
+        "Network Pathway"
+      ]
+    },
+    "gsea": {
+      "desc": "Show dynamic cumulative distribution of gene set enrichment",
+      "tags": [
+        "GSEA",
+        "Enrichment Score",
+        "Leading Edge"
+      ]
+    },
+    "correlation": {
+      "desc": "Display correlation coefficient matrix among multiple variables",
+      "tags": [
+        "Correlation Matrix",
+        "Value Annotation",
+        "Significance Marking"
+      ]
+    },
+    "kmeans": {
+      "desc": "Show K-means clustering grouping results",
+      "tags": [
+        "Cluster Scatter",
+        "Centroids",
+        "Silhouette Analysis"
+      ]
+    },
+    "umap": {
+      "desc": "Show non-linear dimensionality reduction clustering of high-dimensional data",
+      "tags": [
+        "UMAP",
+        "Density Clustering",
+        "Cell Subpopulation"
+      ]
+    },
+    "wgcna": {
+      "desc": "Show weighted gene co-expression network analysis results",
+      "tags": [
+        "Module Clustering",
+        "Trait Correlation",
+        "Network Graph"
+      ]
+    },
+    "ideogram": {
+      "desc": "Display chromosome-level genomic feature distribution",
+      "tags": [
+        "Ideogram",
+        "Gene Density",
+        "Variant Sites"
+      ]
+    },
+    "cnv": {
+      "desc": "Show regions and extent of copy number variations",
+      "tags": [
+        "CNV Profile",
+        "Gene Level",
+        "Chromosome View"
+      ]
+    },
+    "fusion": {
+      "desc": "Show structure and position of gene fusion events",
+      "tags": [
+        "Fusion Gene Plot",
+        "Genome View",
+        "Breakpoint Annotation"
+      ]
+    },
+    "oncoplot": {
+      "desc": "Display mutation spectrum matrix across multiple samples",
+      "tags": [
+        "Mutation Spectrum",
+        "Co-mutation",
+        "Mutual Exclusivity"
+      ]
+    },
+    "alignment": {
+      "desc": "Show sequence alignment results and consistency",
+      "tags": [
+        "Sequence Alignment",
+        "Variant Annotation",
+        "Coverage"
+      ]
+    },
+    "phylogenetic": {
+      "desc": "Show phylogenetic relationships of species or genes",
+      "tags": [
+        "Phylogenetic Tree",
+        "Timeline",
+        "Branch Annotation"
+      ]
+    },
+    "splicing": {
+      "desc": "Show alternative splicing event patterns and frequencies",
+      "tags": [
+        "Sashimi Plot",
+        "Exon Skipping",
+        "Isoforms"
+      ]
+    },
+    "atacseq": {
+      "desc": "Show signal distribution of chromatin accessibility regions",
+      "tags": [
+        "Signal Peaks",
+        "Genome Browser",
+        "Open Regions"
+      ]
+    },
+    "methylation": {
+      "desc": "Show genomic distribution of DNA methylation levels",
+      "tags": [
+        "Methylation Heatmap",
+        "CpG Islands",
+        "Differential Methylation"
+      ]
+    }
+  },
+  "charts": {
+    "common": {
+      "groupPrefix": "Group",
+      "clusterPrefix": "Cluster",
+      "cellPrefix": "Cell Type",
+      "samplePrefix": "Sample",
+      "genePrefix": "Gene",
+      "isoformPrefix": "Iso",
+      "series": {
+        "a": "Series A",
+        "b": "Series B",
+        "c": "Series C",
+        "d": "Series D",
+        "e": "Series E"
+      },
+      "genes": {
+        "a": "Gene A",
+        "b": "Gene B",
+        "c": "Gene C",
+        "d": "Gene D"
+      },
+      "pathways": {
+        "a": "Pathway A",
+        "b": "Pathway B",
+        "c": "Pathway C"
+      },
+      "methods": {
+        "a": "Method A",
+        "b": "Method B",
+        "c": "Method C"
+      },
+      "treatments": {
+        "a": "Treatment A (HR=0.65)",
+        "b": "Treatment B (HR=0.82)",
+        "c": "Control (HR=1.0)"
+      }
+    },
+    "line": {
+      "xAxis": "Time (hours)",
+      "yAxis": "Expression Level"
+    },
+    "bar": {
+      "xAxis": "Samples",
+      "yAxis": "Value",
+      "groupA": "Group A",
+      "groupB": "Group B"
+    },
+    "scatter": {
+      "xAxis": "Variable X",
+      "yAxis": "Variable Y"
+    },
+    "pca": {
+      "xAxis": "PC1 (45.2%)",
+      "yAxis": "PC2 (28.7%)"
+    },
+    "volcano": {
+      "xAxis": "log2(Fold Change)",
+      "yAxis": "-log10(p-value)",
+      "up": "Up-regulated",
+      "down": "Down-regulated",
+      "ns": "Not significant"
+    },
+    "pie": {
+      "proteinCoding": "Protein Coding",
+      "lncrna": "lncRNA",
+      "mirna": "miRNA",
+      "rrna": "rRNA",
+      "trna": "tRNA",
+      "others": "Others"
+    },
+    "venn": {
+      "title": "Venn Diagram (3 Sets)",
+      "setA": "Set A",
+      "setB": "Set B",
+      "setC": "Set C"
+    },
+    "area": {
+      "xAxis": "Time Point",
+      "yAxis": "Cumulative Count"
+    },
+    "stackedbar": {
+      "xAxis": "Samples",
+      "yAxis": "Percentage (%)",
+      "series": [
+        "T cells",
+        "B cells",
+        "Mono",
+        "NK",
+        "Other"
+      ]
+    },
+    "radar": {
+      "metrics": [
+        "Sensitivity",
+        "Specificity",
+        "Accuracy",
+        "Precision",
+        "F1-Score",
+        "AUC"
+      ]
+    },
+    "boxplot": {
+      "xAxis": "Groups",
+      "yAxis": "Expression Level",
+      "median": "Median",
+      "max": "Max",
+      "min": "Min"
+    },
+    "heatmap": {
+      "title": "Gene Expression Heatmap",
+      "xAxis": "Samples",
+      "yAxis": "Genes"
+    },
+    "bubble": {
+      "xAxis": "PC1",
+      "yAxis": "PC2"
+    },
+    "kmeans": {
+      "xAxis": "Feature 1",
+      "yAxis": "Feature 2"
+    },
+    "umap": {
+      "xAxis": "UMAP 1",
+      "yAxis": "UMAP 2"
+    },
+    "survival": {
+      "xAxis": "Time (months)",
+      "yAxis": "Survival Probability"
+    },
+    "roc": {
+      "xAxis": "False Positive Rate",
+      "yAxis": "True Positive Rate",
+      "random": "Random (AUC=0.5)",
+      "modelA": "Model A (AUC=0.92)",
+      "modelB": "Model B (AUC=0.85)",
+      "modelC": "Model C (AUC=0.78)"
+    },
+    "waterfall": {
+      "xAxis": "Patient ID",
+      "yAxis": "Change from Baseline (%)",
+      "change": "Change"
+    },
+    "manhattan": {
+      "xAxis": "Chromosome",
+      "yAxis": "-log10(p-value)",
+      "snps": "SNPs",
+      "significant": "Significant"
+    },
+    "qqplot": {
+      "xAxis": "Expected -log10(p)",
+      "yAxis": "Observed -log10(p)",
+      "pvalues": "P-values"
+    },
+    "dendrogram": {
+      "yAxis": "Distance"
+    },
+    "sunburst": {
+      "title": "Cell Type Composition",
+      "inner": [
+        "T cells",
+        "B cells",
+        "Mono",
+        "NK",
+        "DC",
+        "Other"
+      ],
+      "outer": [
+        [
+          "CD4+",
+          "CD8+",
+          "Treg"
+        ],
+        [
+          "Naive",
+          "Memory",
+          "Plasma"
+        ],
+        [
+          "Classical",
+          "Non-classical"
+        ],
+        [
+          "Bright",
+          "Dim"
+        ],
+        [
+          "mDC",
+          "pDC"
+        ],
+        [
+          "NKT",
+          "MAIT"
+        ]
+      ]
+    },
+    "errorbar": {
+      "xAxis": "Gene",
+      "yAxis": "Expression Level",
+      "expression": "Expression",
+      "error": "Error"
+    },
+    "sankey": {
+      "stages": [
+        "RNA-seq",
+        "ChIP-seq",
+        "ATAC-seq",
+        "WGBS",
+        "Proteomics",
+        "Metabolomics"
+      ],
+      "targets": [
+        "Analysis",
+        "Integration",
+        "Results"
+      ]
+    },
+    "kegg-pathway": {
+      "title": "Glycolysis / Gluconeogenesis Pathway",
+      "up": "Up",
+      "down": "Down",
+      "glycolysis": "Glycolysis",
+      "tca": "TCA Cycle",
+      "upRegulated": "Up-regulated",
+      "downRegulated": "Down-regulated"
+    },
+    "gsea": {
+      "xAxis": "Gene Rank",
+      "yAxis": "Running ES",
+      "enrichmentScore": "Enrichment Score",
+      "leadingEdge": "Leading Edge"
+    },
+    "go-bubble": {
+      "xAxis": "Gene Count",
+      "yAxis": "",
+      "goTerms": [
+        "cell cycle",
+        "DNA repair",
+        "apoptosis",
+        "signal",
+        "metabolic",
+        "immune",
+        "adhesion",
+        "folding",
+        "transcription",
+        "translation"
+      ]
+    },
+    "correlation": {},
+    "cnv": {
+      "xAxis": "Genomic Position",
+      "yAxis": "Log2 Ratio",
+      "segments": "Segments"
+    },
+    "wgcna": {
+      "title": "Module-Trait Correlation",
+      "traits": [
+        "Age",
+        "Gender",
+        "BMI",
+        "Disease",
+        "Treatment"
+      ],
+      "modules": [
+        "Turquoise",
+        "Blue",
+        "Brown",
+        "Yellow",
+        "Green"
+      ],
+      "yAxis": "Modules"
+    },
+    "ideogram": {
+      "xAxis": "Position (Mb)"
+    },
+    "oncoplot": {
+      "title": "Mutation Landscape"
+    },
+    "phylogenetic": {
+      "labels": [
+        "Human",
+        "Chimp",
+        "Gorilla",
+        "Orangutan",
+        "Macaque",
+        "Mouse",
+        "Rat",
+        "Dog",
+        "Cat",
+        "Cow"
+      ],
+      "yAxis": "Evolutionary Distance"
+    },
+    "fusion": {
+      "bcr": "BCR",
+      "abl1": "ABL1",
+      "fusion": "BCR-ABL1",
+      "chr22": "Chr 22",
+      "chr9": "Chr 9",
+      "transcript": "Fusion Transcript"
+    },
+    "splicing": {
+      "title": "Alternative Splicing Events"
+    },
+    "methylation": {
+      "xAxis": "CpG Site",
+      "yAxis": "Methylation (%)",
+      "normal": "Normal",
+      "tumor": "Tumor"
+    },
+    "atacseq": {
+      "xAxis": "Genomic Position (kb)",
+      "yAxis": "Signal Intensity",
+      "sampleA": "Sample A",
+      "sampleB": "Sample B"
+    },
+    "alignment": {
+      "title": "Sequence Alignment",
+      "ref": "Ref"
+    }
+  },
+  "palettes": {
+    "Nature": "Nature",
+    "Science": "Science",
+    "Cell": "Cell",
+    "Lancet": "Lancet",
+    "NEJM": "NEJM",
+    "JAMA": "JAMA",
+    "IEEE": "IEEE",
+    "Pastel": "Pastel"
   }
 }

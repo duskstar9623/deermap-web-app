@@ -1,5 +1,5 @@
-import { lazyPage } from '@/router/utils'
-import type { AppRouteObject } from '@/router/types'
+import { lazyPage } from '@/router/utils';
+import type { AppRouteObject } from '@/router/types';
 
 export const multiomicsRoutes: AppRouteObject = {
   path: '/multiomics',
@@ -11,4 +11,4 @@ export const multiomicsRoutes: AppRouteObject = {
     { path: 'proteomics', lazy: lazyPage(() => import('./OmicsDetailPage')) },
     { path: 'metabolomics', lazy: lazyPage(() => import('./OmicsDetailPage')) },
   ],
-}
+};

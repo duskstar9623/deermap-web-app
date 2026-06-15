@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion'
-import type { ReactNode } from 'react'
+import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
 
 interface PageTransitionProps {
   children: ReactNode
@@ -21,5 +21,5 @@ export function PageTransition({ children, className }: PageTransitionProps) {
     >
       {children}
     </motion.div>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion'
-import type { ReactNode } from 'react'
+import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
 
 interface CardProps {
   title: string
@@ -57,7 +57,7 @@ export function Card({
         {children}
       </div>
     </motion.div>
-  )
+  );
 }
 
-export default Card
+export default Card;

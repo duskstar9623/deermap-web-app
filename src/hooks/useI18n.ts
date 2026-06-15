@@ -1,22 +1,27 @@
-import { useTranslation } from 'react-i18next'
-import i18n, { loadLocale } from '@/i18n'
-import type { Locale } from '@/i18n'
+import { useTranslation } from 'react-i18next';
+import i18n, { loadLanguage } from '@/i18n';
+import { DEFAULT_LANGUAGE, LANGUAGES, type LanguageCode } from '@/constants/const';
 
 /**
  * Convenience hook wrapping react-i18next.
  * Usage:
- *   const { t, locale, setLocale } = useI18n('home')
+ *   const { t, language, setLanguage } = useI18n('home')
  */
 export function useI18n(ns?: string | string[]) {
-  const { t } = useTranslation(ns)
+  const { t } = useTranslation(ns);
 
-  const locale = (i18n.language || 'zh-CN') as Locale
+  const language = (i18n.language || DEFAULT_LANGUAGE) as LanguageCode;
 
-  const setLocale = async (newLocale: Locale) => {
-    await loadLocale(newLocale)
-    await i18n.changeLanguage(newLocale)
-    localStorage.setItem('locale', newLocale)
-  }
+  const setLanguage = async (newLanguage: LanguageCode) => {
+    if (newLanguage !== LANGUAGES.zh && newLanguage !== LANGUAGES.en) return;
+    await loadLanguage(newLanguage);
+    await i18n.changeLanguage(newLanguage);
+    localStorage.setItem('lang', newLanguage);
+  };
 
-  return { t, locale, setLocale }
+  // Keep legacy aliases for backward compatibility.
+  const locale = language;
+  const setLocale = setLanguage;
+
+  return { t, language, setLanguage, locale, setLocale };
 }
