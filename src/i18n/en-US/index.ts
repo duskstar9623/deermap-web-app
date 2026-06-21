@@ -1,25 +1,27 @@
-import common from './common.json';
-import home from './home.json';
-import services from './services.json';
-import visualization from './visualization.json';
-import multiomics from './multiomics.json';
-import academic from './academic.json';
-import pricing from './pricing.json';
-import industryConsulting from './industry-consulting.json';
-import contact from './contact.json';
-import errors from './errors.json';
+import { LanguageNamespace } from '@/types/common';
 
-const enUS = {
-  common,
-  home,
-  services,
-  visualization,
-  multiomics,
-  academic,
-  pricing,
-  'industry-consulting': industryConsulting,
-  contact,
-  errors,
+import globalData from './Global.json';
+import homeData from './Home.json';
+import bioinformaticsData from './Bioinformatics.json';
+import visualizationData from './Visualization.json';
+import multiomicsData from './Multiomics.json';
+import academicData from './Academic.json';
+import pricingData from './Pricing.json';
+import consultingData from './Consulting.json';
+import contactData from './Contact.json';
+import errorsData from './Errors.json';
+
+const enUS: Record<LanguageNamespace, object> = {
+  Global: globalData,
+  Home: homeData,
+  Bioinformatics: bioinformaticsData,
+  Visualization: visualizationData,
+  Multiomics: multiomicsData,
+  Academic: academicData,
+  Pricing: pricingData,
+  Consulting: consultingData,
+  Contact: contactData,
+  Errors: errorsData,
 };
 
 export default enUS;

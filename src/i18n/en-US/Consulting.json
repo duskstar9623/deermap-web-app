@@ -1,11 +1,11 @@
 {
   "page": {
     "title": "Industry Consulting",
-    "subtitle": "Professional bioinformatics consulting and solutions for pharmaceuticals, genomics, agriculture, and diagnostics"
+    "subtitle": "Providing professional bioinformatics consulting and solutions for biopharma, genetic testing, and agricultural breeding"
   },
   "intro": {
-    "title": "Empowering Industrial Digital Transformation",
-    "description": "With deep expertise in bioinformatics, we provide end-to-end consulting services spanning data strategy, analysis workflow design, and result commercialization."
+    "title": "Empowering digital transformation",
+    "description": "With deep bioinformatics expertise, we offer industry clients full-chain consulting from data strategy and analysis workflow design to outcomes transformation."
   },
   "industries": {
     "pharma": {
@@ -14,24 +14,24 @@
     },
     "genomics": {
       "title": "Genetic Testing",
-      "desc": "Panel design, variant interpretation, reporting system setup"
+      "desc": "Panel design, variant interpretation, reporting system implementation"
     },
     "agriculture": {
       "title": "Agricultural Breeding",
       "desc": "Genomic selection, trait association analysis, marker-assisted breeding"
     },
     "diagnostics": {
-      "title": "In Vitro Diagnostics",
-      "desc": "Biomarker screening, diagnostic model building, compliance support"
+      "title": "In vitro diagnostics",
+      "desc": "Biomarker screening, diagnostic model development, compliance support"
     }
   },
   "process": {
     "title": "Consulting Process",
     "steps": [
-      "Requirement research and current state assessment",
+      "Needs research and current-state assessment",
       "Solution design and feasibility analysis",
       "Data collection and analysis implementation",
-      "Result delivery and continuous optimization"
+      "Deliverables handover and continuous optimization"
     ]
   },
   "cta": {

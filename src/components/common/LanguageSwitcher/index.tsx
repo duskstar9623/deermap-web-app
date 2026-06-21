@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Globe } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
-import { DEFAULT_LANGUAGE, LANGUAGE_LABELS, LANGUAGES, type LanguageCode } from '@/constants/const';
+import { DEFAULT_LANGUAGE, LANGUAGE_OPTIONS, LANGUAGES } from '@/constants/const';
+import type { Language } from '@/types/common';
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useI18n();
@@ -18,12 +19,12 @@ export function LanguageSwitcher() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleSelect = (code: LanguageCode) => {
+  const handleSelect = (code: Language) => {
     setLanguage(code);
     setOpen(false);
   };
 
-  const current = LANGUAGE_LABELS[language] ?? LANGUAGE_LABELS[DEFAULT_LANGUAGE];
+  const current = LANGUAGE_OPTIONS[language] ?? LANGUAGE_OPTIONS[DEFAULT_LANGUAGE];
 
   return (
     <div ref={ref} className="relative">
@@ -49,7 +50,7 @@ export function LanguageSwitcher() {
                 language === code ? 'text-primary font-medium bg-primary/5' : 'text-gray-700'
               }`}
             >
-              {LANGUAGE_LABELS[code].label}
+              {LANGUAGE_OPTIONS[code].label}
             </button>
           ))}
         </div>

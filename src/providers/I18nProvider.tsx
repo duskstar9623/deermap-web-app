@@ -1,9 +1,10 @@
 import { useEffect, type ReactNode } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import i18n, { loadLanguage } from '@/i18n';
-import { DEFAULT_LANGUAGE, LANGUAGES, type LanguageCode } from '@/constants/const';
+import { DEFAULT_LANGUAGE, LANGUAGES } from '@/constants/const';
+import type { Language } from '@/types/common';
 
-export type { LanguageCode } from '@/constants/const';
+export type { Language } from '@/types/common';
 
 /**
  * Wraps the app with react-i18next's I18nextProvider.
@@ -11,8 +12,8 @@ export type { LanguageCode } from '@/constants/const';
  */
 export function I18nProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
-    const saved = localStorage.getItem('lang') as LanguageCode | null;
-    if (saved && saved !== DEFAULT_LANGUAGE && (saved === LANGUAGES.zh || saved === LANGUAGES.en)) {
+    const saved = localStorage.getItem('lang') as Language | null;
+    if (saved && (saved === LANGUAGES.zh || saved === LANGUAGES.en) && saved !== DEFAULT_LANGUAGE) {
       loadLanguage(saved).then(() => i18n.changeLanguage(saved));
     }
   }, []);

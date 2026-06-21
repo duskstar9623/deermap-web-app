@@ -106,7 +106,7 @@ src/components/ui/
 1. 实现 `ToastProvider` + `useToast` hook：
    ```tsx
    // src/components/ui/Toast.tsx — Framer Motion 动画驱动
-   // src/app/providers/ToastProvider.tsx — 管理 toast 队列
+   // src/providers/ToastProvider.tsx — 管理 toast 队列
    // src/hooks/useToast.ts — 暴露 toast.success / toast.error / toast.info
    ```
 
@@ -188,9 +188,9 @@ src/components/ui/
 - 适用页面：`/`、`/services`、`/academic`、`/pricing`、`/contact`
 - 改动最小，不影响现有路由架构
 
-**方案 B：提前迁移 Next.js（重量）**
-- 如果 Phase 2 启动时间在 3 个月内，直接迁移
-- 利用 App Router 的 SSG/ISR 天然解决 SEO
+**方案 B：保持 React + Vite 并引入静态化方案（重量）**
+- 如果 Phase 2 启动时间在 3 个月内，优先补齐站点级 SEO 与预渲染，而非迁移框架
+- 通过路由级预渲染与缓存策略提升收录与首屏性能
 
 **建议**：如 Phase 2 时间不确定，优先采用方案 A 作为过渡。
 

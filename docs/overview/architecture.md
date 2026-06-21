@@ -11,7 +11,7 @@
 | 阶段 | 定位 | 技术形态 |
 |---|---|---|
 | **Phase 1（当前）** | 品牌展示 + 制图工具 + 业务引流 | Vite + React SPA，纯前端，无后端 |
-| **Phase 2** | 接入用户系统 + 订单/支付 | 升级为 Next.js SSR + NestJS 后端 |
+| **Phase 2** | 接入用户系统 + 订单/支付 | 继续 React + TypeScript（Vite）+ 独立后端服务 |
 | **Phase 3** | 完整平台化运营 | 全功能：CMS、会员、促销、通知、售后等 |
 
 > 当前处于 **Phase 1**，以下文档同时记录当前实现和后续阶段的架构规划。
@@ -40,9 +40,9 @@
 
 | 层级 | 技术 |
 |---|---|
-| 前端框架 | Next.js 15 (App Router, TypeScript) |
+| 前端框架 | React 19 + TypeScript（Vite，持续演进） |
 | 后端框架 | NestJS 10+ (TypeScript) |
-| CMS | Payload CMS v3（内嵌于 Next.js） |
+| CMS | Payload CMS v3（独立部署或与后端同网络） |
 | ORM | Prisma |
 | 主数据库 | PostgreSQL 16 |
 | 缓存 / 队列 | Redis 7 + BullMQ |
@@ -60,9 +60,9 @@
 ```
 deermap-web-app/
 ├── src/
-│   ├── app/                  ← 应用根组件、全局 Providers
-│   │   ├── RootLayout.tsx    ← 根布局（Navbar + AnimatePresence + Footer）
-│   │   └── providers/        ← Auth、I18n、Theme Provider
+│   ├── components/           ← 共享组件（Layout、Card、Image、WorkflowSection）
+│   │   └── layout/           ← 布局组件（Navbar、Footer、PageTransition、RootLayout）
+│   ├── providers/            ← 全局 Providers（Auth、I18n、Theme）
 │   ├── router/               ← 路由系统
 │   │   ├── index.tsx         ← createBrowserRouter 路由定义
 │   │   ├── routes.ts         ← 路由路径常量 ROUTES
@@ -77,7 +77,6 @@ deermap-web-app/
 │   │   ├── academic/         ← 学术服务页
 │   │   ├── pricing/          ← 定价方案页
 │   │   └── contact/          ← 联系我们页
-│   ├── components/           ← 共享组件（Layout、Card、Image、WorkflowSection）
 │   ├── services/             ← HTTP 请求层（axios 封装 + API 模块）
 │   ├── configs/              ← 配置文件（requests.json）
 │   ├── constants/            ← 路由常量、资源路径常量、主题配置
@@ -155,7 +154,7 @@ Browser / WeChat
      ▼
   Nginx（反向代理 + SSL 终止）
      │
-     ├──► Next.js App (port 3000)    ← 前端 SSR + BFF + Payload CMS Admin
+  ├──► React Web App (port 3000)  ← Vite 构建产物 + 前端网关层（可选）
      │         │ 内部 HTTP
      │         ▼
      └──► NestJS API (port 3001，不对外暴露，仅 /webhook/* 除外)
@@ -169,7 +168,7 @@ PostgreSQL   Redis       OSS (阿里云)
 
 | 仓库 | 内容 |
 |---|---|
-| `deermap-web-app` | Next.js App Router + Payload CMS v3（前端页面、BFF、CMS 管理后台） |
+| `deermap-web-app` | React + TypeScript + Vite 前端应用（页面、路由、可视化工具） |
 | `deermap-core-service` | NestJS 后端（REST API、支付、队列、媒体等） |
 
 **关键约定：**
@@ -177,16 +176,13 @@ PostgreSQL   Redis       OSS (阿里云)
 - 各仓库独立 CI/CD Pipeline
 - npm 镜像源配置为 `registry.npmmirror.com`
 
-### 2.3 前端迁移方案（Vite → Next.js）
+### 2.3 前端持续演进方案（React + TypeScript + Vite）
 
-迁移时需完成：
-- 将现有 `src/pages/` 页面组件迁移至 Next.js `app/` 目录
-- `src/router/` 中的 React Router 路由迁移为 App Router 文件系统路由
-- 现有 i18n 资源文件可直接复用
-- 现有 Tailwind CSS + Framer Motion 代码无需改动
-- 图表工具页保持客户端渲染（`'use client'` 标记）
-- Zustand store 可直接复用（框架无关）
-- `src/services/` HTTP 层迁移至 Next.js Route Handlers 或保持客户端调用
+持续演进时遵循：
+- 维持 `src/pages/` + `src/router/` 的模块化组织，不迁移为文件系统路由
+- 现有 i18n 资源、Tailwind、Framer Motion、Zustand 按当前架构持续复用
+- 对 SEO 需求通过预渲染/静态化方案增强，而非更换前端框架
+- `src/services/` 保持统一 HTTP 封装，对接后端 API 与支付能力
 
 ### 2.4 页面路由（Phase 2 规划）
 
@@ -203,14 +199,14 @@ PostgreSQL   Redis       OSS (阿里云)
 
 ### 2.5 CMS — Payload CMS v3
 
-- 与 Next.js 同进程运行，无需独立容器
+- 可独立部署，并通过 API 与前端/后端服务集成
 - 数据存入同一 PostgreSQL 实例
 - 管理内容：首页 Banner、行业讯息文章、服务项目配置、促销活动
 - 富文本使用 Lexical 编辑器
 
 ### 2.6 BFF 层
 
-- 浏览器流量通过 Next.js Route Handlers 聚合 NestJS 数据
+- 浏览器流量可通过 Nginx 网关或独立 API Gateway 聚合 NestJS 数据
 - 处理 Session Token 转发，屏蔽 NestJS 端口对外暴露
 - 仅支付 Webhook 直接由 NestJS 处理（稳定性要求）
 
@@ -310,7 +306,7 @@ Vite 构建产物为纯静态文件，部署方式：
 # docker-compose.yml
 services:
   nginx:     # SSL 终止 + 反向代理
-  web:       # Next.js (port 3000)
+  web:       # React Web App 静态资源服务 (port 3000)
   api:       # NestJS (port 3001，仅内网可访问)
   postgres:  # PostgreSQL
   redis:     # Redis
@@ -328,13 +324,13 @@ services:
 
 ## 7. 关键决策记录
 
-### Vite SPA vs Next.js SSR（Phase 1 选型）
+### 长期前端框架决策（React + TypeScript + Vite）
 
-Phase 1 选 **Vite SPA**：当前阶段无后端需求，纯展示 + 制图工具，Vite 构建速度快、配置简洁、部署简单（纯静态文件）。Phase 2 接入用户系统和支付时再迁移至 Next.js（SEO + SSR + BFF 需求）。
+当前与后续阶段统一采用 **React + TypeScript + Vite**。在不更换框架的前提下，通过工程化优化（预渲染、缓存、构建分包、网关层）满足 SEO、性能与业务扩展需求。
 
-### React Router vs 文件系统路由
+### React Router 作为长期路由方案
 
-Phase 1 使用 **React Router**：SPA 场景下灵活高效、代码分割方便。Phase 2 迁移至 Next.js 后自然切换为文件系统路由。
+持续使用 **React Router**：路由配置集中、模块边界清晰、与现有懒加载和页面组织方式一致。
 
 ### Recharts vs ECharts vs Plotly
 
@@ -342,7 +338,7 @@ Phase 1 选 **Recharts**：轻量、React 原生、满足当前图表类型需�
 
 ### Payload CMS v3 vs Strapi v5（Phase 2 选型）
 
-选 **Payload CMS v3**：与 Next.js 同进程运行，无需额外容器，共用 PostgreSQL，无外部 SaaS 依赖。
+选 **Payload CMS v3**：可独立部署并通过 API 集成，无外部 SaaS 依赖，共用 PostgreSQL。
 
 ### Prisma vs TypeORM（Phase 2 选型）
 

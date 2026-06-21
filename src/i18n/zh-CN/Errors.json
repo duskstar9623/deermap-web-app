@@ -1,0 +1,13 @@
+{
+  "http": {
+    "cancelled": "请求已取消",
+    "timeout": "请求超时，请稍后重试",
+    "networkError": "网络连接异常，请检查网络",
+    "unknown": "未知错误"
+  },
+  "console": {
+    "authWarning": "认证失效，请重新登录",
+    "networkWarning": "网络异常",
+    "requestError": "请求错误"
+  }
+}

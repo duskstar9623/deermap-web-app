@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { RootLayout } from '@/app/RootLayout';
+import { RootLayout } from '@/components/layout/RootLayout';
 import { visualizationRoutes } from '@/pages/visualization/routes';
 import { multiomicsRoutes } from '@/pages/multiomics/routes';
 import { lazyPage } from './utils';

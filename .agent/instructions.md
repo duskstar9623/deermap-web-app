@@ -66,7 +66,7 @@ If a user request conflicts with any rule in this file, do NOT silently proceed.
 - **HTTP**: Axios (unified client with interceptors)
 - **I18n**: i18next + react-i18next (zh-CN / en-US)
 - **Icons**: Lucide React + vite-plugin-svgr (custom SVGs)
-- **Structure**: `src/pages/`, `src/components/`, `src/router/`, `src/services/`, `src/configs/`, `src/constants/`, `src/hooks/`, `src/i18n/`, `src/assets/`, `src/types/`, `src/utils/`, `src/app/`
+- **Structure**: `src/pages/`, `src/components/`, `src/providers/`, `src/router/`, `src/services/`, `src/configs/`, `src/constants/`, `src/hooks/`, `src/i18n/`, `src/assets/`, `src/types/`, `src/utils/`
 - **Path alias**: `@/` → `src/`
 
 ---
