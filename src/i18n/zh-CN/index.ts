@@ -1,4 +1,4 @@
-import { LanguageNamespace } from '@/types/common';
+import { LanguageNamespace } from '@/types';
 
 import globalData from './Global.json';
 import homeData from './Home.json';

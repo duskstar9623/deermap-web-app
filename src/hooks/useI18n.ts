@@ -5,8 +5,7 @@ import type { Language } from '@/types/common';
 
 /**
  * Convenience hook wrapping react-i18next.
- * Usage:
- *   const { t, language, setLanguage } = useI18n('home')
+ * Usage: const { t, language, setLanguage } = useI18n('home')
  */
 export function useI18n(ns?: string | string[]) {
   const { t } = useTranslation(ns);

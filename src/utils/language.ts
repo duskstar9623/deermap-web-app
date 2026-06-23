@@ -1,7 +1,7 @@
 import { LANGUAGES, DEFAULT_LANGUAGE_CODE } from '@/constants/const';
-import { LanguageCode, Language } from '@/types/common';
+import { LanguageCode, Language } from '@/types';
 
-const STORAGE_KEY = 'lang';
+const STORAGE_KEY = 'deermap_language';
 
 export function getLanguageCode(): LanguageCode {
   if (typeof window === 'undefined') return DEFAULT_LANGUAGE_CODE;
