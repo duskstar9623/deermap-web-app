@@ -33,7 +33,92 @@
 
 ---
 
-## P1：拆分胖页面组件
+## P1：国际化（i18n）功能强化
+
+**现状**：`src/i18n/index.ts` 中的语言加载机制存在三个潜在问题：
+1. `loadLanguage` 仅检查默认命名空间是否加载，对其他命名空间的加载状态无感知
+2. 快速切换语言时，多个 `changeLanguage` 调用会并发加载相同语言，无去重机制
+3. 动态 `import()` 失败时无错误处理，会导致应用崩溃
+
+**风险**：
+- 某些语言命名空间缺失翻译导致页面显示异常
+- 并发加载浪费网络带宽和渲染性能
+- 动态导入失败时用户体验受损
+
+**改进方案**：
+
+### 1. 强化 `loadLanguage` 检查逻辑
+```typescript
+// 检查目标语言的所有命名空间是否已加载
+function isLanguageFullyLoaded(language: Language): boolean {
+  return Object.values(LANGUAGE_NAMESPACES).every(ns => 
+    i18n.hasResourceBundle(language, ns)
+  );
+}
+
+export async function loadLanguage(language: Language): Promise<void> {
+  if (language === DEFAULT_LANGUAGE) return;
+  if (isLanguageFullyLoaded(language)) return; // 确保所有命名空间都已加载
+  // ... 加载逻辑
+}
+```
+
+### 2. 去重并发加载
+```typescript
+// 记录正在进行中的加载操作
+const loadingPromises = new Map<Language, Promise<void>>();
+
+export async function loadLanguage(language: Language): Promise<void> {
+  if (language === DEFAULT_LANGUAGE) return;
+  if (isLanguageFullyLoaded(language)) return;
+  
+  // 如果该语言已在加载中，复用现有的 Promise
+  if (loadingPromises.has(language)) {
+    return loadingPromises.get(language)!;
+  }
+  
+  const loadPromise = (async () => {
+    const loader = languageBundles[language];
+    if (!loader) return;
+    const { default: resources } = await loader();
+    for (const [ns, bundle] of Object.entries(resources)) {
+      i18n.addResourceBundle(language, ns, bundle, false, true);
+    }
+  })();
+  
+  loadingPromises.set(language, loadPromise);
+  try {
+    await loadPromise;
+  } finally {
+    loadingPromises.delete(language);
+  }
+}
+```
+
+### 3. 添加错误处理
+```typescript
+export async function changeLanguage(languageCode: LanguageCode): Promise<void> {
+  try {
+    const targetLanguage = LANGUAGES[languageCode];
+    await loadLanguage(targetLanguage);
+    await i18n.changeLanguage(targetLanguage);
+    saveLanguageCode(languageCode);
+  } catch (error) {
+    console.error(`Failed to change language to ${languageCode}:`, error);
+    // 降级处理：回到默认语言或显示用户提示
+    toast.error('语言切换失败，请稍后重试'); // 需结合 P3 Toast 方案
+  }
+}
+```
+
+**验收标准**：
+- 快速切换语言多次，网络面板仅显示一次 `en-US.js` 加载
+- 动态导入异常时有适当的错误日志和用户提示
+- 所有命名空间的翻译完整加载
+
+---
+
+## P2：拆分胖页面组件
 
 **现状**：各页面（如 `home/index.tsx`）将 Hero、Stats、Features 等多个大区块全部内联在单文件中，`pages/*/components/` 目录均为空（仅有 `.gitkeep`）。
 
@@ -62,7 +147,7 @@ src/pages/home/
 
 ---
 
-## P2：构建原子组件层（Design System 基础）
+## P3：构建原子组件层（Design System 基础）
 
 **现状**：`src/components/shared/` 仅有 Card、Image、WorkflowSection 三个组件，缺少基础 UI 原子组件。页面中大量重复的按钮、表单、弹窗样式直接内联。
 
@@ -95,7 +180,7 @@ src/components/ui/
 
 ---
 
-## P3：全局 Toast/Notification 接入错误处理
+## P4：全局 Toast/Notification 接入错误处理
 
 **现状**：`error-handler.ts` 的全局错误处理器仅 `console.warn/error`，用户无法感知 API 错误。
 
@@ -130,7 +215,7 @@ src/components/ui/
 
 ---
 
-## P4：环境变量管理
+## P5：环境变量管理
 
 **现状**：API `baseURL`、`timeout` 等配置硬编码在 `src/configs/requests.json` 中，无法区分开发/测试/生产环境。
 
@@ -175,7 +260,7 @@ src/components/ui/
 
 ---
 
-## P5：SEO / Pre-rendering 方案（Phase 1 持续期较长时）
+## P6：SEO / Pre-rendering 方案（Phase 1 持续期较长时）
 
 **现状**：纯 SPA（CSR），搜索引擎爬虫无法抓取动态渲染内容，官网首页几乎无法被百度/Google 收录。
 
@@ -198,7 +283,7 @@ src/components/ui/
 
 ---
 
-## P6：性能监控
+## P7：性能监控
 
 **现状**：无 Web Vitals 采集、无错误上报、无用户行为追踪。
 
@@ -223,11 +308,12 @@ src/components/ui/
 | 优先级 | 改进项 | 预估工时 | 收益 |
 |--------|--------|----------|------|
 | P0 | 测试体系 | 2-3 天 | 重构安全网，代码质量保障 |
-| P1 | 拆分胖页面 | 1-2 天 | 可维护性、协作效率 |
-| P2 | 原子组件层 | 3-5 天 | UI 一致性、开发效率 |
-| P3 | Toast 错误反馈 | 1 天 | 用户体验 |
-| P4 | 环境变量 | 0.5 天 | 部署流程规范化 |
-| P5 | SEO Pre-render | 1-2 天 | 搜索引擎收录 |
-| P6 | 性能监控 | 0.5 天 | 线上质量可观测 |
+| P1 | i18n 功能强化 | 1 天 | 国际化稳定性、性能优化 |
+| P2 | 拆分胖页面 | 1-2 天 | 可维护性、协作效率 |
+| P3 | 原子组件层 | 3-5 天 | UI 一致性、开发效率 |
+| P4 | Toast 错误反馈 | 1 天 | 用户体验 |
+| P5 | 环境变量 | 0.5 天 | 部署流程规范化 |
+| P6 | SEO Pre-render | 1-2 天 | 搜索引擎收录 |
+| P7 | 性能监控 | 0.5 天 | 线上质量可观测 |
 
-建议按优先级从上至下逐步推进，P0–P3 在进入 Phase 2 前完成。
+建议按优先级从上至下逐步推进，P0–P4 在进入 Phase 2 前完成。

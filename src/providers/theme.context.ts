@@ -1,7 +1,5 @@
 import { createContext } from 'react';
-import { THEME_DARK, THEME_LIGHT } from '@/constants/theme';
-
-export type Theme = typeof THEME_LIGHT | typeof THEME_DARK
+import type { Theme } from '@/types/common';
 
 export interface ThemeContextValue {
   theme: Theme

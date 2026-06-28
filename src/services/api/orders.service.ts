@@ -1,7 +1,7 @@
 /**
  * 订单相关 API
  */
-import { get, post } from '../http-client';
+import { get, post } from '../http.service';
 import requestsConfig from '@/configs/requests.json';
 import type { Order, OrderType, PaymentMethod } from '@/types';
 

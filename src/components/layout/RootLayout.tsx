@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { PageTransition } from '@/components/layout/PageTransition';
+import { PageSkeleton } from '@/components/shared';
 
 export function RootLayout() {
   const location = useLocation();
@@ -14,7 +15,7 @@ export function RootLayout() {
       <main className="pt-0 overflow-y-auto">
         <AnimatePresence mode="wait">
           <PageTransition key={location.pathname}>
-            <Suspense fallback={<div className="min-h-screen" />}>
+            <Suspense fallback={<PageSkeleton />}>
               <Outlet />
             </Suspense>
           </PageTransition>

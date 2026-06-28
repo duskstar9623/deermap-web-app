@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { THEME_COLORS } from '@/constants/theme';
+import { THEME_COLORS } from '@/constants/const';
 import { ASSETS } from '@/constants/assets';
 
 const WORKFLOW_STEPS: Record<string, { num: string; titleKey: string; descKey: string; img: string }[]> = {

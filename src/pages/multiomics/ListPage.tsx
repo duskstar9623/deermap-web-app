@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Dna, Activity, Target, Beaker, ArrowRight } from 'lucide-react';
 import { ROUTES } from '@/router/routes';
-import { THEME_COLORS } from '@/constants/theme';
+import { THEME_COLORS } from '@/constants/const';
 import { ASSETS } from '@/constants/assets';
 
 function MultiomicsListPage() {

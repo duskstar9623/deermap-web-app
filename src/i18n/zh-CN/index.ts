@@ -1,4 +1,5 @@
-import { LanguageNamespace } from '@/types';
+import { LANGUAGE_NAMESPACES } from '@/constants/const';
+import type { LanguageNamespace } from '@/types';
 
 import globalData from './Global.json';
 import homeData from './Home.json';
@@ -12,16 +13,16 @@ import contactData from './Contact.json';
 import errorsData from './Errors.json';
 
 const zhCN: Record<LanguageNamespace, object> = {
-  Global: globalData,
-  Home: homeData,
-  Bioinformatics: bioinformaticsData,
-  Visualization: visualizationData,
-  Multiomics: multiomicsData,
-  Academic: academicData,
-  Pricing: pricingData,
-  Consulting: consultingData,
-  Contact: contactData,
-  Errors: errorsData,
+  [LANGUAGE_NAMESPACES.GLOBAL]: globalData,
+  [LANGUAGE_NAMESPACES.HOME]: homeData,
+  [LANGUAGE_NAMESPACES.BIOINFORMATICS]: bioinformaticsData,
+  [LANGUAGE_NAMESPACES.VISUALIZATION]: visualizationData,
+  [LANGUAGE_NAMESPACES.MULTIOMICS]: multiomicsData,
+  [LANGUAGE_NAMESPACES.ACADEMIC]: academicData,
+  [LANGUAGE_NAMESPACES.PRICING]: pricingData,
+  [LANGUAGE_NAMESPACES.CONSULTING]: consultingData,
+  [LANGUAGE_NAMESPACES.CONTACT]: contactData,
+  [LANGUAGE_NAMESPACES.ERRORS]: errorsData,
 };
 
 export default zhCN;

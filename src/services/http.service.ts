@@ -15,14 +15,16 @@ import axios, {
   AxiosError,
 } from 'axios';
 import requestsConfig from '@/configs/requests.json';
+import { LOCAL_STORAGE_KEYS } from '@/constants/const';
 import i18n from '@/i18n';
+import { localStorageService } from './localStorage.service';
 import {
   ApiError,
   ErrorCode,
   mapHttpStatusToErrorCode,
   getGlobalErrorHandler,
   type ApiErrorResponse,
-} from './error-handler';
+} from './error.service';
 
 // ─── 通用响应结构 ───────────────────────────────────────────
 export interface ApiResponse<T = unknown> {
@@ -32,18 +34,18 @@ export interface ApiResponse<T = unknown> {
 }
 
 // ─── Token 存取 ─────────────────────────────────────────────
-const TOKEN_KEY = 'access_token';
+const TOKEN_KEY = LOCAL_STORAGE_KEYS.ACCESS_TOKEN;
 
 export function getToken(): string | null {
-  return localStorage.getItem(TOKEN_KEY);
+  return localStorageService.get<string | null>(TOKEN_KEY, null);
 }
 
 export function setToken(token: string): void {
-  localStorage.setItem(TOKEN_KEY, token);
+  localStorageService.set(TOKEN_KEY, token);
 }
 
 export function removeToken(): void {
-  localStorage.removeItem(TOKEN_KEY);
+  localStorageService.remove(TOKEN_KEY);
 }
 
 // ─── 创建 axios 实例 ────────────────────────────────────────

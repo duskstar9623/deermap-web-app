@@ -1,7 +1,7 @@
 /**
  * 联系我们 / 表单提交 API
  */
-import { post } from '../http-client';
+import { post } from '../http.service';
 import requestsConfig from '@/configs/requests.json';
 
 const endpoints = requestsConfig.endpoints.contact;

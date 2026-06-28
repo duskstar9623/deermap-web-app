@@ -9,7 +9,7 @@ import {
 import { Upload, Download, Zap, Check, Settings } from 'lucide-react';
 import { seededRandom } from '@/utils/common';
 import { CHART_TYPES, DEMO_LINE_DATA, COLOR_PALETTES, getChartI18nKey } from './config';
-import { THEME_COLORS } from '@/constants/theme';
+import { THEME_COLORS } from '@/constants/const';
 
 function LiveChart({
   chartId,

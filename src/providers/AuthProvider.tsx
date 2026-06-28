@@ -1,7 +1,7 @@
 import { useState, useCallback, type ReactNode } from 'react';
 import type { User } from '@/types/user';
 import type { AuthState } from '@/types/user';
-import { AuthContext } from './auth-context';
+import { AuthContext } from './auth.context';
 
 /**
  * Auth provider skeleton.

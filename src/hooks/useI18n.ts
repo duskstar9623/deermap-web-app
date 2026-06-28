@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import i18n, { loadLanguage } from '@/i18n';
-import { DEFAULT_LANGUAGE, LANGUAGES } from '@/constants/const';
+import { DEFAULT_LANGUAGE, LANGUAGES, LOCAL_STORAGE_KEYS } from '@/constants/const';
 import type { Language } from '@/types/common';
+import { localStorageService } from '@/services/localStorage.service';
 
 /**
  * Convenience hook wrapping react-i18next.
@@ -16,7 +17,7 @@ export function useI18n(ns?: string | string[]) {
     if (newLanguage !== LANGUAGES.zh && newLanguage !== LANGUAGES.en) return;
     await loadLanguage(newLanguage);
     await i18n.changeLanguage(newLanguage);
-    localStorage.setItem('lang', newLanguage);
+    localStorageService.set(LOCAL_STORAGE_KEYS.LANGUAGE, newLanguage);
   };
 
   // Keep legacy aliases for backward compatibility.

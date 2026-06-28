@@ -8,14 +8,22 @@ export const LANGUAGES = {
   en: 'en-US'
 } as const;
 
-export const LANGUAGE_NAMESPACES = [
-  'Global', 'Home', 'Bioinformatics', 'Visualization', 'Multiomics',
-  'Academic', 'Pricing', 'Consulting', 'Contact', 'Errors',
-] as const;
+export const LANGUAGE_NAMESPACES = {
+  GLOBAL:         'Global',
+  HOME:           'Home',
+  BIOINFORMATICS: 'Bioinformatics',
+  VISUALIZATION:  'Visualization',
+  MULTIOMICS:     'Multiomics',
+  ACADEMIC:       'Academic',
+  PRICING:        'Pricing',
+  CONSULTING:     'Consulting',
+  CONTACT:        'Contact',
+  ERRORS:         'Errors'
+} as const;
 
 export const DEFAULT_LANGUAGE_CODE = 'zh';
 export const DEFAULT_LANGUAGE = LANGUAGES.zh;
-export const DEFAULT_LANGUAGE_NAMESPACE = LANGUAGE_NAMESPACES[0];
+export const DEFAULT_LANGUAGE_NAMESPACE = LANGUAGE_NAMESPACES.GLOBAL;
 
 export const LANGUAGE_OPTIONS = {
   [LANGUAGES.zh]: {
@@ -44,8 +52,12 @@ export const THEME_COLORS = {
   metabolomics: '#00b894',
 } as const;
 
+/*** Services Related ***/
+export const DEERMAP_STORAGE_PREFIX = 'deermap';
+
 /*** Others ***/
 export const LOCAL_STORAGE_KEYS = {
-  THEME: 'deermap_theme',
-  LANGUAGE: 'deermap_language'
-};
+  THEME: `${DEERMAP_STORAGE_PREFIX}_theme`,
+  LANGUAGE: `${DEERMAP_STORAGE_PREFIX}_language`,
+  ACCESS_TOKEN: `${DEERMAP_STORAGE_PREFIX}_jwt_token`
+} as const;

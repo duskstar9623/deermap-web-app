@@ -4,7 +4,7 @@ import {
   LANGUAGES, DEFAULT_LANGUAGE_CODE, DEFAULT_LANGUAGE,
   LANGUAGE_NAMESPACES, DEFAULT_LANGUAGE_NAMESPACE
 } from '@/constants/const';
-import { LanguageCode, Language } from '@/types';
+import type { LanguageCode, Language } from '@/types';
 import { getLanguageCode, getLanguage, saveLanguageCode } from '@/utils/language';
 import zhCN from './zh-CN';
 
@@ -16,7 +16,7 @@ i18n.use(initReactI18next).init({
   lng: DEFAULT_LANGUAGE,
   fallbackLng: DEFAULT_LANGUAGE,
   defaultNS: DEFAULT_LANGUAGE_NAMESPACE,
-  ns: LANGUAGE_NAMESPACES,
+  ns: Object.values(LANGUAGE_NAMESPACES),
   interpolation: { escapeValue: false },
   react: { useSuspense: true }
 });
@@ -34,6 +34,7 @@ export async function loadLanguage(language: Language): Promise<void> {
   if (i18n.hasResourceBundle(language, DEFAULT_LANGUAGE_NAMESPACE)) return;
 
   const loader = languageBundles[language];
+  if (!loader) return;
   const { default: resources } = await loader();
   for (const [ns, bundle] of Object.entries(resources)) {
     i18n.addResourceBundle(language, ns, bundle, false, true);

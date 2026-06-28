@@ -1,8 +1,18 @@
 /**
  * Deterministic pseudo-random number generator based on sine hashing.
- * Returns a value in [0, 1) for any given seed.
+ * @param s The seed value.
+ * @returns A pseudo-random number between 0 and 1.
  */
 export function seededRandom(s: number): number {
   const x = Math.sin(s * 12.9898 + s * 78.233) * 43758.5453;
   return x - Math.floor(x);
+}
+
+/**
+ * Checks if a value is neither null nor undefined.
+ * @param value The value to check.
+ * @returns True if the value is valid, false otherwise.
+ */
+export function isValidValue(value: unknown): boolean {
+  return value !== null && value !== undefined;
 }

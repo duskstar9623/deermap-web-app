@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import WorkflowSection from '@/components/shared/WorkflowSection';
 import { ROUTES } from '@/router/routes';
-import { THEME_COLORS } from '@/constants/theme';
+import { THEME_COLORS } from '@/constants/const';
 import { ASSETS } from '@/constants/assets';
 
 /* ───────────────────  OmicsPageConfig  ─────────────────── */
