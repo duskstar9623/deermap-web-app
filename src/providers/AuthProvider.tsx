@@ -1,6 +1,6 @@
 import { useState, useCallback, type ReactNode } from 'react';
-import type { User } from '@/types/user';
-import type { AuthState } from '@/types/user';
+import type { User } from '@/types/business/user';
+import type { AuthState } from '@/types/business/user';
 import { AuthContext } from './auth.context';
 
 /**

@@ -1,7 +1,8 @@
 /**
  * 联系我们 / 表单提交 API
+ * @phase Phase 2 — Phase 1 联系表单为静态提交（e.preventDefault()），不集成到应用
  */
-import { post } from '../http.service';
+import { post } from './request.service';
 import requestsConfig from '@/configs/requests.json';
 
 const endpoints = requestsConfig.endpoints.contact;

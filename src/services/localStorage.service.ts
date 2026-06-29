@@ -1,77 +1,62 @@
-import {
-  StorageServiceError,
-  type StorageErrorHandler,
-} from '@/types/services';
+import { LOCAL_STORAGE_OBJECT_PREFIX } from '@/constants/const';
+import type { LocalStorageService } from '@/types/services';
+import { isValidValue } from '@/utils/common';
 
-let storageErrorHandler: StorageErrorHandler = (error: StorageServiceError) => {
-  console.error('[Storage]', error.operation, error.key ?? '-', error.message, error.cause);
+const isBrowser = (): boolean => isValidValue(window) && isValidValue(window?.localStorage);
+
+const serialize = <T>(value: T): string | undefined => {
+	if (value === undefined) return undefined;
+	if (typeof value === 'string') return value;
+	return `${LOCAL_STORAGE_OBJECT_PREFIX}${JSON.stringify(value)}`;
 };
 
-function handleStorageError(error: StorageServiceError): void {
-  storageErrorHandler(error);
-}
-
-function isBrowser(): boolean {
-  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
-}
-
-function parseStorageValue<T>(raw: string): T {
-  try {
-    return JSON.parse(raw) as T;
-  } catch {
-    return raw as T;
-  }
-}
-
-export function setStorageErrorHandler(handler: StorageErrorHandler): void {
-  storageErrorHandler = handler;
-}
-
-export function getStorageErrorHandler(): StorageErrorHandler {
-  return storageErrorHandler;
-}
-
-export const localStorageService = {
-  get<T>(key: string, defaultValue: T): T {
-    if (!isBrowser()) return defaultValue;
-
-    try {
-      const raw = window.localStorage.getItem(key);
-      if (raw === null) return defaultValue;
-
-      return parseStorageValue<T>(raw);
-    } catch (cause) {
-      handleStorageError(new StorageServiceError('get', 'Failed to read localStorage value.', key, cause));
-      return defaultValue;
-    }
-  },
-
-  set<T>(key: string, value: T): void {
-    if (!isBrowser()) return;
-
-    try {
-      const serialized = JSON.stringify(value);
-
-      if (serialized === undefined) {
-        window.localStorage.removeItem(key);
-        return;
-      }
-
-      window.localStorage.setItem(key, serialized);
-    } catch (cause) {
-      handleStorageError(new StorageServiceError('set', 'Failed to write localStorage value.', key, cause));
-    }
-  },
-
-  remove(key: string): void {
-    if (!isBrowser()) return;
-
-    try {
-      window.localStorage.removeItem(key);
-    } catch (cause) {
-      handleStorageError(new StorageServiceError('remove', 'Failed to remove localStorage value.', key, cause));
-    }
-  },
+const deserialize = <T>(raw: string): T => {
+	if (raw.startsWith(LOCAL_STORAGE_OBJECT_PREFIX)) {
+		try {
+			return JSON.parse(raw.slice(LOCAL_STORAGE_OBJECT_PREFIX.length)) as T;
+		} catch {
+			return raw as T;
+		}
+	}
+	return raw as T;
 };
 
-export { StorageServiceError, type StorageErrorHandler } from '@/types/services';
+export const localStorageService: LocalStorageService = {
+	get<T>(key: string, defaultValue: T): T {
+		if (!isBrowser()) return defaultValue;
+
+		try {
+			const raw = window.localStorage.getItem(key);
+			if (raw === null) return defaultValue;
+			return deserialize<T>(raw);
+		} catch (error) {
+			console.error(`[localStorage] get failed: ${key}`, error);
+			return defaultValue;
+		}
+	},
+
+	set<T>(key: string, value: T): void {
+		if (!isBrowser()) return;
+
+		try {
+			const serialized = serialize(value);
+			if (serialized === undefined) {
+				window.localStorage.removeItem(key);
+				return;
+			}
+			window.localStorage.setItem(key, serialized);
+		} catch (error) {
+			console.error(`[localStorage] set failed: ${key}`, error);
+		}
+	},
+
+	remove(key: string): void {
+		if (!isBrowser()) return;
+
+		try {
+			window.localStorage.removeItem(key);
+		} catch (error) {
+			console.error(`[localStorage] remove failed: ${key}`, error);
+		}
+	},
+};

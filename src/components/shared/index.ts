@@ -6,3 +6,6 @@ export { Toast } from './Toast';
 export { Badge } from './Badge';
 export { Skeleton, PageSkeleton } from './Skeleton';
 export { Tabs } from './Tabs';
+export { Card } from './Card';
+export { OptimizedImage } from './Image';
+export { default as WorkflowSection } from './WorkflowSection';

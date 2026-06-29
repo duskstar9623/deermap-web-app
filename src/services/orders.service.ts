@@ -1,7 +1,8 @@
 /**
  * 订单相关 API
+ * @phase Phase 2 — Phase 1 中为接口存根，不集成到应用
  */
-import { get, post } from '../http.service';
+import { get, post } from './request.service';
 import requestsConfig from '@/configs/requests.json';
 import type { Order, OrderType, PaymentMethod } from '@/types';
 

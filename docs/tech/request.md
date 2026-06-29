@@ -10,16 +10,15 @@
 ```
 src/
 ├── configs/
-│   └── requests.json          ← API 端点地址 & 全局配置
+│   └── requests.json            ← API 端点地址 & 全局配置
 └── services/
-    ├── index.ts               ← 统一出口（导出所有便捷方法、API 模块、错误类型）
-    ├── http-client.ts         ← axios 实例 + 请求/响应拦截器 + 便捷方法
-    ├── error-handler.ts       ← ApiError 类 + ErrorCode 枚举 + 全局错误处理器
-    └── api/
-        ├── index.ts           ← API 模块聚合导出
-        ├── auth.ts            ← 认证相关
-        ├── orders.ts          ← 订单相关
-        └── contact.ts         ← 联系表单
+    ├── index.ts                 ← 统一出口（导出便捷方法、Token 管理、错误类型）
+    ├── request.service.ts       ← axios 实例 + 请求/响应拦截器 + 便捷方法
+    ├── error.service.ts         ← ApiError 类 + ErrorCode 枚举 + 全局错误处理器
+    ├── localStorage.service.ts  ← localStorage 读写封装
+    ├── auth.service.ts          ← 认证 API（Phase 2，当前为接口存根）
+    ├── orders.service.ts        ← 订单 API（Phase 2，当前为接口存根）
+    └── contact.service.ts       ← 联系表单 API（Phase 2，当前为接口存根）
 ```
 
 **设计原则：**
@@ -62,11 +61,11 @@ src/
 | `timeout` | 全局超时时间（毫秒） |
 | `endpoints` | 按业务模块组织的端点路径，支持 `:id` 路径参数占位符 |
 
-**新增 API 时**：只需在 `endpoints` 中添加对应路径，再到 `services/api/` 下创建对应模块即可。
+**新增 API 时**：只需在 `endpoints` 中添加对应路径，再到 `services/` 下创建对应 `*.service.ts` 模块即可。
 
 ---
 
-## 三、HTTP 客户端 `services/http-client.ts`
+## 三、HTTP 客户端 `services/request.service.ts`
 
 ### 3.1 请求拦截器
 
@@ -107,7 +106,7 @@ removeToken()           // 登出时清除
 
 ---
 
-## 四、错误处理 `services/error-handler.ts`
+## 四、错误处理 `services/error.service.ts`
 
 ### 4.1 `ApiError` 类
 
@@ -168,10 +167,12 @@ setGlobalErrorHandler((error: ApiError) => {
 ### 5.1 基本调用
 
 ```ts
-import { authApi } from '@/services'
+// Phase 2 示例 — auth.service.ts
+import { login } from '@/services/auth.service'
+import { setToken } from '@/services'
 
 async function handleLogin(phone: string, code: string) {
-  const res = await authApi.login({ phone, code })
+  const res = await login({ phone, code })
   const { accessToken, user } = res.data.data
 
   setToken(accessToken)
@@ -182,11 +183,13 @@ async function handleLogin(phone: string, code: string) {
 ### 5.2 带错误处理
 
 ```ts
-import { ordersApi, ApiError, ErrorCode } from '@/services'
+// Phase 2 示例 — orders.service.ts
+import { getOrders } from '@/services/orders.service'
+import { ApiError, ErrorCode } from '@/services'
 
 async function loadOrders() {
   try {
-    const res = await ordersApi.getOrders({ page: 1, pageSize: 10 })
+    const res = await getOrders({ page: 1, pageSize: 10 })
     return res.data.data
   } catch (err) {
     if (err instanceof ApiError) {
@@ -213,8 +216,8 @@ export function getOrderDetail(id: string) {
   return get<Order>(url)
 }
 
-// 调用方
-await ordersApi.getOrderDetail('order_abc123')
+// 调用方（Phase 2）
+await getOrderDetail('order_abc123')
 // 实际请求: GET /api/v1/orders/order_abc123
 ```
 
@@ -271,14 +274,14 @@ export default defineConfig({
 ### 新增一个 API 模块
 
 1. 在 `src/configs/requests.json` 的 `endpoints` 中添加路径
-2. 在 `src/services/api/` 下创建新文件（如 `charts.ts`）
-3. 在 `src/services/api/index.ts` 中导出新模块
-4. 完成，可在业务组件中通过 `import { chartsApi } from '@/services'` 使用
+2. 在 `src/services/` 下创建新 `*.service.ts` 文件（如 `charts.service.ts`）
+3. 使用 `get<T>` / `post<T>` 等方法，传入 endpoint 路径
+4. 完成，可在业务组件中通过 `import { getCharts } from '@/services/charts.service'` 使用
 
 ### 需要请求取消（如搜索防抖）
 
 ```ts
-import httpClient from '@/services/http-client'
+import httpClient from '@/services/request.service'
 
 const controller = new AbortController()
 

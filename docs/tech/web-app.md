@@ -55,11 +55,13 @@ deermap-web-app/
 │
 ├── docs/                      # 项目文档
 │   ├── overview/
-│   │   ├── architecture.md    # 架构概览
+│   │   ├── architecture.md    # 架构概览（三阶段规划）
 │   │   └── business.md        # 商业策略文档
 │   └── tech/
 │       ├── assets.md          # 静态资源管理规范
+│       ├── improve.md         # 架构改进计划（P0–P4 优先级）
 │       ├── request.md         # HTTP 请求层规范
+│       ├── style-governance-plan.md  # 样式治理计划
 │       └── web-app.md         # 本文件
 │
 ├── public/                    # 不经 Vite 处理的静态资源（直接 copy 到 dist/）
@@ -79,73 +81,86 @@ deermap-web-app/
     ├── index.css              # 全局 CSS：Tailwind 指令 + CSS 变量（主题色）
     ├── vite-env.d.ts          # Vite 环境类型声明
     │
-    ├── app/                   # 应用壳层
-    │   ├── RootLayout.tsx     # 根布局：Navbar + AnimatePresence + Suspense + Footer
-    │   └── providers/
-    │       ├── index.tsx      # AppProviders 组合（Theme → I18n → Auth 嵌套顺序）
-    │       ├── ThemeProvider.tsx   # 主题 Provider（light/dark，localStorage 持久化）
-    │       ├── theme-context.ts   # Theme Context 定义
-    │       ├── I18nProvider.tsx    # i18n Provider（懒加载非默认语言）
-    │       ├── AuthProvider.tsx    # 认证 Provider（骨架，预留后端对接）
-    │       └── auth-context.ts    # Auth Context 定义
-    │
     ├── assets/                # 需 Vite 处理的静态资源（会被 hash 重命名）
-    │   ├── fonts/             # 自定义字体文件
+    │   ├── fonts/             # 自定义字体文件（预留）
     │   ├── icons/
     │   │   ├── index.ts       # SVG 图标统一导出（Logo, LogoDark）
     │   │   ├── logo.svg       # 品牌 Logo（通过 ?react 后缀导入为组件）
     │   │   ├── logo-dark.svg  # 暗色 Logo
-    │   │   └── social/        # 社交媒体图标
-    │   ├── images/            # 需构建处理的图片
-    │   └── svg/               # 通用 SVG 素材
+    │   │   └── social/        # 社交媒体图标（预留）
+    │   ├── images/            # 需构建处理的图片（预留）
+    │   └── svgs/              # 通用 SVG 素材（预留）
     │
     ├── components/            # 可复用组件库
+    │   ├── common/            # 通用功能组件
+    │   │   └── LanguageSwitcher/
+    │   │       └── index.tsx  # 语言切换器组件
     │   ├── layout/            # 布局组件
     │   │   ├── PageTransition.tsx  # 页面过渡动画包装器（fade + slide）
+    │   │   ├── RootLayout.tsx     # 根布局：Navbar + AnimatePresence + Suspense + Footer
     │   │   ├── Navbar/
     │   │   │   └── index.tsx       # 顶部导航栏（响应式 + 移动端汉堡菜单）
     │   │   └── Footer/
     │   │       └── index.tsx       # 页脚（品牌信息 + 链接矩阵）
     │   └── shared/            # 通用 UI 组件
+    │       ├── index.ts       # 统一导出入口
+    │       ├── Button.tsx     # 按钮组件
+    │       ├── Input.tsx      # 输入框组件
+    │       ├── Select.tsx     # 下拉选择器
+    │       ├── Modal.tsx      # 弹窗组件
+    │       ├── Toast.tsx      # Toast 通知
+    │       ├── Badge.tsx      # 标签/徽章组件
+    │       ├── Skeleton.tsx   # 骨架屏（Skeleton / PageSkeleton）
+    │       ├── Tabs.tsx       # 标签页组件
     │       ├── Card/
-    │       │   └── index.tsx  # 通用卡片组件（图片 + 图标 + 内容）
+    │       │   └── index.tsx  # 通用卡片（图片 + 图标 + 内容）
     │       ├── Image/
-    │       │   └── index.tsx  # 优化图片组件（lazy/priority/fallback/CLS 防抖）
+    │       │   └── index.tsx  # 优化图片（lazy/priority/fallback/CLS 防抖）
     │       └── WorkflowSection/
     │           └── index.tsx  # 组学工作流步骤展示区块
+    │
+    ├── providers/             # 全局 Provider
+    │   ├── index.tsx          # AppProviders 组合（Theme → I18n → Auth 嵌套顺序）
+    │   ├── ThemeProvider.tsx  # 主题 Provider（light/dark，localStorage 持久化）
+    │   ├── theme.context.ts   # Theme Context 定义
+    │   ├── I18nProvider.tsx   # i18n Provider（懒加载非默认语言）
+    │   ├── AuthProvider.tsx   # 认证 Provider（骨架，Phase 2 对接后端）
+    │   └── auth.context.ts    # Auth Context 定义
     │
     ├── configs/               # 运行时配置
     │   └── requests.json      # API 配置（baseURL、timeout、endpoints 路径表）
     │
     ├── constants/             # 编译时常量
     │   ├── assets.ts          # public/ 资源路径常量表（ASSETS 对象）
-    │   └── theme.ts           # 主题色 JS 常量（用于 SVG/图表等非 CSS 场景）
+    │   └── const.ts           # 应用级常量（主题色、语言枚举、Storage key 等）
     │
     ├── hooks/                 # 自定义 Hooks
     │   ├── useAuth.ts         # 封装 AuthContext 消费 + 空值保护
     │   ├── useI18n.ts         # 封装 i18next（含 setLocale 懒加载切换）
+    │   ├── useLocalStorage.ts # localStorage 读写 Hook（带类型）
     │   └── useTheme.ts        # 封装 ThemeContext 消费 + 空值保护
     │
     ├── i18n/                  # 国际化配置
     │   ├── index.ts           # i18next 初始化（同步加载 zh-CN，懒加载 en-US）
     │   ├── zh-CN/             # 中文资源包（默认语言，同步打包）
     │   │   ├── index.ts       # 聚合导出所有命名空间
-    │   │   ├── common.json    # 公共文案（导航、按钮、品牌名等）
-    │   │   ├── home.json      # 首页文案
-    │   │   ├── services.json  # 服务页文案
-    │   │   ├── visualization.json  # 可视化页文案
-    │   │   ├── multiomics.json     # 多组学页文案
-    │   │   ├── academic.json       # 学术服务页文案
-    │   │   ├── pricing.json        # 定价页文案
-    │   │   ├── industry-consulting.json  # 行业咨询文案
-    │   │   └── contact.json        # 联系页文案
+    │   │   ├── Global.json    # 公共文案（导航、按钮、品牌名、页脚等）
+    │   │   ├── Home.json      # 首页文案
+    │   │   ├── Bioinformatics.json  # 生信服务页文案
+    │   │   ├── Visualization.json   # 可视化/图表页文案
+    │   │   ├── Multiomics.json      # 多组学模块文案
+    │   │   ├── Academic.json        # 学术服务页文案
+    │   │   ├── Pricing.json         # 定价套餐页文案
+    │   │   ├── Consulting.json      # 行业咨询文案
+    │   │   ├── Contact.json         # 联系页文案
+    │   │   └── Errors.json          # 错误信息文案
     │   └── en-US/             # 英文资源包（动态 import 懒加载）
     │       └── （结构同 zh-CN）
     │
     ├── pages/                 # 页面模块（按功能域划分）
     │   ├── home/
     │   │   ├── index.tsx      # 首页（Hero 视频 + 数据统计 + 功能卡片）
-    │   │   └── components/    # 首页专属子组件（当前为空，待拆分）
+    │   │   └── components/
     │   ├── services/
     │   │   ├── index.tsx      # 生信分析服务页
     │   │   └── components/
@@ -156,13 +171,13 @@ deermap-web-app/
     │   │   ├── routes.tsx     # 模块路由配置
     │   │   ├── config.ts      # 图表类型静态数据 + i18n key 映射
     │   │   ├── store.ts       # Zustand Store（图表选择 + 参数状态）
-    │   │   └── components/    # 模块专属组件（当前为空）
+    │   │   └── components/
     │   ├── multiomics/
     │   │   ├── index.tsx      # 多组学模块布局壳
     │   │   ├── ListPage.tsx   # 组学类型列表页
     │   │   ├── OmicsDetailPage.tsx  # 组学详情页（根据路径区分类型）
     │   │   ├── routes.tsx     # 模块路由配置
-    │   │   └── components/    # 子组件目录
+    │   │   └── components/
     │   ├── academic/
     │   │   ├── index.tsx      # 学术服务页
     │   │   └── components/
@@ -170,7 +185,7 @@ deermap-web-app/
     │   │   ├── index.tsx      # 定价套餐页
     │   │   └── components/
     │   └── contact/
-    │       ├── index.tsx      # 联系/咨询表单页
+    │       ├── index.tsx      # 联系/咨询表单页（Phase 1 静态，Phase 2 对接 API）
     │       └── components/
     │
     ├── router/                # 路由系统
@@ -179,26 +194,29 @@ deermap-web-app/
     │   ├── types.ts           # AppRouteObject 类型定义（扩展 RouteObject + meta）
     │   ├── utils.ts           # lazyPage() 工具函数（代码分割辅助）
     │   └── guards/
-    │       └── AuthGuard.tsx  # 路由级鉴权守卫（未登录 → 重定向首页）
+    │       └── AuthGuard.tsx  # 路由级鉴权守卫（Phase 2，当前未挂载路由）
     │
     ├── services/              # API 服务层
-    │   ├── index.ts           # 统一导出入口
-    │   ├── http-client.ts     # Axios 封装（拦截器、Token、错误转换、便捷方法）
-    │   ├── error-handler.ts   # 统一错误处理（ApiError 类、ErrorCode 枚举）
-    │   └── api/               # 按领域拆分的 API 模块
-    │       ├── index.ts       # 聚合导出（authApi, ordersApi, contactApi）
-    │       ├── auth.ts        # 认证 API（登录、登出、刷新、短信、微信）
-    │       ├── orders.ts      # 订单 API（CRUD + 支付）
-    │       └── contact.ts     # 联系表单 API
+    │   ├── index.ts           # 统一导出入口（便捷方法、Token、错误类型）
+    │   ├── request.service.ts # Axios 封装（拦截器、Token、错误转换、便捷方法）
+    │   ├── error.service.ts   # 统一错误处理（ApiError 类、ErrorCode 枚举）
+    │   ├── localStorage.service.ts  # localStorage 读写封装
+    │   ├── auth.service.ts    # 认证 API（Phase 2，当前为接口存根）
+    │   ├── orders.service.ts  # 订单 API（Phase 2，当前为接口存根）
+    │   └── contact.service.ts # 联系表单 API（Phase 2，当前为接口存根）
     │
     ├── types/                 # 全局类型定义
     │   ├── index.ts           # 统一 re-export
-    │   ├── user.ts            # User、MembershipTier、AuthState
-    │   ├── order.ts           # Order、OrderStatus、OrderType、PaymentMethod
-    │   └── chart.ts           # ChartType、ColorPalette、ChartConfig
+    │   ├── common.ts          # Language、LanguageCode、Theme 等通用类型
+    │   ├── services.ts        # 服务层相关类型（LocalStorageService 等）
+    │   └── business/
+    │       ├── user.ts        # User、MembershipTier、AuthState
+    │       ├── order.ts       # Order、OrderStatus、OrderType、PaymentMethod
+    │       └── chart.ts       # ChartType、ColorPalette、ChartConfig
     │
     └── utils/                 # 工具函数
-        └── pseudo-random.ts   # 确定性伪随机数生成器（正弦哈希）
+        ├── common.ts          # 通用工具函数
+        └── language.ts        # 语言/i18n 辅助函数
 ```
 
 ---
@@ -311,9 +329,10 @@ toggleTheme()
 #### 4. API 调用流程
 
 ```tsx
-import { authApi } from '@/services'
+// Phase 2 示例 — login from auth.service.ts
+import { login } from '@/services/auth.service'
 
-const result = await authApi.login({ phone, code })
+const result = await login({ phone, code })
 // 1. 调用 post<LoginResult>(endpoints.login, params)
 // 2. 请求拦截器 → 注入 Bearer Token（如有）
 // 3. 响应拦截器 → 200: 返回 data | 非200: 转换为 ApiError
@@ -405,24 +424,25 @@ export const visualizationRoutes: AppRouteObject = {
 
 | Namespace | 对应内容 |
 |-----------|----------|
-| `common` | 导航、按钮、品牌名、页脚等全局文案 |
-| `home` | 首页 Hero/Stats/Features |
-| `services` | 生信服务页 |
-| `visualization` | 可视化/图表页 |
-| `multiomics` | 多组学模块 |
-| `academic` | 学术服务页 |
-| `pricing` | 定价套餐页 |
-| `industry-consulting` | 行业咨询 |
-| `contact` | 联系页 |
+| `Global` | 导航、按钮、品牌名、页脚等全局文案 |
+| `Home` | 首页 Hero/Stats/Features |
+| `Bioinformatics` | 生信服务页 |
+| `Visualization` | 可视化/图表页 |
+| `Multiomics` | 多组学模块 |
+| `Academic` | 学术服务页 |
+| `Pricing` | 定价套餐页 |
+| `Consulting` | 行业咨询 |
+| `Contact` | 联系页 |
+| `Errors` | 错误信息 |
 
 ### 使用约定
 
 ```tsx
-// 页面专属 namespace
-const { t } = useTranslation('home')
+// 页面专属 namespace（通过 LANGUAGE_NAMESPACES 常量）
+const { t } = useTranslation(LANGUAGE_NAMESPACES.HOME)
 
-// 同时使用 common namespace（别名 tc）
-const { t: tc } = useTranslation('common')
+// 同时使用 Global namespace（别名 tc）
+const { t: tc } = useTranslation(LANGUAGE_NAMESPACES.GLOBAL)
 
 // 调用
 t('hero.titleLine1')
@@ -436,16 +456,16 @@ tc('action.explore')
 ### 分层架构
 
 ```
-configs/requests.json       ← 配置层：baseURL + endpoints 路径表
-services/http-client.ts     ← 传输层：Axios 实例 + 拦截器 + 便捷方法
-services/error-handler.ts   ← 错误层：ApiError 类 + ErrorCode + 全局处理器
-services/api/*.ts           ← 业务层：按领域分模块的 API 函数
+configs/requests.json           ← 配置层：baseURL + endpoints 路径表
+services/request.service.ts    ← 传输层：Axios 实例 + 拦截器 + 便捷方法
+services/error.service.ts      ← 错误层：ApiError 类 + ErrorCode + 全局处理器
+services/*.service.ts          ← 业务层：按领域分模块的 API 函数（Phase 2 存根）
 ```
 
 ### 请求生命周期
 
 ```
-API 函数调用 (e.g. authApi.login)
+API 函数调用 (e.g. login from auth.service.ts)
   → post<LoginResult>(endpoints.login, params)
     → 请求拦截器
       · 注入 Authorization: Bearer {token}
@@ -570,10 +590,10 @@ export default defineConfig({
 #### 新增 API 接口流程
 
 1. 在 `src/configs/requests.json` 的 `endpoints` 中添加路径
-2. 在 `src/services/api/` 创建或追加模块文件
+2. 在 `src/services/` 下创建或追加 `*.service.ts` 模块文件
 3. 使用 `get<T>` / `post<T>` 等泛型方法，传入 endpoint 路径
 4. 在 `src/types/` 定义请求/响应类型
-5. 在 `src/services/api/index.ts` 中导出
+5. 按需在 `src/services/index.ts` 中导出
 
 #### 组件规范
 
