@@ -16,3 +16,11 @@ export function seededRandom(s: number): number {
 export function isValidValue(value: unknown): boolean {
   return value !== null && value !== undefined;
 }
+
+/**
+ * Checks if the code is running in a browser environment.
+ * @returns True if running in a browser, false otherwise.
+ */
+export function isBrowser(): boolean {
+  return isValidValue(window) && isValidValue(window.localStorage);
+}

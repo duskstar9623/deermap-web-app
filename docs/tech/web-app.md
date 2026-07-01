@@ -206,13 +206,13 @@ deermap-web-app/
     │   └── contact.service.ts # 联系表单 API（Phase 2，当前为接口存根）
     │
     ├── types/                 # 全局类型定义
-    │   ├── index.ts           # 统一 re-export
-    │   ├── common.ts          # Language、LanguageCode、Theme 等通用类型
-    │   ├── services.ts        # 服务层相关类型（LocalStorageService 等）
-    │   └── business/
-    │       ├── user.ts        # User、MembershipTier、AuthState
-    │       ├── order.ts       # Order、OrderStatus、OrderType、PaymentMethod
-    │       └── chart.ts       # ChartType、ColorPalette、ChartConfig
+    │   ├── common.type.ts     # Language、LanguageCode、Theme 等通用类型
+    │   ├── services/
+    │   │   └── localStorage.type.ts  # 服务层相关类型（LocalStorageService 等）
+    │   └── pages/
+    │       ├── user.type.ts   # User、MembershipTier、AuthState
+    │       ├── order.type.ts  # Order、OrderStatus、OrderType、PaymentMethod
+    │       └── chart.type.ts  # ChartType、ColorPalette、ChartConfig
     │
     └── utils/                 # 工具函数
         ├── common.ts          # 通用工具函数

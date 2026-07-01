@@ -6,4 +6,4 @@ export { ApiError, ErrorCode, setGlobalErrorHandler } from './error.service';
 export type { ApiErrorResponse, ErrorHandler } from './error.service';
 
 export { localStorageService } from './localStorage.service';
-export type { LocalStorageService } from '@/types/services';
+export type { LocalStorageService } from '@/types/services/localStorage.type';

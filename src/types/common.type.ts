@@ -1,5 +1,4 @@
-import { LANGUAGES, LANGUAGE_NAMESPACES } from '@/constants/const';
-import { THEME } from '@/constants/const';
+import { LANGUAGES, LANGUAGE_NAMESPACES, THEME } from '@/constants/const';
 
 /*** Language Toggle Related ***/
 export type Language = (typeof LANGUAGES)[keyof typeof LANGUAGES];

@@ -4,7 +4,7 @@ import {
   LANGUAGES, DEFAULT_LANGUAGE_CODE, DEFAULT_LANGUAGE,
   LANGUAGE_NAMESPACES, DEFAULT_LANGUAGE_NAMESPACE
 } from '@/constants/const';
-import type { LanguageCode, Language } from '@/types';
+import type { LanguageCode, Language } from '@/types/common.type';
 import { getLanguageCode, getLanguage, saveLanguageCode } from '@/utils/language';
 import zhCN from './zh-CN';
 

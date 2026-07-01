@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, type ReactNode } from 'react';
 import { THEME, LOCAL_STORAGE_KEYS } from '@/constants/const';
-import type { Theme } from '@/types/common';
+import type { Theme } from '@/types/common.type';
 import { localStorageService } from '@/services/localStorage.service';
 import { ThemeContext } from './theme.context';
 

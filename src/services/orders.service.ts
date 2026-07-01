@@ -4,7 +4,7 @@
  */
 import { get, post } from './request.service';
 import requestsConfig from '@/configs/requests.json';
-import type { Order, OrderType, PaymentMethod } from '@/types';
+import type { Order, OrderType, PaymentMethod } from '@/types/pages/order.type';
 
 const endpoints = requestsConfig.endpoints.orders;
 

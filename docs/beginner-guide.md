@@ -24,7 +24,7 @@
     - [5.9 本地存储服务 `localStorage.service.ts`](#59-本地存储服务-localstorageservicets)
     - [5.10 i18n 多语言 `i18n/index.ts`](#510-i18n-多语言-i18nindexts)
     - [5.11 全局常量 `constants/const.ts`](#511-全局常量-constantsconstts)
-    - [5.12 类型定义 `types/common.ts`](#512-类型定义-typescommonts)
+    - [5.12 类型定义 `types/common.type.ts`](#512-类型定义-typescommonts)
     - [5.13 共享组件 `Button.tsx` / `Card/index.tsx`](#513-共享组件-buttontsx--cardindextsx)
   - [6. 重要设计模式解读](#6-重要设计模式解读)
     - [模式一：Context + Hook 封装](#模式一context--hook-封装)
@@ -289,7 +289,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
 ```tsx
 import { useState, useEffect, useCallback, useMemo, type ReactNode } from 'react';
 import { THEME, LOCAL_STORAGE_KEYS } from '@/constants/const';
-import type { Theme } from '@/types/common';
+import type { Theme } from '@/types/common.type';
 import { localStorageService } from '@/services/localStorage.service';
 import { ThemeContext } from './theme.context';
 
@@ -572,25 +572,39 @@ export function setGlobalErrorHandler(handler) { globalErrorHandler = handler; }
 
 | 问题 | 解决方案 |
 |------|---------|
-| 只能存字符串，无法存对象 | 序列化时用前缀标记，反序列化时自动 JSON.parse |
+| 只能存字符串，无法存对象/数组/数字等 | 写入时 `JSON.stringify`，读取时 `JSON.parse` |
 | 服务端渲染（SSR）会报错 | `isBrowser()` 检查，SSR 环境直接返回默认值 |
 | 存取失败会抛异常 | `try/catch` 捕获，失败时返回 `defaultValue` 或静默失败 |
 
 ```ts
-// 序列化：字符串直接存，对象用前缀 __obj__ + JSON.stringify
-const serialize = <T>(value: T): string | undefined => {
-  if (value === undefined) return undefined;
-  if (typeof value === 'string') return value;
-  return `${LOCAL_STORAGE_OBJECT_PREFIX}${JSON.stringify(value)}`;
-};
+// 读取：取出字符串后 JSON.parse 还原为原始类型
+get<T>(key: string, defaultValue: T): T {
+  if (!isBrowser()) return defaultValue;
 
-// 反序列化：检查前缀，有则 JSON.parse，无则直接返回字符串
-const deserialize = <T>(raw: string): T => {
-  if (raw.startsWith(LOCAL_STORAGE_OBJECT_PREFIX)) {
-    return JSON.parse(raw.slice(LOCAL_STORAGE_OBJECT_PREFIX.length)) as T;
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (raw === null) return defaultValue;
+    return JSON.parse(raw) as T;
+  } catch (error) {
+    console.error(`[localStorage] get failed: ${key}`, error);
+    return defaultValue;
   }
-  return raw as T;
-};
+}
+
+// 写入：所有类型统一 JSON.stringify 后存储；undefined 则删除该 key
+set<T>(key: string, value: T): void {
+  if (!isBrowser()) return;
+
+  try {
+    if (value === undefined) {
+      window.localStorage.removeItem(key);
+      return;
+    }
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.error(`[localStorage] set failed: ${key}`, error);
+  }
+}
 ```
 
 ---
@@ -675,7 +689,7 @@ export const THEME = { LIGHT: 'light', DARK: 'dark' } as const;
 
 ---
 
-### 5.12 类型定义 `types/common.ts`
+### 5.12 类型定义 `types/common.type.ts`
 
 ```ts
 import { LANGUAGES, LANGUAGE_NAMESPACES } from '@/constants/const';

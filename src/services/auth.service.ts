@@ -4,7 +4,7 @@
  */
 import { get, post } from './request.service';
 import requestsConfig from '@/configs/requests.json';
-import type { User } from '@/types';
+import type { User } from '@/types/pages/user.type';
 
 const endpoints = requestsConfig.endpoints.auth;
 

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Globe } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
 import { DEFAULT_LANGUAGE, LANGUAGE_OPTIONS, LANGUAGES } from '@/constants/const';
-import type { Language } from '@/types/common';
+import type { Language } from '@/types/common.type';
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useI18n();

@@ -1,5 +1,5 @@
 import { LANGUAGES, DEFAULT_LANGUAGE_CODE, LOCAL_STORAGE_KEYS } from '@/constants/const';
-import type { LanguageCode, Language } from '@/types';
+import type { LanguageCode, Language } from '@/types/common.type';
 import { localStorageService } from '@/services/localStorage.service';
 
 export function getLanguageCode(): LanguageCode {

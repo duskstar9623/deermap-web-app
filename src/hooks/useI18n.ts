@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import i18n, { loadLanguage } from '@/i18n';
 import { DEFAULT_LANGUAGE, LANGUAGES, LOCAL_STORAGE_KEYS } from '@/constants/const';
-import type { Language } from '@/types/common';
+import type { Language } from '@/types/common.type';
 import { localStorageService } from '@/services/localStorage.service';
 
 /**

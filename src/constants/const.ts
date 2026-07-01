@@ -54,7 +54,6 @@ export const THEME_COLORS = {
 
 /*** Services Related ***/
 export const DEERMAP_STORAGE_PREFIX = 'deermap';
-export const LOCAL_STORAGE_OBJECT_PREFIX = '__obj__';
 
 /*** Others ***/
 export const LOCAL_STORAGE_KEYS = {
