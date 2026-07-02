@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback, useMemo, type ReactNode } from 'react';
 import { THEME, LOCAL_STORAGE_KEYS } from '@/constants/const';
-import type { Theme } from '@/types/common.type';
-import { localStorageService } from '@/services/localStorage.service';
-import { ThemeContext } from './theme.context';
+import localStorageService from '@/services/localStorage.service';
+import { ThemeContext } from './context/theme.context';
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
+import type { Theme } from '@/types/common.type';
+
+const ThemeProvider = ({ children }: { children: ReactNode }) => {
   // 初始化主题状态，优先从 localStorage 获取用户偏好主题，如果没有则默认使用 LIGHT 主题
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === 'undefined') return THEME.LIGHT;
@@ -29,4 +30,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       {children}
     </ThemeContext.Provider>
   );
-}
+};
+
+export default ThemeProvider;

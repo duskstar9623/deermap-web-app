@@ -17,14 +17,13 @@ import axios, {
 import requestsConfig from '@/configs/requests.json';
 import { LOCAL_STORAGE_KEYS } from '@/constants/const';
 import i18n from '@/i18n';
-import { localStorageService } from './localStorage.service';
+import localStorageService from './localStorage.service';
 import {
   ApiError,
   ErrorCode,
-  mapHttpStatusToErrorCode,
-  getGlobalErrorHandler,
   type ApiErrorResponse,
 } from './error.service';
+import errorService from './error.service';
 
 // ─── 通用响应结构 ───────────────────────────────────────────
 export interface ApiResponse<T = unknown> {
@@ -36,17 +35,17 @@ export interface ApiResponse<T = unknown> {
 // ─── Token 存取 ─────────────────────────────────────────────
 const TOKEN_KEY = LOCAL_STORAGE_KEYS.ACCESS_TOKEN;
 
-export function getToken(): string | null {
+const getToken = (): string | null => {
   return localStorageService.get<string | null>(TOKEN_KEY, null);
-}
+};
 
-export function setToken(token: string): void {
+const setToken = (token: string): void => {
   localStorageService.set(TOKEN_KEY, token);
-}
+};
 
-export function removeToken(): void {
+const removeToken = (): void => {
   localStorageService.remove(TOKEN_KEY);
-}
+};
 
 // ─── 创建 axios 实例 ────────────────────────────────────────
 const httpClient: AxiosInstance = axios.create({
@@ -92,7 +91,7 @@ httpClient.interceptors.response.use(
     const apiError = transformError(error);
 
     // 触发全局错误处理
-    const handler = getGlobalErrorHandler();
+    const handler = errorService.getGlobalErrorHandler();
     handler(apiError);
 
     return Promise.reject(apiError);
@@ -118,7 +117,7 @@ function transformError(error: AxiosError<ApiErrorResponse>): ApiError {
 
   // 有响应，根据状态码处理
   const { status, data } = error.response;
-  const code = mapHttpStatusToErrorCode(status);
+  const code = errorService.mapHttpStatusToErrorCode(status);
   const message = data?.message || error.message || translate('http.unknown');
   const details = data?.details;
 
@@ -126,24 +125,36 @@ function transformError(error: AxiosError<ApiErrorResponse>): ApiError {
 }
 
 // ─── 便捷方法 ───────────────────────────────────────────────
-export function get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> {
+const get = <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> => {
   return httpClient.get<ApiResponse<T>>(url, config);
-}
+};
 
-export function post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> {
+const post = <T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> => {
   return httpClient.post<ApiResponse<T>>(url, data, config);
-}
+};
 
-export function put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> {
+const put = <T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> => {
   return httpClient.put<ApiResponse<T>>(url, data, config);
-}
+};
 
-export function patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> {
+const patch = <T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> => {
   return httpClient.patch<ApiResponse<T>>(url, data, config);
-}
+};
 
-export function del<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> {
+const del = <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> => {
   return httpClient.delete<ApiResponse<T>>(url, config);
-}
+};
 
-export default httpClient;
+const requestService = {
+  httpClient,
+  getToken,
+  setToken,
+  removeToken,
+  get,
+  post,
+  put,
+  patch,
+  del,
+};
+
+export default requestService;

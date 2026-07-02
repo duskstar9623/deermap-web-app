@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { localStorageService } from '@/services/localStorage.service';
+import localStorageService from '@/services/localStorage.service';
 
 type SetLocalStorageValue<T> = T | ((previous: T) => T)
 

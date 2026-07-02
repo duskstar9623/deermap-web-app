@@ -1,14 +1,14 @@
 import { useState, useCallback, type ReactNode } from 'react';
 import type { User } from '@/types/pages/user.type';
 import type { AuthState } from '@/types/pages/user.type';
-import { AuthContext } from './auth.context';
+import { AuthContext } from './context/auth.context';
 
 /**
  * Auth provider skeleton.
  * Current implementation: always unauthenticated.
  * Future: integrate with backend auth API (JWT / session).
  */
-export function AuthProvider({ children }: { children: ReactNode }) {
+const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<AuthState>({
     user: null,
     isAuthenticated: false,
@@ -28,4 +28,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
+
+export default AuthProvider;

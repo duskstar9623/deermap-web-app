@@ -2,7 +2,7 @@
  * 订单相关 API
  * @phase Phase 2 — Phase 1 中为接口存根，不集成到应用
  */
-import { get, post } from './request.service';
+import requestService from './request.service';
 import requestsConfig from '@/configs/requests.json';
 import type { Order, OrderType, PaymentMethod } from '@/types/pages/order.type';
 
@@ -33,29 +33,39 @@ export interface PaginatedResult<T> {
 }
 
 /** 获取订单列表 */
-export function getOrders(params?: OrderListParams) {
-  return get<PaginatedResult<Order>>(endpoints.list, { params });
-}
+const getOrders = (params?: OrderListParams) => {
+  return requestService.get<PaginatedResult<Order>>(endpoints.list, { params });
+};
 
 /** 获取订单详情 */
-export function getOrderDetail(id: string) {
+const getOrderDetail = (id: string) => {
   const url = endpoints.detail.replace(':id', id);
-  return get<Order>(url);
-}
+  return requestService.get<Order>(url);
+};
 
 /** 创建订单 */
-export function createOrder(params: CreateOrderParams) {
-  return post<Order>(endpoints.create, params);
-}
+const createOrder = (params: CreateOrderParams) => {
+  return requestService.post<Order>(endpoints.create, params);
+};
 
 /** 取消订单 */
-export function cancelOrder(id: string) {
+const cancelOrder = (id: string) => {
   const url = endpoints.cancel.replace(':id', id);
-  return post<Order>(url);
-}
+  return requestService.post<Order>(url);
+};
 
 /** 发起支付 */
-export function payOrder(id: string, params: PayOrderParams) {
+const payOrder = (id: string, params: PayOrderParams) => {
   const url = endpoints.pay.replace(':id', id);
-  return post<{ paymentUrl: string }>(url, params);
-}
+  return requestService.post<{ paymentUrl: string }>(url, params);
+};
+
+const ordersService = {
+  getOrders,
+  getOrderDetail,
+  createOrder,
+  cancelOrder,
+  payOrder,
+};
+
+export default ordersService;

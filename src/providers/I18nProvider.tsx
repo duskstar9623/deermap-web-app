@@ -7,10 +7,12 @@ import i18n from '@/i18n';
  * Language initialisation is handled once in main.tsx (initializeI18n),
  * so this provider only wires up the i18n instance to the React tree.
  */
-export function I18nProvider({ children }: { children: ReactNode }) {
+const I18nProvider = ({ children }: { children: ReactNode }) => {
   return (
     <I18nextProvider i18n={i18n}>
       {children}
     </I18nextProvider>
   );
-}
+};
+
+export default I18nProvider;

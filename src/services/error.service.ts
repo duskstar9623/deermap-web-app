@@ -62,7 +62,7 @@ export class ApiError extends Error {
 }
 
 /** HTTP 状态码 → ErrorCode 映射 */
-export function mapHttpStatusToErrorCode(status: number): ErrorCode {
+const mapHttpStatusToErrorCode = (status: number): ErrorCode => {
   switch (status) {
     case 401:
       return ErrorCode.UNAUTHORIZED;
@@ -79,7 +79,7 @@ export function mapHttpStatusToErrorCode(status: number): ErrorCode {
     default:
       return status >= 500 ? ErrorCode.SERVER_ERROR : ErrorCode.UNKNOWN;
   }
-}
+};
 
 const translateError = (key: string) => i18n.t(key, { ns: 'errors', defaultValue: '' }) as string;
 
@@ -100,10 +100,18 @@ let globalErrorHandler: ErrorHandler = (error: ApiError) => {
   }
 };
 
-export function setGlobalErrorHandler(handler: ErrorHandler): void {
+const setGlobalErrorHandler = (handler: ErrorHandler): void => {
   globalErrorHandler = handler;
-}
+};
 
-export function getGlobalErrorHandler(): ErrorHandler {
+const getGlobalErrorHandler = (): ErrorHandler => {
   return globalErrorHandler;
-}
+};
+
+const errorService = {
+  mapHttpStatusToErrorCode,
+  setGlobalErrorHandler,
+  getGlobalErrorHandler,
+};
+
+export default errorService;

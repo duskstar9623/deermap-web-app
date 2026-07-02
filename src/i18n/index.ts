@@ -4,9 +4,10 @@ import {
   LANGUAGES, DEFAULT_LANGUAGE_CODE, DEFAULT_LANGUAGE,
   LANGUAGE_NAMESPACES, DEFAULT_LANGUAGE_NAMESPACE
 } from '@/constants/const';
-import type { LanguageCode, Language } from '@/types/common.type';
 import { getLanguageCode, getLanguage, saveLanguageCode } from '@/utils/language';
 import zhCN from './zh-CN';
+
+import type { LanguageCode, Language } from '@/types/common.type';
 
 // 初始化默认语言
 i18n.use(initReactI18next).init({

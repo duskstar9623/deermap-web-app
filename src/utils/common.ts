@@ -22,5 +22,5 @@ export function isValidValue(value: unknown): boolean {
  * @returns True if running in a browser, false otherwise.
  */
 export function isBrowser(): boolean {
-  return isValidValue(window) && isValidValue(window.localStorage);
+  return typeof window !== 'undefined' && typeof window.document !== 'undefined';
 }
