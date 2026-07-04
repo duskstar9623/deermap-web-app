@@ -4,8 +4,8 @@
 
 /*** Language Toggle Related ***/
 export const LANGUAGES = {
-  zh: 'zh-CN',
-  en: 'en-US'
+  'zh-CN': { label: '简体中文', shortLabel: '中', value: 'zh-CN' },
+  'en-US': { label: 'English', shortLabel: 'EN', value: 'en-US' }
 } as const;
 
 export const LANGUAGE_NAMESPACES = {
@@ -21,22 +21,8 @@ export const LANGUAGE_NAMESPACES = {
   ERRORS:         'Errors'
 } as const;
 
-export const DEFAULT_LANGUAGE_CODE = 'zh';
-export const DEFAULT_LANGUAGE = LANGUAGES.zh;
+export const DEFAULT_LANGUAGE = LANGUAGES['zh-CN'].value;
 export const DEFAULT_LANGUAGE_NAMESPACE = LANGUAGE_NAMESPACES.GLOBAL;
-
-export const LANGUAGE_OPTIONS = {
-  [LANGUAGES.zh]: {
-    label: '简体中文',
-    shortLabel: '中',
-    value: Object.keys(LANGUAGES)[0]
-  },
-  [LANGUAGES.en]: {
-    label: 'English',
-    shortLabel: 'EN',
-    value: Object.keys(LANGUAGES)[1]
-  }
-};
 
 /*** Theme Feature Related ***/
 export const THEME = { LIGHT: 'light', DARK: 'dark' } as const;

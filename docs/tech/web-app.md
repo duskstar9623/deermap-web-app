@@ -61,19 +61,18 @@ deermap-web-app/
 │       ├── assets.md          # 静态资源管理规范
 │       ├── improve.md         # 架构改进计划（P0–P4 优先级）
 │       ├── request.md         # HTTP 请求层规范
-│       ├── style-governance-plan.md  # 样式治理计划
 │       └── web-app.md         # 本文件
 │
 ├── public/                    # 不经 Vite 处理的静态资源（直接 copy 到 dist/）
-│   ├── charts/                # 图表类型示例缩略图 (.png)
 │   ├── images/
 │   │   ├── analysis/          # 分析流程配图
 │   │   ├── backgrounds/       # 全屏背景图
 │   │   ├── cards/             # 卡片封面图
 │   │   ├── hero/              # 首页英雄区视频/图片
 │   │   ├── omics/             # 组学领域配图
-│   │   └── workflow/          # 工作流示意图
-│   └── workflow-steps/        # 各组学分步骤配图
+│   │   ├── workflow/          # 工作流示意图
+│   │   ├── charts/            # 图表类型示例缩略图 (.png)
+│   │   └── workflow-steps/    # 各组学分步骤配图
 │
 └── src/                       # 源代码根目录
     ├── main.tsx               # 应用入口：初始化 i18n → 渲染 React 树
@@ -88,7 +87,6 @@ deermap-web-app/
     │   │   ├── logo.svg       # 品牌 Logo（通过 ?react 后缀导入为组件）
     │   │   ├── logo-dark.svg  # 暗色 Logo
     │   │   └── social/        # 社交媒体图标（预留）
-    │   ├── images/            # 需构建处理的图片（预留）
     │   └── svgs/              # 通用 SVG 素材（预留）
     │
     ├── components/            # 可复用组件库
@@ -122,10 +120,11 @@ deermap-web-app/
     ├── providers/             # 全局 Provider
     │   ├── index.tsx          # AppProviders 组合（Theme → I18n → Auth 嵌套顺序）
     │   ├── ThemeProvider.tsx  # 主题 Provider（light/dark，localStorage 持久化）
-    │   ├── theme.context.ts   # Theme Context 定义
     │   ├── I18nProvider.tsx   # i18n Provider（懒加载非默认语言）
     │   ├── AuthProvider.tsx   # 认证 Provider（骨架，Phase 2 对接后端）
-    │   └── auth.context.ts    # Auth Context 定义
+    │   └── context/           # Context 定义
+    │       ├── theme.context.ts   # Theme Context 定义
+    │       └── auth.context.ts    # Auth Context 定义
     │
     ├── configs/               # 运行时配置
     │   └── requests.json      # API 配置（baseURL、timeout、endpoints 路径表）
@@ -136,8 +135,7 @@ deermap-web-app/
     │
     ├── hooks/                 # 自定义 Hooks
     │   ├── useAuth.ts         # 封装 AuthContext 消费 + 空值保护
-    │   ├── useI18n.ts         # 封装 i18next（含 setLocale 懒加载切换）
-    │   ├── useLocalStorage.ts # localStorage 读写 Hook（带类型）
+    │   ├── useI18n.ts         # 供 LanguageSwitcher 读取/切换当前语言
     │   └── useTheme.ts        # 封装 ThemeContext 消费 + 空值保护
     │
     ├── i18n/                  # 国际化配置
@@ -159,11 +157,16 @@ deermap-web-app/
     │
     ├── pages/                 # 页面模块（按功能域划分）
     │   ├── home/
-    │   │   ├── index.tsx      # 首页（Hero 视频 + 数据统计 + 功能卡片）
+    │   │   ├── index.tsx      # 首页编排（组合 Hero / Stats / Features）
     │   │   └── components/
+    │   │       ├── HeroSection.tsx      # 首屏视频 Hero
+    │   │       ├── StatsSection.tsx     # 数据统计展示
+    │   │       └── FeaturesSection.tsx  # 功能卡片区
     │   ├── services/
     │   │   ├── index.tsx      # 生信分析服务页
     │   │   └── components/
+    │   │       ├── ServicesHeroSection.tsx    # 服务页 Hero
+    │   │       └── ServiceCardsSection.tsx    # 服务卡片区
     │   ├── visualization/
     │   │   ├── index.tsx      # 可视化模块布局壳（Outlet 转发）
     │   │   ├── ListPage.tsx   # 图表类型列表页
@@ -181,12 +184,19 @@ deermap-web-app/
     │   ├── academic/
     │   │   ├── index.tsx      # 学术服务页
     │   │   └── components/
+    │   │       ├── AcademicHeroSection.tsx     # 学术页 Hero
+    │   │       └── AcademicServicesSection.tsx # 学术服务卡片区
     │   ├── pricing/
     │   │   ├── index.tsx      # 定价套餐页
     │   │   └── components/
+    │   │       ├── PricingHeroSection.tsx  # 定价页 Hero
+    │   │       └── PricingPlansSection.tsx # 套餐卡片区
     │   └── contact/
     │       ├── index.tsx      # 联系/咨询表单页（Phase 1 静态，Phase 2 对接 API）
     │       └── components/
+    │           ├── ContactHeroSection.tsx # 联系页 Hero
+    │           ├── ContactInfoSection.tsx # 联系信息区
+    │           └── ContactFormSection.tsx # 联系表单区
     │
     ├── router/                # 路由系统
     │   ├── index.tsx          # createBrowserRouter 实例化（组合所有路由）
@@ -197,16 +207,16 @@ deermap-web-app/
     │       └── AuthGuard.tsx  # 路由级鉴权守卫（Phase 2，当前未挂载路由）
     │
     ├── services/              # API 服务层
-    │   ├── index.ts           # 统一导出入口（便捷方法、Token、错误类型）
     │   ├── request.service.ts # Axios 封装（拦截器、Token、错误转换、便捷方法）
     │   ├── error.service.ts   # 统一错误处理（ApiError 类、ErrorCode 枚举）
     │   ├── localStorage.service.ts  # localStorage 读写封装
     │   ├── auth.service.ts    # 认证 API（Phase 2，当前为接口存根）
     │   ├── orders.service.ts  # 订单 API（Phase 2，当前为接口存根）
-    │   └── contact.service.ts # 联系表单 API（Phase 2，当前为接口存根）
+    │   ├── contact.service.ts # 联系表单 API（Phase 2，当前为接口存根）
+    │   └── cookie.service.ts  # Cookie 读写封装（预留）
     │
     ├── types/                 # 全局类型定义
-    │   ├── common.type.ts     # Language、LanguageCode、Theme 等通用类型
+    │   ├── common.ts          # Language、LanguageNamespace、Theme 等通用类型
     │   ├── services/
     │   │   └── localStorage.type.ts  # 服务层相关类型（LocalStorageService 等）
     │   └── pages/
@@ -232,7 +242,8 @@ deermap-web-app/
   └── <script src="/src/main.tsx">
         │
         ├── import './index.css'       → 注入 Tailwind + CSS 变量
-        ├── import './i18n'            → 同步初始化 i18next（zh-CN 内联打包）
+        ├── 动态 import('./i18n')      → 初始化 i18next（zh-CN 内联打包）
+        │     └── initializeI18n()     → 如用户偏好 en-US，异步加载后切换
         └── createRoot(#root).render(
               <StrictMode>
                 <App />                → 进入 React 树
@@ -265,7 +276,7 @@ App
 |------|----------|
 | **代码分割** | 每个页面通过 `lazyPage(() => import('./xxx'))` 动态导入，Vite 自动生成独立 chunk |
 | **页面过渡** | `AnimatePresence` + `PageTransition` 组件实现 fade+slide（opacity 0→1, y 10→0） |
-| **加载态** | `<Suspense fallback={<div className="min-h-screen" />}>` 避免布局抖动 |
+| **加载态** | `<Suspense fallback={<PageSkeleton />}>` 避免布局抖动 |
 | **主题切换** | CSS 变量方案：`[data-theme="dark"]` 覆盖 `:root` 变量，Tailwind 通过 `rgb(var(--color-xxx) / <alpha-value>)` 引用 |
 | **i18n 初始化** | zh-CN 同步打入主包（零延迟）；en-US 仅在用户切换时动态 import 并注册 |
 | **SSR 兼容** | `typeof window === 'undefined'` 检查确保 ThemeProvider 在非浏览器环境不报错 |
@@ -308,11 +319,11 @@ navigate(ROUTES.services)  // 使用集中常量，类型安全
 #### 2. 国际化切换
 
 ```tsx
-const { setLocale } = useI18n()
-await setLocale('en-US')
-// 1. loadLocale('en-US') → 动态 import en-US 资源包
+const { setLanguage } = useI18n()
+await setLanguage('en-US')
+// 1. loadLanguage('en-US') → 动态 import en-US 资源包
 // 2. i18n.changeLanguage('en-US') → 触发全组件树 re-render
-// 3. localStorage.setItem('locale', 'en-US') → 下次刷新保持
+// 3. localStorage.setItem('deermap_language', 'en-US') → 下次刷新保持
 ```
 
 #### 3. 主题切换
@@ -322,7 +333,7 @@ const { toggleTheme } = useTheme()
 toggleTheme()
 // 1. setState → theme 变为 'dark'
 // 2. useEffect → document.documentElement.setAttribute('data-theme', 'dark')
-// 3. localStorage.setItem('theme', 'dark')
+// 3. localStorage.setItem('deermap_theme', 'dark')
 // 4. CSS 变量自动切换 → 所有使用 Tailwind color token 的元素即时变色
 ```
 
@@ -493,9 +504,9 @@ interface ApiResponse<T = unknown> {
 
 ### Token 管理
 
-- 存储位置：`localStorage('access_token')`
+- 存储位置：`localStorage('deermap_jwt_token')`
 - 注入方式：请求拦截器自动读取并添加 `Authorization` 头
-- 导出工具：`getToken()` / `setToken()` / `removeToken()`
+- 导出工具：通过 `requestService.getToken()` / `setToken()` / `removeToken()` 使用
 
 ---
 
@@ -582,18 +593,19 @@ export default defineConfig({
 
 1. 在 `src/pages/<pageName>/` 创建 `index.tsx`（页面主组件）
 2. 在 `src/i18n/zh-CN/` 和 `en-US/` 添加对应 namespace JSON
-3. 在 `src/i18n/*/index.ts` 中注册新 namespace
-4. 在 `src/router/routes.ts` 添加路径常量
-5. 在 `src/router/index.tsx` 添加路由条目（使用 `lazyPage()`）
-6. 如需独立路由树：在页面目录下创建 `routes.tsx` 模块路由
+3. 在 `src/constants/const.ts` 的 `LANGUAGE_NAMESPACES` 中添加新 namespace 常量
+4. 在 `src/i18n/zh-CN/index.ts` 和 `src/i18n/en-US/index.ts` 中导入并聚合新 namespace
+5. 在 `src/router/routes.ts` 添加路径常量
+6. 在 `src/router/index.tsx` 添加路由条目（使用 `lazyPage()`）
+7. 如需独立路由树：在页面目录下创建 `routes.tsx` 模块路由
 
 #### 新增 API 接口流程
 
 1. 在 `src/configs/requests.json` 的 `endpoints` 中添加路径
 2. 在 `src/services/` 下创建或追加 `*.service.ts` 模块文件
-3. 使用 `get<T>` / `post<T>` 等泛型方法，传入 endpoint 路径
+3. 使用 `requestService.get<T>` / `requestService.post<T>` 等泛型方法，传入 endpoint 路径
 4. 在 `src/types/` 定义请求/响应类型
-5. 按需在 `src/services/index.ts` 中导出
+5. 按需在业务组件中通过 `import xxxService from '@/services/xxx.service'` 使用
 
 #### 组件规范
 

@@ -1,5 +1,5 @@
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
-import type { LanguageNamespace } from '@/types/common.type';
+import type { LanguageNamespace } from '@/types/common';
 
 import globalData from './Global.json';
 import homeData from './Home.json';

@@ -2,19 +2,20 @@ import { useState, useEffect, useCallback, useMemo, type ReactNode } from 'react
 import { THEME, LOCAL_STORAGE_KEYS } from '@/constants/const';
 import localStorageService from '@/services/localStorage.service';
 import { ThemeContext } from './context/theme.context';
+import { isBrowser } from '@/utils/common';
 
-import type { Theme } from '@/types/common.type';
+import type { Theme } from '@/types/common';
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   // 初始化主题状态，优先从 localStorage 获取用户偏好主题，如果没有则默认使用 LIGHT 主题
   const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') return THEME.LIGHT;
+    if (!isBrowser()) return THEME.LIGHT;
     return localStorageService.get<Theme>(LOCAL_STORAGE_KEYS.THEME, THEME.LIGHT);
   });
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorageService.set(LOCAL_STORAGE_KEYS.THEME, theme);
+    localStorageService.set<Theme>(LOCAL_STORAGE_KEYS.THEME, theme);
   }, [theme]);
 
   // 缓存 toggleTheme 函数，避免在每次渲染时创建新的函数实例

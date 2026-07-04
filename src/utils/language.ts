@@ -1,18 +1,15 @@
-import { LANGUAGES, DEFAULT_LANGUAGE_CODE, LOCAL_STORAGE_KEYS } from '@/constants/const';
+import { LANGUAGES, DEFAULT_LANGUAGE, LOCAL_STORAGE_KEYS } from '@/constants/const';
 import localStorageService from '@/services/localStorage.service';
+import { isBrowser } from '@/utils/common';
 
-import type { LanguageCode, Language } from '@/types/common.type';
+import type { Language } from '@/types/common';
 
-export function getLanguageCode(): LanguageCode {
-  if (typeof window === 'undefined') return DEFAULT_LANGUAGE_CODE;
-  const saved = localStorageService.get<LanguageCode>(LOCAL_STORAGE_KEYS.LANGUAGE, DEFAULT_LANGUAGE_CODE);
-  return saved in LANGUAGES ? saved : DEFAULT_LANGUAGE_CODE;
+export function getInitLanguage(): Language {
+  if (!isBrowser()) return DEFAULT_LANGUAGE;
+  const savedLanguage = localStorageService.get<Language>(LOCAL_STORAGE_KEYS.LANGUAGE, DEFAULT_LANGUAGE);
+  return savedLanguage in LANGUAGES ? savedLanguage : DEFAULT_LANGUAGE;
 }
 
-export function getLanguage(): Language {
-  return LANGUAGES[getLanguageCode()];
-}
-
-export function saveLanguageCode(code: LanguageCode): void {
-  localStorageService.set<LanguageCode>(LOCAL_STORAGE_KEYS.LANGUAGE, code);
+export function saveLanguage(language: Language): void {
+  localStorageService.set<Language>(LOCAL_STORAGE_KEYS.LANGUAGE, language);
 }

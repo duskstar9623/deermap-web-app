@@ -22,10 +22,10 @@
    - `src/services/__tests__/` — API 层 mock 测试
 4. 首批测试覆盖范围：
    - `useI18n`、`useAuth`、`useTheme` hooks
-   - `http-client.ts` 拦截器逻辑
-   - `error-handler.ts` 错误转换
-   - `lazyPage()` 工具函数
-   - `Card`、`OptimizedImage` 组件渲染
+   - `request.service.ts` 拦截器逻辑
+   - `error.service.ts` 错误转换
+   - `lazyPage()` 工具函数（`src/router/utils.ts`）
+   - `Card`、`OptimizedImage` 组件渲染（`src/components/shared/`）
 5. 在 `package.json` 添加 `"test": "vitest"` 和 `"test:coverage": "vitest --coverage"` 脚本
 6. CI 中集成测试卡点（PR 合并前必须通过）
 
@@ -97,16 +97,15 @@ export async function loadLanguage(language: Language): Promise<void> {
 
 ### 3. 添加错误处理
 ```typescript
-export async function changeLanguage(languageCode: LanguageCode): Promise<void> {
+export async function changeLanguage(language: Language): Promise<void> {
   try {
-    const targetLanguage = LANGUAGES[languageCode];
-    await loadLanguage(targetLanguage);
-    await i18n.changeLanguage(targetLanguage);
-    saveLanguageCode(languageCode);
+    await loadLanguage(language);
+    await i18n.changeLanguage(language);
+    saveLanguage(language);
   } catch (error) {
-    console.error(`Failed to change language to ${languageCode}:`, error);
+    console.error(`Failed to change language to ${language}:`, error);
     // 降级处理：回到默认语言或显示用户提示
-    toast.error('语言切换失败，请稍后重试'); // 需结合 P3 Toast 方案
+    toast.error('语言切换失败，请稍后重试'); // 需结合 P4 Toast 方案
   }
 }
 ```
@@ -120,7 +119,7 @@ export async function changeLanguage(languageCode: LanguageCode): Promise<void> 
 
 ## P2：拆分胖页面组件
 
-**现状**：各页面（如 `home/index.tsx`）将 Hero、Stats、Features 等多个大区块全部内联在单文件中，`pages/*/components/` 目录均为空（仅有 `.gitkeep`）。
+**现状**：Phase 1 早期各页面（如 `home/index.tsx`）将 Hero、Stats、Features 等多个大区块内联在单文件中。当前 `home`、`services`、`academic`、`pricing`、`contact` 等页面已按 Section 拆分为子组件，但 `visualization`、`multiomics` 等复杂页面仍可进一步拆分。
 
 **风险**：随着产品迭代，单页面文件膨胀至 500+ 行，难以维护和协作开发。
 
@@ -149,16 +148,16 @@ src/pages/home/
 
 ## P3：构建原子组件层（Design System 基础）
 
-**现状**：`src/components/shared/` 仅有 Card、Image、WorkflowSection 三个组件，缺少基础 UI 原子组件。页面中大量重复的按钮、表单、弹窗样式直接内联。
+**现状**：`src/components/shared/` 已包含 Button、Input、Select、Modal、Toast、Badge、Skeleton、Tabs、Card、OptimizedImage、WorkflowSection 等基础组件，但组件的 `className` 透传、文档/示例、单元测试覆盖仍需补齐。
 
 **风险**：UI 一致性难以保证，新页面开发效率低，样式修改需全局搜索。
 
 **改进方案**：
 
-建立 `src/components/ui/` 原子组件目录：
+继续强化 `src/components/shared/` 原子组件目录：
 
 ```
-src/components/ui/
+src/components/shared/
 ├── Button.tsx         ← variant: primary | secondary | ghost | outline
 ├── Input.tsx          ← 含 label、error message、disabled 状态
 ├── Select.tsx         ← 下拉选择器
@@ -167,6 +166,9 @@ src/components/ui/
 ├── Badge.tsx          ← 标签/徽章
 ├── Skeleton.tsx       ← 加载骨架屏
 ├── Tabs.tsx           ← 选项卡切换
+├── Card/              ← 通用卡片
+├── Image/             ← 优化图片
+├── WorkflowSection/   ← 组学工作流步骤展示
 └── index.ts           ← 统一导出
 ```
 
@@ -176,13 +178,15 @@ src/components/ui/
 - 动画使用 Framer Motion，保持全站动效一致
 - 组件 API 参考 shadcn/ui 设计，保持简洁
 
-**验收标准**：首页和联系页的所有按钮/输入框替换为 `ui/` 组件，样式一致。
+**验收标准**：
+- 首页和联系页的所有按钮/输入框使用 `shared/` 组件，样式一致
+- 所有 shared 组件具备基础单元测试或渲染快照测试
 
 ---
 
 ## P4：全局 Toast/Notification 接入错误处理
 
-**现状**：`error-handler.ts` 的全局错误处理器仅 `console.warn/error`，用户无法感知 API 错误。
+**现状**：`error.service.ts` 的全局错误处理器仅 `console.warn/error`，用户无法感知 API 错误。
 
 **风险**：用户操作失败（网络超时、表单提交失败等）无任何可见反馈，体验差。
 
@@ -190,7 +194,7 @@ src/components/ui/
 
 1. 实现 `ToastProvider` + `useToast` hook：
    ```tsx
-   // src/components/ui/Toast.tsx — Framer Motion 动画驱动
+   // src/components/shared/Toast.tsx — Framer Motion 动画驱动
    // src/providers/ToastProvider.tsx — 管理 toast 队列
    // src/hooks/useToast.ts — 暴露 toast.success / toast.error / toast.info
    ```
@@ -237,9 +241,9 @@ src/components/ui/
    VITE_APP_ENV=development
    ```
 
-3. 修改 `http-client.ts`：
+3. 修改 `request.service.ts`：
    ```typescript
-   const httpClient = axios.create({
+   const httpClient: AxiosInstance = axios.create({
      baseURL: import.meta.env.VITE_API_BASE_URL,
      timeout: Number(import.meta.env.VITE_API_TIMEOUT) || 15000,
    })
@@ -247,7 +251,7 @@ src/components/ui/
 
 4. `requests.json` 保留 endpoints 路径定义，移除 baseURL/timeout
 
-5. 添加 `src/vite-env.d.ts` 类型增强：
+5. 在已有 `src/vite-env.d.ts` 中补充类型增强：
    ```typescript
    interface ImportMetaEnv {
      readonly VITE_API_BASE_URL: string

@@ -12,13 +12,13 @@ src/
 ├── configs/
 │   └── requests.json            ← API 端点地址 & 全局配置
 └── services/
-    ├── index.ts                 ← 统一出口（导出便捷方法、Token 管理、错误类型）
     ├── request.service.ts       ← axios 实例 + 请求/响应拦截器 + 便捷方法
     ├── error.service.ts         ← ApiError 类 + ErrorCode 枚举 + 全局错误处理器
     ├── localStorage.service.ts  ← localStorage 读写封装
     ├── auth.service.ts          ← 认证 API（Phase 2，当前为接口存根）
     ├── orders.service.ts        ← 订单 API（Phase 2，当前为接口存根）
-    └── contact.service.ts       ← 联系表单 API（Phase 2，当前为接口存根）
+    ├── contact.service.ts       ← 联系表单 API（Phase 2，当前为接口存根）
+    └── cookie.service.ts        ← Cookie 读写封装（预留）
 ```
 
 **设计原则：**
@@ -69,7 +69,7 @@ src/
 
 ### 3.1 请求拦截器
 
-- **Token 注入**：从 `localStorage` 读取 `access_token`，自动附加 `Authorization: Bearer <token>` 请求头
+- **Token 注入**：从 `localStorage` 读取 `deermap_jwt_token`，自动附加 `Authorization: Bearer <token>` 请求头
 - **开发日志**：`DEV` 模式下打印请求方法 + URL
 
 ### 3.2 响应拦截器
@@ -80,28 +80,28 @@ src/
 ### 3.3 便捷方法
 
 ```ts
-import { get, post, put, patch, del } from '@/services'
+import requestService from '@/services/request.service'
 
 // 泛型 T 为 response.data.data 的类型
-const res = await get<User[]>('/users')
+const res = await requestService.get<User[]>('/users')
 const users = res.data.data // 类型为 User[]
 
-// 所有方法签名：
-// get<T>(url, config?) → Promise<AxiosResponse<ApiResponse<T>>>
-// post<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
-// put<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
-// patch<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
-// del<T>(url, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+// 所有方法挂在 requestService 上：
+// requestService.get<T>(url, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+// requestService.post<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+// requestService.put<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+// requestService.patch<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
+// requestService.del<T>(url, config?) → Promise<AxiosResponse<ApiResponse<T>>>
 ```
 
 ### 3.4 Token 管理
 
 ```ts
-import { getToken, setToken, removeToken } from '@/services'
+import requestService from '@/services/request.service'
 
-setToken('eyJhbG...')   // 登录后存储
-getToken()              // 读取
-removeToken()           // 登出时清除
+requestService.setToken('eyJhbG...')   // 登录后存储
+requestService.getToken()              // 读取
+requestService.removeToken()           // 登出时清除
 ```
 
 ---
@@ -129,7 +129,7 @@ class ApiError extends Error {
 | `TIMEOUT` | 请求超时 | 超过 `timeout` 配置 |
 | `CANCELLED` | 请求取消 | 主动 abort |
 | `UNAUTHORIZED` | 未认证 | HTTP 401 |
-| `TOKEN_EXPIRED` | Token 过期 | 后端返回特定 code |
+| `TOKEN_EXPIRED` | Token 过期 | 预留，业务层可依据后端特定 code 触发 |
 | `FORBIDDEN` | 无权限 | HTTP 403 |
 | `NOT_FOUND` | 资源不存在 | HTTP 404 |
 | `CONFLICT` | 资源冲突 | HTTP 409 |
@@ -168,14 +168,14 @@ setGlobalErrorHandler((error: ApiError) => {
 
 ```ts
 // Phase 2 示例 — auth.service.ts
-import { login } from '@/services/auth.service'
-import { setToken } from '@/services'
+import authService from '@/services/auth.service'
+import requestService from '@/services/request.service'
 
 async function handleLogin(phone: string, code: string) {
-  const res = await login({ phone, code })
+  const res = await authService.login({ phone, code })
   const { accessToken, user } = res.data.data
 
-  setToken(accessToken)
+  requestService.setToken(accessToken)
   // 更新用户状态...
 }
 ```
@@ -184,12 +184,12 @@ async function handleLogin(phone: string, code: string) {
 
 ```ts
 // Phase 2 示例 — orders.service.ts
-import { getOrders } from '@/services/orders.service'
-import { ApiError, ErrorCode } from '@/services'
+import ordersService from '@/services/orders.service'
+import { ApiError, ErrorCode } from '@/services/error.service'
 
 async function loadOrders() {
   try {
-    const res = await getOrders({ page: 1, pageSize: 10 })
+    const res = await ordersService.getOrders({ page: 1, pageSize: 10 })
     return res.data.data
   } catch (err) {
     if (err instanceof ApiError) {
@@ -252,7 +252,7 @@ await getOrderDetail('order_abc123')
 
 ## 七、开发环境代理配置
 
-在 `vite.config.ts` 中配置代理以避免跨域：
+当前 `vite.config.ts` 未配置代理。如需避免跨域，可在 `vite.config.ts` 中补充：
 
 ```ts
 export default defineConfig({
@@ -281,11 +281,11 @@ export default defineConfig({
 ### 需要请求取消（如搜索防抖）
 
 ```ts
-import httpClient from '@/services/request.service'
+import requestService from '@/services/request.service'
 
 const controller = new AbortController()
 
-httpClient.get('/search', {
+requestService.httpClient.get('/search', {
   params: { q: keyword },
   signal: controller.signal,
 })
@@ -297,12 +297,12 @@ controller.abort()
 ### 需要文件上传
 
 ```ts
-import { post } from '@/services'
+import requestService from '@/services/request.service'
 
 const formData = new FormData()
 formData.append('file', file)
 
-await post('/media/upload', formData, {
+await requestService.post('/media/upload', formData, {
   headers: { 'Content-Type': 'multipart/form-data' },
   onUploadProgress: (e) => {
     const percent = Math.round((e.loaded * 100) / (e.total ?? 1))

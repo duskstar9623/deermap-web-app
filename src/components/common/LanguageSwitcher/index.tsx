@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { Globe } from 'lucide-react';
 import { useI18n } from '@/hooks/useI18n';
-import { DEFAULT_LANGUAGE, LANGUAGE_OPTIONS, LANGUAGES } from '@/constants/const';
-import type { Language } from '@/types/common.type';
+import { LANGUAGES } from '@/constants/const';
+import type { Language } from '@/types/common';
 
 export function LanguageSwitcher() {
-  const { language, setLanguage } = useI18n();
+  const { currentLanguage, setLanguage } = useI18n();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -24,7 +24,7 @@ export function LanguageSwitcher() {
     setOpen(false);
   };
 
-  const current = LANGUAGE_OPTIONS[language] ?? LANGUAGE_OPTIONS[DEFAULT_LANGUAGE];
+  const current = LANGUAGES[currentLanguage];
 
   return (
     <div ref={ref} className="relative">
@@ -32,7 +32,7 @@ export function LanguageSwitcher() {
         type="button"
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors"
-        aria-label="Switch language"
+        aria-label="Switch currentLanguage"
         aria-expanded={open}
       >
         <Globe className="w-4 h-4" />
@@ -41,16 +41,16 @@ export function LanguageSwitcher() {
 
       {open && (
         <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
-          {Object.values(LANGUAGES).map(code => (
+          {(Object.keys(LANGUAGES) as Language[]).map(code => (
             <button
               key={code}
               type="button"
               onClick={() => handleSelect(code)}
               className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                language === code ? 'text-primary font-medium bg-primary/5' : 'text-gray-700'
+                currentLanguage === code ? 'text-primary font-medium bg-primary/5' : 'text-gray-700'
               }`}
             >
-              {LANGUAGE_OPTIONS[code].label}
+              {LANGUAGES[code].label}
             </button>
           ))}
         </div>

@@ -12,9 +12,9 @@ public/                          ← 不需要构建处理的静态资源（直�
 │   ├── cards/                   ← 卡片封面背景图
 │   ├── analysis/                ← 分析类型配图
 │   ├── omics/                   ← 组学领域主图
-│   └── workflow/                ← 流程大图/Hero 图
-├── charts/                      ← 图表缩略图（40张）
-├── workflow-steps/              ← 流程步骤图（24张）
+│   ├── workflow/                ← 流程大图/Hero 图
+│   ├── charts/                  ← 图表缩略图（40+ 张）
+│   └── workflow-steps/          ← 流程步骤图（24 张）
 └── favicon.ico                  ← 站点图标
 
 src/assets/                      ← 需要 Vite 构建管道处理的资源
@@ -23,8 +23,7 @@ src/assets/                      ← 需要 Vite 构建管道处理的资源
 │   ├── logo.svg                 ← 品牌 Logo
 │   ├── logo-dark.svg            ← 暗色版 Logo
 │   └── social/                  ← 第三方平台图标（预留）
-├── svg/                         ← 装饰性/插画 SVG（预留）
-├── images/                      ← 需要 hash/优化的小图（预留）
+├── svgs/                        ← 装饰性/插画 SVG（预留）
 └── fonts/                       ← 自定义字体（预留）
 ```
 
@@ -153,8 +152,8 @@ import { ASSETS } from '@/constants/assets'
 
 ```tsx
 // 数量多、通过数据循环渲染的，保持直接路径
-{ img: '/charts/volcano.png' }
-{ img: '/workflow-steps/genomics-step1.png' }
+{ img: '/images/charts/volcano.png' }
+{ img: '/images/workflow-steps/genomics-step1.png' }
 ```
 
 ## 字体管理（预留）
