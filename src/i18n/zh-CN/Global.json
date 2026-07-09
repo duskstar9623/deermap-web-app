@@ -1,6 +1,7 @@
 {
   "brand": {
-    "name": "BioInfo Pro"
+    "name": "鹿图科技",
+    "titleSuffix": "鹿图科技"
   },
   "nav": {
     "home": "首页",
@@ -34,6 +35,6 @@
     "contact": "联系",
     "email": "support@bioinfopro.com",
     "phone": "+86 400-123-4567",
-    "rights": "All rights reserved."
+    "rights": "版权所有。"
   }
 }

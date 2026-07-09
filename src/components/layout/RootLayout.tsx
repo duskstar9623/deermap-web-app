@@ -1,17 +1,22 @@
 import { Suspense } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { PageSkeleton } from '@/components/shared';
+import { useRouteHandle } from '@/router/utils/useRouteHandle';
+import { useRouteTitle } from '@/hooks/useRouteTitle';
 
 export function RootLayout() {
   const location = useLocation();
+  const { hideNavbar = false, hideFooter = false } = useRouteHandle();
+
+  useRouteTitle();
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       <main className="pt-0 overflow-y-auto">
         <AnimatePresence mode="wait">
           <PageTransition key={location.pathname}>
@@ -20,8 +25,9 @@ export function RootLayout() {
             </Suspense>
           </PageTransition>
         </AnimatePresence>
-        <Footer />
       </main>
+        {!hideFooter && <Footer />}
+      <ScrollRestoration getKey={(location) => location.pathname} />
     </div>
   );
 }

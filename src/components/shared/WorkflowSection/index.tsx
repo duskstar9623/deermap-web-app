@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { THEME_COLORS } from '@/constants/const';
+import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 import { ASSETS } from '@/constants/assets';
 
 const WORKFLOW_STEPS: Record<string, { num: string; titleKey: string; descKey: string; img: string }[]> = {
@@ -46,7 +46,7 @@ const OMICS_COLOR: Record<string, string> = {
 };
 
 function WorkflowSection({ omicsKey, subtitle }: { omicsKey: string; subtitle: string }) {
-  const { t } = useTranslation('multiomics');
+  const { t } = useTranslation(LANGUAGE_NAMESPACES.MULTIOMICS);
   const steps = WORKFLOW_STEPS[omicsKey] || [];
   const color = OMICS_COLOR[omicsKey] || THEME_COLORS.primary;
 

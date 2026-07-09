@@ -7,8 +7,8 @@ import {
   ScatterChart, Beaker, ArrowRight
 } from 'lucide-react';
 import WorkflowSection from '@/components/shared/WorkflowSection';
-import { ROUTES } from '@/router/routes';
-import { THEME_COLORS } from '@/constants/const';
+import { ROUTES } from '@/router/paths';
+import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 import { ASSETS } from '@/constants/assets';
 
 /* ───────────────────  OmicsPageConfig  ─────────────────── */
@@ -96,8 +96,8 @@ const omicsPageConfigs: Record<string, OmicsPageConfig> = {
 
 function OmicsDetailPage() {
   const navigate = useNavigate();
-  const { t } = useTranslation('multiomics');
-  const { t: tc } = useTranslation('common');
+  const { t } = useTranslation(LANGUAGE_NAMESPACES.MULTIOMICS);
+  const { t: tc } = useTranslation(LANGUAGE_NAMESPACES.GLOBAL);
   const location = useLocation();
   // Derive configKey from URL: /multiomics/genomics → "genomics"
   const configKey = location.pathname.split('/').pop() || 'genomics';

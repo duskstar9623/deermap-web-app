@@ -15,7 +15,7 @@ import axios, {
   AxiosError,
 } from 'axios';
 import requestsConfig from '@/configs/requests.json';
-import { LOCAL_STORAGE_KEYS } from '@/constants/const';
+import { LOCAL_STORAGE_KEYS, LANGUAGE_NAMESPACES } from '@/constants/const';
 import i18n from '@/i18n';
 import localStorageService from './localStorage.service';
 import {
@@ -100,28 +100,29 @@ httpClient.interceptors.response.use(
 
 // ─── 错误转换 ───────────────────────────────────────────────
 function transformError(error: AxiosError<ApiErrorResponse>): ApiError {
-  const translate = (key: string) => i18n.t(key, { ns: 'errors', defaultValue: '' }) as string;
+  const translate = (key: string) => i18n.t(key, { ns: LANGUAGE_NAMESPACES.ERRORS, defaultValue: '' }) as string;
 
   // 请求被取消
   if (axios.isCancel(error)) {
-    return new ApiError(ErrorCode.CANCELLED, translate('http.cancelled'));
+    return new ApiError(ErrorCode.CANCELLED, translate('http.cancelled'), 0, undefined, 'http.cancelled');
   }
 
   // 无响应（网络错误 / 超时）
   if (!error.response) {
     if (error.code === 'ECONNABORTED') {
-      return new ApiError(ErrorCode.TIMEOUT, translate('http.timeout'));
+      return new ApiError(ErrorCode.TIMEOUT, translate('http.timeout'), 0, undefined, 'http.timeout');
     }
-    return new ApiError(ErrorCode.NETWORK_ERROR, translate('http.networkError'));
+    return new ApiError(ErrorCode.NETWORK_ERROR, translate('http.networkError'), 0, undefined, 'http.networkError');
   }
 
   // 有响应，根据状态码处理
   const { status, data } = error.response;
   const code = errorService.mapHttpStatusToErrorCode(status);
-  const message = data?.message || error.message || translate('http.unknown');
+  const fallbackMessageKey = status >= 500 ? 'http.unknown' : undefined;
+  const message = data?.message || (fallbackMessageKey ? translate(fallbackMessageKey) : '') || error.message || translate('http.unknown');
   const details = data?.details;
 
-  return new ApiError(code, message, status, details);
+  return new ApiError(code, message, status, details, fallbackMessageKey);
 }
 
 // ─── 便捷方法 ───────────────────────────────────────────────

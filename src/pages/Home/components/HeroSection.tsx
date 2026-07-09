@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BarChart3, ArrowRight } from 'lucide-react';
-import { ROUTES } from '@/router/routes';
+import { ROUTES } from '@/router/paths';
 import { ASSETS } from '@/constants/assets';
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
 import { Button } from '@/components/shared';
@@ -50,7 +50,7 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Button
-            onClick={() => navigate(ROUTES.services)}
+            onClick={() => navigate(ROUTES.bioinformatics)}
             className="px-8 py-4 bg-white text-primary rounded-xl font-medium flex items-center space-x-2 hover:bg-blue-50 transition-colors shadow-lg"
           >
             <span>{tc('action.explore')}</span><ArrowRight className="w-5 h-5" />

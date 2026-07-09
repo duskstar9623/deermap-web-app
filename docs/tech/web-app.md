@@ -311,7 +311,7 @@ App
 
 ```tsx
 const navigate = useNavigate()
-navigate(ROUTES.services)  // 使用集中常量，类型安全
+navigate(ROUTES.bioinformatics)  // 使用集中常量，类型安全
 ```
 
 - 导航触发 → React Router 匹配路由 → `lazy()` 加载模块 → `Suspense` 等待 → `PageTransition` 动画入场

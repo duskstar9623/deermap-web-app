@@ -1,6 +1,7 @@
 {
   "brand": {
-    "name": "BioInfo Pro"
+    "name": "Deermap",
+    "titleSuffix": "鹿图科技"
   },
   "nav": {
     "home": "Home",

@@ -9,7 +9,7 @@ import {
 import { Upload, Download, Zap, Check, Settings } from 'lucide-react';
 import { seededRandom } from '@/utils/common';
 import { CHART_TYPES, DEMO_LINE_DATA, COLOR_PALETTES, getChartI18nKey } from './config';
-import { THEME_COLORS } from '@/constants/const';
+import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 
 function LiveChart({
   chartId,
@@ -32,7 +32,7 @@ function LiveChart({
   axisXLength: number
   axisYLength: number
 }) {
-  const { t } = useTranslation('visualization');
+  const { t } = useTranslation(LANGUAGE_NAMESPACES.VISUALIZATION);
   const chartKey = getChartI18nKey(chartId);
   const c = (key: string) => t(`charts.common.${key}`);
   const ch = (key: string) => t(`charts.${chartKey}.${key}`);
@@ -76,12 +76,12 @@ function LiveChart({
   // ====== ??? ======
   if (chartId === 'bar') {
     const data = [
-      { x: 'Sample 1', a: 85, b: 62 },
-      { x: 'Sample 2', a: 72, b: 78 },
-      { x: 'Sample 3', a: 90, b: 55 },
-      { x: 'Sample 4', a: 68, b: 88 },
-      { x: 'Sample 5', a: 78, b: 70 },
-      { x: 'Sample 6', a: 82, b: 75 },
+      { x: `${c('samplePrefix')} 1`, a: 85, b: 62 },
+      { x: `${c('samplePrefix')} 2`, a: 72, b: 78 },
+      { x: `${c('samplePrefix')} 3`, a: 90, b: 55 },
+      { x: `${c('samplePrefix')} 4`, a: 68, b: 88 },
+      { x: `${c('samplePrefix')} 5`, a: 78, b: 70 },
+      { x: `${c('samplePrefix')} 6`, a: 82, b: 75 },
     ];
     return (
       <ResponsiveContainer width={w} height={h}>
@@ -200,12 +200,12 @@ function LiveChart({
   // ====== ??? ======
   if (chartId === 'area') {
     const data = [
-      { x: 'T1', a: 30, b: 25, c: 20 },
-      { x: 'T2', a: 45, b: 35, c: 25 },
-      { x: 'T3', a: 55, b: 40, c: 35 },
-      { x: 'T4', a: 50, b: 48, c: 40 },
-      { x: 'T5', a: 65, b: 52, c: 45 },
-      { x: 'T6', a: 70, b: 55, c: 50 },
+      { x: `${c('timePrefix')} 1`, a: 30, b: 25, c: 20 },
+      { x: `${c('timePrefix')} 2`, a: 45, b: 35, c: 25 },
+      { x: `${c('timePrefix')} 3`, a: 55, b: 40, c: 35 },
+      { x: `${c('timePrefix')} 4`, a: 50, b: 48, c: 40 },
+      { x: `${c('timePrefix')} 5`, a: 65, b: 52, c: 45 },
+      { x: `${c('timePrefix')} 6`, a: 70, b: 55, c: 50 },
     ];
     return (
       <ResponsiveContainer width={w} height={h}>
@@ -225,11 +225,11 @@ function LiveChart({
   // ====== ????? ======
   if (chartId === 'stackedbar') {
     const data = [
-      { x: 'S1', a: 35, b: 25, c: 20, d: 12, e: 8 },
-      { x: 'S2', a: 30, b: 28, c: 18, d: 15, e: 9 },
-      { x: 'S3', a: 32, b: 22, c: 25, d: 10, e: 11 },
-      { x: 'S4', a: 28, b: 30, c: 22, d: 13, e: 7 },
-      { x: 'S5', a: 33, b: 26, c: 19, d: 14, e: 8 },
+      { x: `${c('seqPrefix')} 1`, a: 35, b: 25, c: 20, d: 12, e: 8 },
+      { x: `${c('seqPrefix')} 2`, a: 30, b: 28, c: 18, d: 15, e: 9 },
+      { x: `${c('seqPrefix')} 3`, a: 32, b: 22, c: 25, d: 10, e: 11 },
+      { x: `${c('seqPrefix')} 4`, a: 28, b: 30, c: 22, d: 13, e: 7 },
+      { x: `${c('seqPrefix')} 5`, a: 33, b: 26, c: 19, d: 14, e: 8 },
     ];
     return (
       <ResponsiveContainer width={w} height={h}>
@@ -471,7 +471,7 @@ function LiveChart({
   if (chartId === 'waterfall') {
     const data = Array.from({ length: 30 }, (_, i) => {
       const val = Math.round((seededRandom(i * 0.3) * 60 - 25) * 10) / 10;
-      return { x: `P${i + 1}`, val, color: val > 0 ? C[0] : C[1] };
+      return { x: `${c('patientPrefix')}${i + 1}`, val, color: val > 0 ? C[0] : C[1] };
     }).reduce<Array<{ x: string; val: number; prev: number; cum: number; color: string }>>((acc, item, i) => {
       const prev = i === 0 ? 0 : acc[i - 1].cum;
       const cum = Math.round((prev + item.val) * 10) / 10;
@@ -668,8 +668,8 @@ function LiveChart({
   // ====== ???? ======
   if (chartId === 'errorbar') {
     const data = [
-      { x: 'Gene A', val: 85, err: 5 }, { x: 'Gene B', val: 72, err: 8 }, { x: 'Gene C', val: 90, err: 4 },
-      { x: 'Gene D', val: 68, err: 10 }, { x: 'Gene E', val: 78, err: 6 }, { x: 'Gene F', val: 82, err: 7 },
+      { x: c('genes.a'), val: 85, err: 5 }, { x: c('genes.b'), val: 72, err: 8 }, { x: c('genes.c'), val: 90, err: 4 },
+      { x: c('genes.d'), val: 68, err: 10 }, { x: c('genes.e'), val: 78, err: 6 }, { x: c('genes.f'), val: 82, err: 7 },
     ];
     return (
       <ResponsiveContainer width={w} height={h}>
@@ -929,7 +929,7 @@ function LiveChart({
             <text x={45} y={30 + i * bandH + bandH * 0.5} textAnchor="end" style={{ fontSize: tickFontSize, fill: '#555' }}>chr{c as string}</text>
           </g>
         ))}
-        <text x={w / 2} y={h - 5} textAnchor="middle" style={{ fontSize: xAxisFontSize, fill: '#555' }}>Position (Mb)</text>
+        <text x={w / 2} y={h - 5} textAnchor="middle" style={{ fontSize: xAxisFontSize, fill: '#555' }}>{ch('xAxis')}</text>
       </svg>
     );
   }
@@ -1014,7 +1014,7 @@ function LiveChart({
             {indices.slice(0, -1).map((ei, i) => (
               <line key={i} x1={exons[ei][1]} y1={112 + ii * 50} x2={exons[indices[i + 1]][0]} y2={112 + ii * 50} stroke={colors_iso[ii]} strokeWidth={2} />
             ))}
-            <text x={10} y={117 + ii * 50} style={{ fontSize: tickFontSize, fill: '#555' }}>Iso {ii + 1}</text>
+            <text x={10} y={117 + ii * 50} style={{ fontSize: tickFontSize, fill: '#555' }}>{`${c('isoformPrefix')} ${ii + 1}`}</text>
           </g>
         ))}
         <text x={w / 2} y={20} textAnchor="middle" style={{ fontSize: titleFontSize, fontWeight: 'bold', fill: THEME_COLORS.primary }}>{ch('title')}</text>
@@ -1025,7 +1025,7 @@ function LiveChart({
   // ====== ?????? ======
   if (chartId === 'methylation') {
     const data = Array.from({ length: 20 }, (_, i) => ({
-      x: `CpG${i + 1}`,
+      x: `${c('cpgPrefix')}${i + 1}`,
       normal: Math.round(seededRandom(i * 0.3) * 40 + 20),
       tumor: Math.round(seededRandom(i * 0.3 + 50) * 50 + 40),
     }));
@@ -1080,7 +1080,7 @@ function LiveChart({
           ))
         )}
         {seqs.map((_, i) => (
-          <text key={i} x={45} y={30 + i * cellH + cellH / 2 + 4} textAnchor="end" style={{ fontSize: tickFontSize, fill: '#555' }}>{i === 0 ? ch('ref') : `S${i}`}</text>
+          <text key={i} x={45} y={30 + i * cellH + cellH / 2 + 4} textAnchor="end" style={{ fontSize: tickFontSize, fill: '#555' }}>{i === 0 ? ch('ref') : `${c('seqPrefix')}${i}`}</text>
         ))}
         <text x={w / 2} y={20} textAnchor="middle" style={{ fontSize: titleFontSize, fontWeight: 'bold', fill: THEME_COLORS.primary }}>{ch('title')}</text>
       </svg>
@@ -1104,8 +1104,8 @@ function LiveChart({
 }
 
 function ChartToolPage() {
-  const { t } = useTranslation('visualization');
-  const { t: tc } = useTranslation('common');
+  const { t } = useTranslation(LANGUAGE_NAMESPACES.VISUALIZATION);
+  const { t: tc } = useTranslation(LANGUAGE_NAMESPACES.GLOBAL);
   const [selectedChart, setSelectedChart] = useState(CHART_TYPES[0]);
   const [dataInput, setDataInput] = useState('');
   const [showPreview, setShowPreview] = useState(false);

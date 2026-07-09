@@ -2,6 +2,7 @@
  * API 错误类型定义与统一错误处理
  */
 import i18n from '@/i18n';
+import { LANGUAGE_NAMESPACES } from '@/constants/const';
 
 /** 后端标准错误响应结构 */
 export interface ApiErrorResponse {
@@ -36,18 +37,21 @@ export class ApiError extends Error {
   readonly code: ErrorCode;
   readonly status: number;
   readonly details?: Record<string, unknown>;
+  readonly messageKey?: string;
 
   constructor(
     code: ErrorCode,
     message: string,
     status: number = 0,
     details?: Record<string, unknown>,
+    messageKey?: string,
   ) {
     super(message);
     this.name = 'ApiError';
     this.code = code;
     this.status = status;
     this.details = details;
+    this.messageKey = messageKey;
   }
 
   /** 是否为认证错误（需要重新登录） */
@@ -81,7 +85,14 @@ const mapHttpStatusToErrorCode = (status: number): ErrorCode => {
   }
 };
 
-const translateError = (key: string) => i18n.t(key, { ns: 'errors', defaultValue: '' }) as string;
+const translateError = (key: string) => i18n.t(key, { ns: LANGUAGE_NAMESPACES.ERRORS, defaultValue: '' }) as string;
+
+const getErrorMessage = (error: ApiError): string => {
+  if (error.messageKey) {
+    return translateError(error.messageKey) || error.message;
+  }
+  return error.message;
+};
 
 /**
  * 全局错误处理器
@@ -90,13 +101,15 @@ const translateError = (key: string) => i18n.t(key, { ns: 'errors', defaultValue
 export type ErrorHandler = (error: ApiError) => void
 
 let globalErrorHandler: ErrorHandler = (error: ApiError) => {
+  const message = getErrorMessage(error);
+
   // 默认行为：控制台输出，实际项目中可接入 toast/notification
   if (error.isAuthError) {
-    console.warn('[API]', translateError('console.authWarning'), error.message);
+    console.warn('[API]', translateError('console.authWarning'), message);
   } else if (error.isNetworkError) {
-    console.warn('[API]', translateError('console.networkWarning'), error.message);
+    console.warn('[API]', translateError('console.networkWarning'), message);
   } else {
-    console.error('[API]', translateError('console.requestError'), error.code, error.message);
+    console.error('[API]', translateError('console.requestError'), error.code, message);
   }
 };
 

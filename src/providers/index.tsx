@@ -1,6 +1,6 @@
 import ThemeProvider from './ThemeProvider';
 import I18nProvider from './I18nProvider';
-import AuthProvider from './AuthProvider';
+// import AuthProvider from './AuthProvider';
 
 import type { ComponentType, ReactNode } from 'react';
 
@@ -10,7 +10,7 @@ type AppProvider = ComponentType<{ children: ReactNode }>;
 const providers: AppProvider[] = [
   ThemeProvider,
   I18nProvider,
-  AuthProvider
+  // AuthProvider
 ];
 
 /**

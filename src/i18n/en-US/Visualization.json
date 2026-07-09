@@ -302,7 +302,14 @@
         "Leading-edge genes"
       ]
     },
-    "correlation": {},
+    "correlation": {
+      "desc": "Shows correlation coefficient matrix between multiple variables",
+      "tags": [
+        "Correlation matrix",
+        "Value labels",
+        "Significance markers"
+      ]
+    },
     "kmeans": {
       "desc": "Shows K-means clustering group results",
       "tags": [

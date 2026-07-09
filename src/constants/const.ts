@@ -45,5 +45,6 @@ export const DEERMAP_STORAGE_PREFIX = 'deermap';
 export const LOCAL_STORAGE_KEYS = {
   THEME: `${DEERMAP_STORAGE_PREFIX}_theme`,
   LANGUAGE: `${DEERMAP_STORAGE_PREFIX}_language`,
+  CHUNK_RETRY: `${DEERMAP_STORAGE_PREFIX}_chunk_retry`,
   ACCESS_TOKEN: `${DEERMAP_STORAGE_PREFIX}_jwt_token`
 } as const;

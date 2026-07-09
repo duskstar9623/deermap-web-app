@@ -2,13 +2,13 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Dna, Activity, Target, Beaker, ArrowRight } from 'lucide-react';
-import { ROUTES } from '@/router/routes';
-import { THEME_COLORS } from '@/constants/const';
+import { ROUTES } from '@/router/paths';
+import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 import { ASSETS } from '@/constants/assets';
 
 function MultiomicsListPage() {
   const navigate = useNavigate();
-  const { t } = useTranslation('multiomics');
+  const { t } = useTranslation(LANGUAGE_NAMESPACES.MULTIOMICS);
   const omicsTypes = [
     { titleKey: 'omics.genomics.title', descKey: 'omics.genomics.desc', icon: Dna, color: THEME_COLORS.primary, bgImage: ASSETS.cards.genomics, route: ROUTES.genomics },
     { titleKey: 'omics.transcriptomics.title', descKey: 'omics.transcriptomics.desc', icon: Activity, color: THEME_COLORS.transcriptomics, bgImage: ASSETS.cards.transcriptomics, route: ROUTES.transcriptomics },

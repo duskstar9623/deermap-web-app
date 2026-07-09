@@ -4,12 +4,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { Logo } from '@/assets/icons';
-import { ROUTES } from '@/router/routes';
+import { ROUTES } from '@/router/paths';
+import { LANGUAGE_NAMESPACES } from '@/constants/const';
 // import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
 
 const NAV_LINKS = [
   { path: ROUTES.home, labelKey: 'nav.home' },
-  { path: ROUTES.services, labelKey: 'nav.services' },
+  { path: ROUTES.bioinformatics, labelKey: 'nav.services' },
   { path: ROUTES.visualization, labelKey: 'nav.visualization' },
   { path: ROUTES.multiomics, labelKey: 'nav.multiomics' },
   { path: ROUTES.academic, labelKey: 'nav.academic' },
@@ -18,7 +19,7 @@ const NAV_LINKS = [
 ] as const;
 
 function Navbar() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(LANGUAGE_NAMESPACES.GLOBAL);
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 

@@ -414,8 +414,12 @@
       "clusterPrefix": "聚类",
       "cellPrefix": "细胞类型",
       "samplePrefix": "样本",
+      "timePrefix": "T",
+      "patientPrefix": "P",
       "genePrefix": "基因",
       "isoformPrefix": "异构体",
+      "cpgPrefix": "CpG",
+      "seqPrefix": "S",
       "series": {
         "a": "系列 A",
         "b": "系列 B",
@@ -427,7 +431,9 @@
         "a": "基因 A",
         "b": "基因 B",
         "c": "基因 C",
-        "d": "基因 D"
+        "d": "基因 D",
+        "e": "基因 E",
+        "f": "基因 F"
       },
       "pathways": {
         "a": "通路 A",

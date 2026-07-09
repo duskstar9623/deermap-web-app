@@ -2,12 +2,13 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CHART_TYPES, getChartI18nKey } from './config';
-import { ROUTES } from '@/router/routes';
+import { ROUTES } from '@/router/paths';
 import { ASSETS } from '@/constants/assets';
+import { LANGUAGE_NAMESPACES } from '@/constants/const';
 
 function VisualizationListPage() {
   const navigate = useNavigate();
-  const { t } = useTranslation('visualization');
+  const { t } = useTranslation(LANGUAGE_NAMESPACES.VISUALIZATION);
   return (
     <div className="min-h-screen pt-20">
       <section className="relative py-20 bg-gradient-to-br from-primary-light to-accent overflow-hidden">
@@ -33,6 +34,8 @@ function VisualizationListPage() {
             {CHART_TYPES.map((c, i) => {
               const i18nKey = getChartI18nKey(c.id);
               const chartName = t(`data.${i18nKey}`);
+              const tags = t(`descriptions.${i18nKey}.tags`, { returnObjects: true });
+              const tagList = Array.isArray(tags) ? tags.slice(0, 3) : [];
               return (
                 <motion.div key={c.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.03 }} viewport={{ once: true }}
@@ -45,7 +48,7 @@ function VisualizationListPage() {
                     <h4 className="font-bold text-primary mb-1">{chartName}</h4>
                     <p className="text-gray-500 text-sm mb-2">{t(`descriptions.${i18nKey}.desc`)}</p>
                     <div className="flex flex-wrap gap-1">
-                      {(t(`descriptions.${i18nKey}.tags`, { returnObjects: true }) as string[]).slice(0, 3).map((tag: string) => (
+                      {tagList.map((tag: string) => (
                         <span key={tag} className="px-2 py-0.5 bg-blue-50 text-primary-light text-xs rounded-md">{tag}</span>
                       ))}
                     </div>

@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Logo } from '@/assets/icons';
-import { ROUTES } from '@/router/routes';
+import { ROUTES } from '@/router/paths';
+import { LANGUAGE_NAMESPACES } from '@/constants/const';
 
 function Footer() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(LANGUAGE_NAMESPACES.GLOBAL);
 
   return (
     <footer className="bg-primary text-white py-12">
@@ -20,7 +21,7 @@ function Footer() {
           <div>
             <h4 className="font-semibold mb-3">{t('footer.services')}</h4>
             <ul className="space-y-2 text-sm text-white/60">
-              <li><Link to={ROUTES.services} className="hover:text-white">{t('nav.services')}</Link></li>
+              <li><Link to={ROUTES.bioinformatics} className="hover:text-white">{t('nav.services')}</Link></li>
               <li><Link to={ROUTES.visualization} className="hover:text-white">{t('nav.visualization')}</Link></li>
               <li><Link to={ROUTES.multiomics} className="hover:text-white">{t('nav.multiomics')}</Link></li>
               <li><Link to={ROUTES.academic} className="hover:text-white">{t('nav.academic')}</Link></li>
