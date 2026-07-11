@@ -311,7 +311,7 @@ App
 
 ```tsx
 const navigate = useNavigate()
-navigate(ROUTES.bioinformatics)  // 使用集中常量，类型安全
+navigate(ROUTES.Bioinformatics)  // Use centralized constants for type safety
 ```
 
 - 导航触发 → React Router 匹配路由 → `lazy()` 加载模块 → `Suspense` 等待 → `PageTransition` 动画入场
@@ -321,9 +321,9 @@ navigate(ROUTES.bioinformatics)  // 使用集中常量，类型安全
 ```tsx
 const { setLanguage } = useI18n()
 await setLanguage('en-US')
-// 1. loadLanguage('en-US') → 动态 import en-US 资源包
-// 2. i18n.changeLanguage('en-US') → 触发全组件树 re-render
-// 3. localStorage.setItem('deermap_language', 'en-US') → 下次刷新保持
+// 1. loadLanguage('en-US') → dynamically import the en-US resource bundle
+// 2. i18n.changeLanguage('en-US') → triggers a full component tree re-render
+// 3. localStorage.setItem('deermap_language', 'en-US') → persisted across refreshes
 ```
 
 #### 3. 主题切换
@@ -331,23 +331,23 @@ await setLanguage('en-US')
 ```tsx
 const { toggleTheme } = useTheme()
 toggleTheme()
-// 1. setState → theme 变为 'dark'
+// 1. setState → theme becomes 'dark'
 // 2. useEffect → document.documentElement.setAttribute('data-theme', 'dark')
 // 3. localStorage.setItem('deermap_theme', 'dark')
-// 4. CSS 变量自动切换 → 所有使用 Tailwind color token 的元素即时变色
+// 4. CSS variables automatically switch → all elements using Tailwind color tokens update instantly
 ```
 
 #### 4. API 调用流程
 
 ```tsx
-// Phase 2 示例 — login from auth.service.ts
+// Phase 2 example — login from auth.service.ts
 import { login } from '@/services/auth.service'
 
 const result = await login({ phone, code })
-// 1. 调用 post<LoginResult>(endpoints.login, params)
-// 2. 请求拦截器 → 注入 Bearer Token（如有）
-// 3. 响应拦截器 → 200: 返回 data | 非200: 转换为 ApiError
-// 4. 全局错误处理器被触发（可用于统一 toast 提示）
+// 1. Call post<LoginResult>(endpoints.login, params)
+// 2. Request interceptor → inject Bearer Token (if available)
+// 3. Response interceptor → 200: return data | non-200: transform to ApiError
+// 4. Global error handler is triggered (can be used for unified toast notifications)
 ```
 
 #### 5. 路由守卫
@@ -356,13 +356,13 @@ const result = await login({ phone, code })
 <AuthGuard>
   <ProtectedPage />
 </AuthGuard>
-// 消费 useAuth() → 未登录时 Navigate to="/" replace
+// Consume useAuth() → when not logged in, Navigate to="/" replace
 ```
 
 #### 6. 列表交互 + 动画
 
 ```tsx
-// 典型 stagger 模式（卡片列表逐个入场）
+// Typical stagger pattern (card list enters one by one)
 {items.map((item, i) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
@@ -411,7 +411,7 @@ const result = await login({ phone, code })
 // src/pages/visualization/routes.tsx
 export const visualizationRoutes: AppRouteObject = {
   path: '/visualization',
-  lazy: lazyPage(() => import('./index')),  // Layout 壳
+  lazy: lazyPage(() => import('./index')),  // Layout shell
   children: [
     { index: true, lazy: lazyPage(() => import('./ListPage')) },
     { path: 'chart-tool', lazy: lazyPage(() => import('./ChartToolPage')) },
@@ -449,13 +449,13 @@ export const visualizationRoutes: AppRouteObject = {
 ### 使用约定
 
 ```tsx
-// 页面专属 namespace（通过 LANGUAGE_NAMESPACES 常量）
+// Page-specific namespace (via LANGUAGE_NAMESPACES constant)
 const { t } = useTranslation(LANGUAGE_NAMESPACES.HOME)
 
-// 同时使用 Global namespace（别名 tc）
+// Also use the Global namespace (alias tc)
 const { t: tc } = useTranslation(LANGUAGE_NAMESPACES.GLOBAL)
 
-// 调用
+// Call
 t('hero.titleLine1')
 tc('action.explore')
 ```
@@ -470,7 +470,7 @@ tc('action.explore')
 configs/requests.json           ← 配置层：baseURL + endpoints 路径表
 services/request.service.ts    ← 传输层：Axios 实例 + 拦截器 + 便捷方法
 services/error.service.ts      ← 错误层：ApiError 类 + ErrorCode + 全局处理器
-services/*.service.ts          ← 业务层：按领域分模块的 API 函数（Phase 2 存根）
+services/*.service.ts          ← Business layer: domain-modularized API functions (Phase 2 stubs)
 ```
 
 ### 请求生命周期
@@ -622,7 +622,7 @@ export default defineConfig({
 // tsconfig.json
 "paths": { "@/*": ["./src/*"] }
 
-// 使用
+// Usage
 import { ROUTES } from '@/router/routes'
 ```
 

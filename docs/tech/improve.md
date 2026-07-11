@@ -49,7 +49,7 @@
 
 ### 1. 强化 `loadLanguage` 检查逻辑
 ```typescript
-// 检查目标语言的所有命名空间是否已加载
+// Check whether all namespaces for the target language are loaded
 function isLanguageFullyLoaded(language: Language): boolean {
   return Object.values(LANGUAGE_NAMESPACES).every(ns => 
     i18n.hasResourceBundle(language, ns)
@@ -58,21 +58,21 @@ function isLanguageFullyLoaded(language: Language): boolean {
 
 export async function loadLanguage(language: Language): Promise<void> {
   if (language === DEFAULT_LANGUAGE) return;
-  if (isLanguageFullyLoaded(language)) return; // 确保所有命名空间都已加载
-  // ... 加载逻辑
+  if (isLanguageFullyLoaded(language)) return; // Ensure all namespaces are loaded
+  // ... loading logic
 }
 ```
 
 ### 2. 去重并发加载
 ```typescript
-// 记录正在进行中的加载操作
+// Track in-progress loading operations
 const loadingPromises = new Map<Language, Promise<void>>();
 
 export async function loadLanguage(language: Language): Promise<void> {
   if (language === DEFAULT_LANGUAGE) return;
   if (isLanguageFullyLoaded(language)) return;
   
-  // 如果该语言已在加载中，复用现有的 Promise
+  // If the language is already loading, reuse the existing Promise
   if (loadingPromises.has(language)) {
     return loadingPromises.get(language)!;
   }
@@ -104,8 +104,8 @@ export async function changeLanguage(language: Language): Promise<void> {
     saveLanguage(language);
   } catch (error) {
     console.error(`Failed to change language to ${language}:`, error);
-    // 降级处理：回到默认语言或显示用户提示
-    toast.error('语言切换失败，请稍后重试'); // 需结合 P4 Toast 方案
+    // Fallback: revert to default language or show user prompt
+    toast.error('Language switch failed, please try again later'); // Requires the P4 Toast solution
   }
 }
 ```
@@ -194,9 +194,9 @@ src/components/shared/
 
 1. 实现 `ToastProvider` + `useToast` hook：
    ```tsx
-   // src/components/shared/Toast.tsx — Framer Motion 动画驱动
-   // src/providers/ToastProvider.tsx — 管理 toast 队列
-   // src/hooks/useToast.ts — 暴露 toast.success / toast.error / toast.info
+   // src/components/shared/Toast.tsx — Framer Motion animation driven
+   // src/providers/ToastProvider.tsx — Manages the toast queue
+   // src/hooks/useToast.ts — Exposes toast.success / toast.error / toast.info
    ```
 
 2. 在 `AppProviders` 中注入 `ToastProvider`
@@ -206,7 +206,7 @@ src/components/shared/
    setGlobalErrorHandler((error) => {
      if (error.isAuthError) {
        toast.error('登录已过期，请重新登录')
-       // 跳转登录页
+       // Redirect to login page
      } else if (error.isNetworkError) {
        toast.error('网络异常，请检查连接')
      } else {

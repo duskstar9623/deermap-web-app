@@ -3,12 +3,12 @@ import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import { PageTransition } from '@/components/layout/PageTransition';
-import { PageSkeleton } from '@/components/shared';
+import PageTransition from '@/components/layout/PageTransition';
+import PageSkeleton from '@/components/shared/PageSkeleton';
 import { useRouteHandle } from '@/router/utils/useRouteHandle';
-import { useRouteTitle } from '@/hooks/useRouteTitle';
+import useRouteTitle from '@/hooks/useRouteTitle';
 
-export function RootLayout() {
+export default function RootLayout() {
   const location = useLocation();
   const { hideNavbar = false, hideFooter = false } = useRouteHandle();
 

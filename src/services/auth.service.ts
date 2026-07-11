@@ -1,6 +1,6 @@
 /**
- * 认证相关 API
- * @phase Phase 2 — Phase 1 中为接口存根，不集成到应用
+ * Authentication-related APIs
+ * @phase Phase 2 — Interface stubs in Phase 1, not integrated into the app
  */
 import requestService from './request.service';
 import requestsConfig from '@/configs/requests.json';
@@ -18,32 +18,32 @@ export interface LoginResult {
   user: User
 }
 
-/** 手机号 + 验证码登录 */
+/** Login with phone number + verification code */
 const login = (params: LoginByPhoneParams) => {
   return requestService.post<LoginResult>(endpoints.login, params);
 };
 
-/** 登出 */
+/** Log out */
 const logout = () => {
   return requestService.post<null>(endpoints.logout);
 };
 
-/** 刷新 Token */
+/** Refresh Token */
 const refreshToken = () => {
   return requestService.post<{ accessToken: string }>(endpoints.refreshToken);
 };
 
-/** 发送短信验证码 */
+/** Send SMS verification code */
 const sendSmsCode = (phone: string) => {
   return requestService.post<null>(endpoints.sendSmsCode, { phone });
 };
 
-/** 微信 OAuth 登录 */
+/** WeChat OAuth login */
 const wechatLogin = (code: string) => {
   return requestService.post<LoginResult>(endpoints.wechatLogin, { code });
 };
 
-/** 获取当前用户信息 */
+/** Get current user info */
 const getCurrentUser = () => {
   return requestService.get<User>(requestsConfig.endpoints.user.profile);
 };

@@ -6,9 +6,9 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    // 启动 react 支持，解析 JSX 语法
+    // Enable React support and parse JSX syntax
     react(),
-    // 将 SVG 文件作为 React 组件导入
+    // Import SVG files as React components
     svgr({
       svgrOptions: {
         icon: true,
@@ -19,7 +19,7 @@ export default defineConfig({
     })
   ],
   resolve: {
-    // 路径别名
+    // Path alias
     alias: {
       "@": path.resolve(__dirname, "./src"),
     }
@@ -27,13 +27,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // 手动分包策略
+        // Manual chunk splitting strategy
         manualChunks: {
-          // 核心运行时，极少变动，可长期命中浏览器缓存
+          // Core runtime, rarely changes, can be cached long-term by the browser
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          // 仅在需要多语言时加载，减少初始包体积
+          // Loaded only when multilingual support is needed, reducing initial bundle size
           i18n: ['i18next', 'react-i18next'],
-          // 图表库和动画库，按需加载，提升性能
+          // Charting and animation libraries, loaded on demand for better performance
           recharts: ['recharts'],
           'framer-motion': ['framer-motion'],
         },

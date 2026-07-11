@@ -9,12 +9,12 @@ export type OrderStatus =
   | 'refunded'
 
 export type OrderType =
-  | 'basic_chart'       // 基础制图（按次）
-  | 'membership'        // 会员购买
-  | 'custom_chart'      // 个性化制图
-  | 'paper_service'     // 论文业务
-  | 'bioinformatics'    // 生信业务
-  | 'consulting'        // 行业咨询
+  | 'basic_chart'       // Basic charting (per use)
+  | 'membership'        // Membership purchase
+  | 'custom_chart'      // Custom charting
+  | 'paper_service'     // Paper service
+  | 'bioinformatics'    // Bioinformatics service
+  | 'consulting'        // Industry consulting
 
 export type PaymentMethod = 'wechat' | 'alipay'
 

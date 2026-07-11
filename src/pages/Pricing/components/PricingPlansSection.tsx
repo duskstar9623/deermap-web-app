@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Check } from 'lucide-react';
-import { ROUTES } from '@/router/paths';
+import ROUTES from '@/router/paths';
 import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 
 type PlanItem = {
@@ -58,7 +58,7 @@ export function PricingPlansSection() {
                   ))}
                 </ul>
                 <button
-                  onClick={() => navigate(ROUTES.contact)}
+                  onClick={() => navigate(ROUTES.Contact)}
                   className="w-full py-3 rounded-lg font-medium transition-colors"
                   style={{ backgroundColor: plan.color, color: 'white' }}
                 >

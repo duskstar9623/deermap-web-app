@@ -14,7 +14,7 @@ interface ModalProps {
  * Portal-based modal with Framer Motion fade + scale animation.
  * Clicking the backdrop calls `onClose`.
  */
-export function Modal({ open, onClose, title, children, className }: ModalProps) {
+export default function Modal({ open, onClose, title, children, className }: ModalProps) {
   return createPortal(
     <AnimatePresence>
       {open && (

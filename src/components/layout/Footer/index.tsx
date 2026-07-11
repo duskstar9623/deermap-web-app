@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Logo } from '@/assets/icons';
-import { ROUTES } from '@/router/paths';
+import ROUTES from '@/router/paths';
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
 
 function Footer() {
@@ -21,17 +21,17 @@ function Footer() {
           <div>
             <h4 className="font-semibold mb-3">{t('footer.services')}</h4>
             <ul className="space-y-2 text-sm text-white/60">
-              <li><Link to={ROUTES.bioinformatics} className="hover:text-white">{t('nav.services')}</Link></li>
-              <li><Link to={ROUTES.visualization} className="hover:text-white">{t('nav.visualization')}</Link></li>
-              <li><Link to={ROUTES.multiomics} className="hover:text-white">{t('nav.multiomics')}</Link></li>
-              <li><Link to={ROUTES.academic} className="hover:text-white">{t('nav.academic')}</Link></li>
+              <li><Link to={ROUTES.Bioinformatics} className="hover:text-white">{t('nav.services')}</Link></li>
+              <li><Link to={ROUTES.Visualization.Root} className="hover:text-white">{t('nav.visualization')}</Link></li>
+              <li><Link to={ROUTES.Multiomics.Root} className="hover:text-white">{t('nav.multiomics')}</Link></li>
+              <li><Link to={ROUTES.Academic} className="hover:text-white">{t('nav.academic')}</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-3">{t('footer.resources')}</h4>
             <ul className="space-y-2 text-sm text-white/60">
-              <li><Link to={ROUTES.chartTool} className="hover:text-white">{t('footer.chartTool')}</Link></li>
-              <li><Link to={ROUTES.pricing} className="hover:text-white">{t('footer.pricingPlan')}</Link></li>
+              <li><Link to={ROUTES.Visualization.ChartTool} className="hover:text-white">{t('footer.chartTool')}</Link></li>
+              <li><Link to={ROUTES.Pricing} className="hover:text-white">{t('footer.pricingPlan')}</Link></li>
             </ul>
           </div>
           <div>

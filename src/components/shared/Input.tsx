@@ -11,7 +11,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
  * Pass `type="textarea"` to render a <textarea> instead of <input>.
  * All standard input/textarea attributes are forwarded.
  */
-export function Input({ label, errorMessage, type = 'text', rows, className, ...rest }: InputProps) {
+export default function Input({ label, errorMessage, type = 'text', rows, className, ...rest }: InputProps) {
   const fieldClass = [
     'w-full px-4 py-2 border rounded-lg transition-colors',
     'focus:outline-none focus:ring-2 focus:ring-primary/30',

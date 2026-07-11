@@ -2,15 +2,15 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Database, BarChart3, Layers, FileText } from 'lucide-react';
-import { ROUTES } from '@/router/paths';
+import ROUTES from '@/router/paths';
 import { ASSETS } from '@/constants/assets';
 import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 
 const FEATURES = [
-  { icon: Database, titleKey: 'features.bioinformatics.title', descKey: 'features.bioinformatics.desc', color: THEME_COLORS.primary, bgImage: ASSETS.cards.genomics, route: ROUTES.bioinformatics },
-  { icon: BarChart3, titleKey: 'features.visualization.title', descKey: 'features.visualization.desc', color: THEME_COLORS.primaryLight, bgImage: ASSETS.cards.transcriptomics, route: ROUTES.visualization },
-  { icon: Layers, titleKey: 'features.multiomics.title', descKey: 'features.multiomics.desc', color: THEME_COLORS.accent, bgImage: ASSETS.cards.proteomics, route: ROUTES.multiomics },
-  { icon: FileText, titleKey: 'features.academic.title', descKey: 'features.academic.desc', color: THEME_COLORS.accentLight, bgImage: ASSETS.cards.metabolomics, route: ROUTES.academic },
+  { icon: Database, titleKey: 'features.bioinformatics.title', descKey: 'features.bioinformatics.desc', color: THEME_COLORS.primary, bgImage: ASSETS.cards.genomics, route: ROUTES.Bioinformatics },
+  { icon: BarChart3, titleKey: 'features.visualization.title', descKey: 'features.visualization.desc', color: THEME_COLORS.primaryLight, bgImage: ASSETS.cards.transcriptomics, route: ROUTES.Visualization.Root },
+  { icon: Layers, titleKey: 'features.multiomics.title', descKey: 'features.multiomics.desc', color: THEME_COLORS.accent, bgImage: ASSETS.cards.proteomics, route: ROUTES.Multiomics.Root },
+  { icon: FileText, titleKey: 'features.academic.title', descKey: 'features.academic.desc', color: THEME_COLORS.accentLight, bgImage: ASSETS.cards.metabolomics, route: ROUTES.Academic },
 ];
 
 export function FeaturesSection() {

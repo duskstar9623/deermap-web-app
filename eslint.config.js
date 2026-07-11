@@ -6,9 +6,9 @@ import tseslint from 'typescript-eslint';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  globalIgnores(['dist']),        // 全局忽略 dist 目录，不对其进行任何 lint 检查。
+  globalIgnores(['dist']),        // Globally ignore the dist directory and skip all lint checks for it.
   {
-    files: ['**/*.{js,ts,jsx,tsx}'],     // 仅对业务代码进行 lint 检查，排除测试文件和配置文件等
+    files: ['**/*.{js,ts,jsx,tsx}'],     // Lint business code only, excluding test files and configuration files
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -17,10 +17,10 @@ export default defineConfig([
     ],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,   // 声明浏览器环境全局变量定义，确保在 lint 检查时不会误报未定义的全局变量
+      globals: globals.browser,   // Declare browser environment globals to prevent false positives for undefined variables during lint
     },
     rules: {
-      'semi': ['warn', 'always'], // 强制在语句结尾使用分号
+      'semi': ['warn', 'always'], // Enforce semicolons at the end of statements
     },
   },
 ]);

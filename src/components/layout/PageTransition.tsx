@@ -10,7 +10,7 @@ interface PageTransitionProps {
  * Wraps page content with framer-motion fade+slide transition.
  * Used inside each route element to preserve the existing page transition feel.
  */
-export function PageTransition({ children, className }: PageTransitionProps) {
+export default function PageTransition({ children, className }: PageTransitionProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}

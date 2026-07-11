@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Dna, Activity, Target, Beaker, ArrowRight } from 'lucide-react';
-import { ROUTES } from '@/router/paths';
+import ROUTES from '@/router/paths';
 import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 import { ASSETS } from '@/constants/assets';
 
@@ -10,10 +10,10 @@ function MultiomicsListPage() {
   const navigate = useNavigate();
   const { t } = useTranslation(LANGUAGE_NAMESPACES.MULTIOMICS);
   const omicsTypes = [
-    { titleKey: 'omics.genomics.title', descKey: 'omics.genomics.desc', icon: Dna, color: THEME_COLORS.primary, bgImage: ASSETS.cards.genomics, route: ROUTES.genomics },
-    { titleKey: 'omics.transcriptomics.title', descKey: 'omics.transcriptomics.desc', icon: Activity, color: THEME_COLORS.transcriptomics, bgImage: ASSETS.cards.transcriptomics, route: ROUTES.transcriptomics },
-    { titleKey: 'omics.proteomics.title', descKey: 'omics.proteomics.desc', icon: Target, color: THEME_COLORS.proteomics, bgImage: ASSETS.cards.proteomics, route: ROUTES.proteomics },
-    { titleKey: 'omics.metabolomics.title', descKey: 'omics.metabolomics.desc', icon: Beaker, color: THEME_COLORS.metabolomics, bgImage: ASSETS.cards.metabolomics, route: ROUTES.metabolomics },
+    { titleKey: 'omics.genomics.title', descKey: 'omics.genomics.desc', icon: Dna, color: THEME_COLORS.primary, bgImage: ASSETS.cards.genomics, route: ROUTES.Multiomics.Genomics },
+    { titleKey: 'omics.transcriptomics.title', descKey: 'omics.transcriptomics.desc', icon: Activity, color: THEME_COLORS.transcriptomics, bgImage: ASSETS.cards.transcriptomics, route: ROUTES.Multiomics.Transcriptomics },
+    { titleKey: 'omics.proteomics.title', descKey: 'omics.proteomics.desc', icon: Target, color: THEME_COLORS.proteomics, bgImage: ASSETS.cards.proteomics, route: ROUTES.Multiomics.Proteomics },
+    { titleKey: 'omics.metabolomics.title', descKey: 'omics.metabolomics.desc', icon: Beaker, color: THEME_COLORS.metabolomics, bgImage: ASSETS.cards.metabolomics, route: ROUTES.Multiomics.Metabolomics },
   ];
 
   return (

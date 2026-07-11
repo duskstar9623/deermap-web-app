@@ -27,7 +27,7 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
  * - Pass `className` alone to fully override styles (useful for
  *   one-off designs that need precise Tailwind classes).
  */
-export function Button({ variant = 'primary', size = 'md', className, children, ...rest }: ButtonProps) {
+export default function Button({ variant = 'primary', size = 'md', className, children, ...rest }: ButtonProps) {
   const computedClass = className
     ? className
     : [

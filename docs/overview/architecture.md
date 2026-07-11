@@ -157,7 +157,7 @@ Browser / WeChat
   ├──► React Web App (port 3000)  ← Vite 构建产物 + 前端网关层（可选）
      │         │ 内部 HTTP
      │         ▼
-     └──► NestJS API (port 3001，不对外暴露，仅 /webhook/* 除外)
+     └──► NestJS API (port 3001, not exposed externally, except /webhook/*)
                │
      ┌─────────┼───────────┐
      ▼         ▼           ▼

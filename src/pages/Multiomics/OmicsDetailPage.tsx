@@ -7,7 +7,7 @@ import {
   ScatterChart, Beaker, ArrowRight
 } from 'lucide-react';
 import WorkflowSection from '@/components/shared/WorkflowSection';
-import { ROUTES } from '@/router/paths';
+import ROUTES from '@/router/paths';
 import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 import { ASSETS } from '@/constants/assets';
 
@@ -110,7 +110,7 @@ function OmicsDetailPage() {
       <section className="relative py-20 overflow-hidden" style={{ background: `linear-gradient(to bottom right, ${cfg.gradientFrom}, ${cfg.gradientTo})` }}>
         <div className="absolute inset-0 opacity-20"><img src={cfg.bgImage} alt="" className="w-full h-full object-cover" fetchPriority="high" /></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => navigate(ROUTES.multiomics)}
+          <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => navigate(ROUTES.Multiomics.Root)}
             className="flex items-center space-x-2 text-white/80 hover:text-white mb-6 transition-colors">
             <ArrowRight className="w-4 h-4 rotate-180" /><span>{t('detailPage.backButton')}</span>
           </motion.button>
@@ -176,7 +176,7 @@ function OmicsDetailPage() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="text-3xl font-bold text-white mb-4">{t(`${cfg.i18nKey}.ctaTitle`)}</h2>
-            <motion.button onClick={() => navigate(ROUTES.contact)} className="px-8 py-3 bg-white rounded-lg font-semibold hover:bg-gray-100"
+            <motion.button onClick={() => navigate(ROUTES.Contact)} className="px-8 py-3 bg-white rounded-lg font-semibold hover:bg-gray-100"
               style={{ color: cfg.gradientFrom }}
               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>{tc('action.consult')}</motion.button>
           </motion.div>

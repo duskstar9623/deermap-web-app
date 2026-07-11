@@ -14,7 +14,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 /**
  * Atomic select (dropdown) with optional label and error message.
  */
-export function Select({ label, errorMessage, options, className, ...rest }: SelectProps) {
+export default function Select({ label, errorMessage, options, className, ...rest }: SelectProps) {
   return (
     <div>
       {label && (

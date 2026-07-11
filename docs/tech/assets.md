@@ -69,13 +69,13 @@ src/assets/                      ← 需要 Vite 构建管道处理的资源
 通过 `vite-plugin-svgr` 将 SVG 转为 React 组件。导入时使用 `?react` 后缀：
 
 ```tsx
-// src/assets/icons/index.ts 中统一导出
+// Unified export in src/assets/icons/index.ts
 export { default as Logo } from './logo.svg?react'
 export { default as LogoDark } from './logo-dark.svg?react'
 ```
 
 ```tsx
-// 业务组件中使用（支持 className、fill 等 props）
+// Use in business components (supports className, fill, etc. props)
 import { Logo } from '@/assets/icons'
 
 <Logo className="w-8 h-8 text-primary" />
@@ -130,8 +130,8 @@ import { OptimizedImage } from '@/components/shared/Image'
 ```tsx
 <video
   autoPlay loop muted playsInline
-  preload="metadata"           // 不预加载完整视频
-  poster="/images/hero/poster.jpg"  // 首帧静态图
+  preload="metadata"           // Do not preload the full video
+  poster="/images/hero/poster.jpg"  // Static poster frame
 >
   <source src="video.webm" type="video/webm" />  <!-- 优先 WebM -->
   <source src="video.mp4" type="video/mp4" />
@@ -151,7 +151,7 @@ import { ASSETS } from '@/constants/assets'
 ### 直接路径（仅 charts/workflow-steps）
 
 ```tsx
-// 数量多、通过数据循环渲染的，保持直接路径
+// For large quantities rendered via data loops, keep direct paths
 { img: '/images/charts/volcano.png' }
 { img: '/images/workflow-steps/genomics-step1.png' }
 ```

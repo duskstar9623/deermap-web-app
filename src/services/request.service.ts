@@ -1,11 +1,11 @@
 /**
- * 统一 HTTP 客户端
+ * Unified HTTP client
  *
- * 基于 axios 封装，提供：
- * - 请求/响应拦截器
- * - 统一错误处理
- * - Token 自动注入
- * - 请求重试（可选）
+ * Wrapped around axios, providing:
+ * - Request/response interceptors
+ * - Unified error handling
+ * - Automatic token injection
+ * - Optional request retry
  */
 import axios, {
   type AxiosInstance,
@@ -25,14 +25,14 @@ import {
 } from './error.service';
 import errorService from './error.service';
 
-// ─── 通用响应结构 ───────────────────────────────────────────
+// ─── Common response structure ─────────────────────────────
 export interface ApiResponse<T = unknown> {
   code: number
   message: string
   data: T
 }
 
-// ─── Token 存取 ─────────────────────────────────────────────
+// ─── Token access ──────────────────────────────────────────
 const TOKEN_KEY = LOCAL_STORAGE_KEYS.ACCESS_TOKEN;
 
 const getToken = (): string | null => {
@@ -47,7 +47,7 @@ const removeToken = (): void => {
   localStorageService.remove(TOKEN_KEY);
 };
 
-// ─── 创建 axios 实例 ────────────────────────────────────────
+// ─── Create axios instance ─────────────────────────────────
 const httpClient: AxiosInstance = axios.create({
   baseURL: requestsConfig.baseURL,
   timeout: requestsConfig.timeout,
@@ -56,16 +56,16 @@ const httpClient: AxiosInstance = axios.create({
   },
 });
 
-// ─── 请求拦截器 ─────────────────────────────────────────────
+// ─── Request interceptor ───────────────────────────────────
 httpClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // 自动注入 Token
+    // Auto-inject Token
     const token = getToken();
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    // 开发环境日志
+    // Development environment log
     if (import.meta.env.DEV) {
       console.log(`[HTTP] → ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
     }
@@ -77,10 +77,10 @@ httpClient.interceptors.request.use(
   },
 );
 
-// ─── 响应拦截器 ─────────────────────────────────────────────
+// ─── Response interceptor ──────────────────────────────────
 httpClient.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
-    // 开发环境日志
+    // Development environment log
     if (import.meta.env.DEV) {
       console.log(`[HTTP] ← ${response.status} ${response.config.url}`);
     }
@@ -90,7 +90,7 @@ httpClient.interceptors.response.use(
   (error: AxiosError<ApiErrorResponse>) => {
     const apiError = transformError(error);
 
-    // 触发全局错误处理
+    // Trigger global error handling
     const handler = errorService.getGlobalErrorHandler();
     handler(apiError);
 
@@ -98,16 +98,16 @@ httpClient.interceptors.response.use(
   },
 );
 
-// ─── 错误转换 ───────────────────────────────────────────────
+// ─── Error transformation ──────────────────────────────────
 function transformError(error: AxiosError<ApiErrorResponse>): ApiError {
   const translate = (key: string) => i18n.t(key, { ns: LANGUAGE_NAMESPACES.ERRORS, defaultValue: '' }) as string;
 
-  // 请求被取消
+  // Request cancelled
   if (axios.isCancel(error)) {
     return new ApiError(ErrorCode.CANCELLED, translate('http.cancelled'), 0, undefined, 'http.cancelled');
   }
 
-  // 无响应（网络错误 / 超时）
+  // No response (network error / timeout)
   if (!error.response) {
     if (error.code === 'ECONNABORTED') {
       return new ApiError(ErrorCode.TIMEOUT, translate('http.timeout'), 0, undefined, 'http.timeout');
@@ -115,7 +115,7 @@ function transformError(error: AxiosError<ApiErrorResponse>): ApiError {
     return new ApiError(ErrorCode.NETWORK_ERROR, translate('http.networkError'), 0, undefined, 'http.networkError');
   }
 
-  // 有响应，根据状态码处理
+  // Has response, handle based on status code
   const { status, data } = error.response;
   const code = errorService.mapHttpStatusToErrorCode(status);
   const fallbackMessageKey = status >= 500 ? 'http.unknown' : undefined;
@@ -125,7 +125,7 @@ function transformError(error: AxiosError<ApiErrorResponse>): ApiError {
   return new ApiError(code, message, status, details, fallbackMessageKey);
 }
 
-// ─── 便捷方法 ───────────────────────────────────────────────
+// ─── Convenience methods ───────────────────────────────────
 const get = <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<ApiResponse<T>>> => {
   return httpClient.get<ApiResponse<T>>(url, config);
 };

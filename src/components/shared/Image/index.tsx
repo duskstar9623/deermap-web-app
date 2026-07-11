@@ -36,7 +36,7 @@ const FALLBACK_PLACEHOLDER = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org
  * - Error fallback with graceful degradation
  * - fetchpriority="high" for above-fold critical images
  */
-export function OptimizedImage({
+export default function OptimizedImage({
   src,
   alt,
   className = '',
@@ -86,4 +86,3 @@ export function OptimizedImage({
   );
 }
 
-export default OptimizedImage;

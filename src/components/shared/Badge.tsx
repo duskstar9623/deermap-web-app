@@ -19,7 +19,7 @@ interface BadgeProps {
 /**
  * Inline badge / tag label.
  */
-export function Badge({ variant = 'default', className, children }: BadgeProps) {
+export default function Badge({ variant = 'default', className, children }: BadgeProps) {
   return (
     <span
       className={[

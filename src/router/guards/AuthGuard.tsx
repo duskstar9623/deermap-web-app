@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '@/hooks/useAuth';
+import useAuth from '@/hooks/useAuth';
 import type { ReactNode } from 'react';
-import { ROUTES } from '../paths';
+import ROUTES from '../paths';
 
 /**
  * Route-level auth guard.
@@ -19,7 +19,7 @@ export function AuthGuard({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <Navigate to={ROUTES.home} replace />;
+    return <Navigate to={ROUTES.Home} replace />;
   }
 
   return <>{children}</>;

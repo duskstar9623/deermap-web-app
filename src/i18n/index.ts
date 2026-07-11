@@ -6,7 +6,7 @@ import zhCN from './zh-CN';
 
 import type { Language } from '@/types/common';
 
-// 初始化默认语言
+// Initialize the default language
 i18n.use(initReactI18next).init({
   resources: {
     [DEFAULT_LANGUAGE]: zhCN,
@@ -19,7 +19,7 @@ i18n.use(initReactI18next).init({
   react: { useSuspense: true }
 });
 
-// 所有非默认语言包资源的懒加载入口, e.g. { 'en-US': () => import('./en-US/index.ts') }
+// Lazy-load entry for all non-default language bundles, e.g. { 'en-US': () => import('./en-US/index.ts') }
 const languageBundles = Object.fromEntries(
   (Object.keys(LANGUAGES) as Language[])
     .filter(lang => lang !== DEFAULT_LANGUAGE)
@@ -28,8 +28,8 @@ const languageBundles = Object.fromEntries(
 
 /************************ Language Feature Actions ************************/
 
-// 懒加载指定语言的整包资源（已加载则跳过）
-export async function loadLanguage(language: Language): Promise<void> {
+// Lazily load the entire resource bundle for the specified language (skip if already loaded)
+async function loadLanguage(language: Language): Promise<void> {
   if (!(language in LANGUAGES) || language === DEFAULT_LANGUAGE) return;
   if (i18n.hasResourceBundle(language, DEFAULT_LANGUAGE_NAMESPACE)) return;
 
@@ -41,18 +41,18 @@ export async function loadLanguage(language: Language): Promise<void> {
   }
 }
 
-// 统一语言切换入口，加载整包 -> 切换语言 -> 持久化到 localStorage
+// Unified language switching entry: load bundle -> switch language -> persist to localStorage
 export async function changeLanguage(language: Language): Promise<void> {
   await loadLanguage(language);
   await i18n.changeLanguage(language);
   saveLanguage(language);
 }
 
-// 应用启动时调用，根据用户偏好预加载语言，避免首屏闪烁
+// Called at app startup to preload the user's preferred language and avoid first-screen flicker
 export async function initializeI18n(): Promise<void> {
   const initLanguage = getInitLanguage();
 
-  // 如果用户偏好非默认语言，异步加载后再切换，确保首屏直接显示正确语言
+  // If the user's preference is not the default language, load asynchronously before switching so the first screen shows the correct language directly
   if (initLanguage !== DEFAULT_LANGUAGE) {
     await changeLanguage(initLanguage);
   }

@@ -41,7 +41,7 @@ import './index.css';
 import App from './App.tsx';
 
 async function bootstrap() {
-  // 先初始化 i18n（预加载用户偏好语言），确保首屏语言正确后再渲染
+  // Initialize i18n first (preload the user's preferred language) so the first screen renders with the correct language
   const { initializeI18n } = await import('./i18n');
   await initializeI18n();
 
@@ -463,7 +463,7 @@ export const multiomicsRoutes: AppRouteObject = {
 ```tsx
 import { Link, useLocation } from 'react-router-dom';
 
-<Link to={ROUTES.home}>
+<Link to={ROUTES.Home}>
   <Logo /><span>鹿图科技</span>
 </Link>
 
@@ -496,7 +496,7 @@ export function AuthGuard({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <Navigate to={ROUTES.home} replace />;
+    return <Navigate to={ROUTES.Home} replace />;
   }
 
   return <>{children}</>;

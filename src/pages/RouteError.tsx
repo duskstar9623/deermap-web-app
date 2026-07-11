@@ -3,7 +3,7 @@ import { useRouteError } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AlertTriangle, RotateCcw } from 'lucide-react';
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
-import { Button } from '@/components/shared';
+import Button from '@/components/shared/Button';
 
 /**
  * Route-level error boundary.
@@ -12,7 +12,7 @@ import { Button } from '@/components/shared';
  * surfaced by React Router via `useRouteError()`. Presents a friendly fallback
  * UI and a reload action instead of leaving the user with a blank screen.
  */
-export function RouteErrorBoundary() {
+export default function RouteErrorBoundary() {
   const error = useRouteError();
   const { t, i18n } = useTranslation(LANGUAGE_NAMESPACES.ERRORS);
 

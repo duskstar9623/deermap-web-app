@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
-import { Button, Input } from '@/components/shared';
+import Button from '@/components/shared/Button';
+import Input from '@/components/shared/Input';
 
 export function ContactFormSection() {
   const { t } = useTranslation(LANGUAGE_NAMESPACES.CONTACT);

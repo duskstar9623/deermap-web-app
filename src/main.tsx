@@ -4,7 +4,7 @@ import './index.css';
 import App from './App.tsx';
 
 async function bootstrap() {
-  // 先初始化 i18n（预加载用户偏好语言），确保首屏语言正确后再渲染
+  // Initialize i18n first (preload the user's preferred language) so the first screen renders with the correct language.
   const { initializeI18n } = await import('./i18n');
   await initializeI18n();
 

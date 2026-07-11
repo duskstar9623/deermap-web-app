@@ -23,7 +23,7 @@ interface ToastProps {
  * Fixed-position toast notification rendered in a Portal.
  * Auto-closes after `duration` ms (default 3000).
  */
-export function Toast({ open, onClose, message, variant = 'info', duration = 3000 }: ToastProps) {
+export default function Toast({ open, onClose, message, variant = 'info', duration = 3000 }: ToastProps) {
   useEffect(() => {
     if (!open) return;
     const timer = setTimeout(onClose, duration);

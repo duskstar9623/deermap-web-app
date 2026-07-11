@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Home } from 'lucide-react';
-import { ROUTES } from '@/router/paths';
+import ROUTES from '@/router/paths';
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
 
 function NotFoundPage() {
@@ -18,7 +18,7 @@ function NotFoundPage() {
           {t('notFound.description')}
         </p>
         <Link
-          to={ROUTES.home}
+          to={ROUTES.Home}
           className="inline-flex items-center space-x-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-light transition-colors"
         >
           <Home className="w-4 h-4" />

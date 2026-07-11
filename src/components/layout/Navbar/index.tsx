@@ -4,18 +4,18 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { Logo } from '@/assets/icons';
-import { ROUTES } from '@/router/paths';
+import ROUTES from '@/router/paths';
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
-// import { LanguageSwitcher } from '@/components/common/LanguageSwitcher';
+// import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 
 const NAV_LINKS = [
-  { path: ROUTES.home, labelKey: 'nav.home' },
-  { path: ROUTES.bioinformatics, labelKey: 'nav.services' },
-  { path: ROUTES.visualization, labelKey: 'nav.visualization' },
-  { path: ROUTES.multiomics, labelKey: 'nav.multiomics' },
-  { path: ROUTES.academic, labelKey: 'nav.academic' },
-  { path: ROUTES.pricing, labelKey: 'nav.pricing' },
-  { path: ROUTES.contact, labelKey: 'nav.contact' },
+  { path: ROUTES.Home, labelKey: 'nav.home' },
+  { path: ROUTES.Bioinformatics, labelKey: 'nav.services' },
+  { path: ROUTES.Visualization.Root, labelKey: 'nav.visualization' },
+  { path: ROUTES.Multiomics.Root, labelKey: 'nav.multiomics' },
+  { path: ROUTES.Academic, labelKey: 'nav.academic' },
+  { path: ROUTES.Pricing, labelKey: 'nav.pricing' },
+  { path: ROUTES.Contact, labelKey: 'nav.contact' },
 ] as const;
 
 function Navbar() {
@@ -30,7 +30,7 @@ function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to={ROUTES.home} className="flex items-center space-x-2">
+          <Link to={ROUTES.Home} className="flex items-center space-x-2">
             <Logo className="w-7 h-7 text-primary" />
             <span className="text-xl font-bold text-primary">{t('brand.name')}</span>
           </Link>
@@ -44,7 +44,7 @@ function Navbar() {
           </div>
           <div className="hidden md:flex items-center space-x-4">
             {/* <LanguageSwitcher /> */}
-            <Link to={ROUTES.contact}
+            <Link to={ROUTES.Contact}
               className="flex items-center space-x-2 px-5 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-light transition-colors">
               <span>{t('action.startConsult')}</span>
               <ArrowRight className="w-4 h-4" />

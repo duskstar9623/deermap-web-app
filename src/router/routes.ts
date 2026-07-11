@@ -1,22 +1,26 @@
 import { createElement } from 'react';
-import { RootLayout } from '@/components/layout/RootLayout';
-import { multiomicsRoutes } from '@/pages/Multiomics/routes';
-import { visualizationRoutes } from '@/pages/Visualization/routes';
-import { RouteErrorBoundary } from '@/pages/RouteError';
-import { ROUTES } from './paths';
+import RootLayout from '@/components/layout/RootLayout';
+import RouteErrorBoundary from '@/pages/RouteError';
+import ROUTES from './paths';
 import { lazyPage } from './utils/lazyPage';
+
+import { multiomicsRoutes } from '@/router/modules/multiomics';
+import { visualizationRoutes } from '@/router/modules/visualization';
 
 import type { AppRouteObject } from './types';
 
+export { default as ROUTES } from './paths';
+export type { RoutePath } from './paths';
+
 const pageRoutes: AppRouteObject[] = [
-  { path: ROUTES.home, lazy: lazyPage(() => import('@/pages/Home')), handle: { title: 'nav.home' } },
-  { path: ROUTES.bioinformatics, lazy: lazyPage(() => import('@/pages/Bioinformatics')), handle: { title: 'nav.services' } },
-  { path: ROUTES.academic, lazy: lazyPage(() => import('@/pages/Academic')), handle: { title: 'nav.academic' } },
-  { path: ROUTES.pricing, lazy: lazyPage(() => import('@/pages/Pricing')), handle: { title: 'nav.pricing' } },
-  { path: ROUTES.contact, lazy: lazyPage(() => import('@/pages/Contact')), handle: { title: 'nav.contact' } },
+  { path: ROUTES.Home, lazy: lazyPage(() => import('@/pages/Home')), handle: { title: 'nav.home' } },
+  { path: ROUTES.Bioinformatics, lazy: lazyPage(() => import('@/pages/Bioinformatics')), handle: { title: 'nav.services' } },
+  { path: ROUTES.Academic, lazy: lazyPage(() => import('@/pages/Academic')), handle: { title: 'nav.academic' } },
+  { path: ROUTES.Pricing, lazy: lazyPage(() => import('@/pages/Pricing')), handle: { title: 'nav.pricing' } },
+  { path: ROUTES.Contact, lazy: lazyPage(() => import('@/pages/Contact')), handle: { title: 'nav.contact' } },
 ];
 
-export const appRoutes: AppRouteObject[] = [
+const appRoutes: AppRouteObject[] = [
   {
     element: createElement(RootLayout),
     errorElement: createElement(RouteErrorBoundary),
@@ -29,5 +33,4 @@ export const appRoutes: AppRouteObject[] = [
   },
 ];
 
-export { ROUTES } from './paths';
-export type { RoutePath } from './paths';
+export default appRoutes;

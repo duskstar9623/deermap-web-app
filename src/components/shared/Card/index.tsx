@@ -15,7 +15,7 @@ interface CardProps {
  * Shared card component for consistent card UI across pages.
  * Reusable for service cards, feature cards, result cards, etc.
  */
-export function Card({
+export default function Card({
   title,
   description,
   image,
@@ -60,4 +60,3 @@ export function Card({
   );
 }
 
-export default Card;

@@ -1,30 +1,30 @@
 /**
- * API 错误类型定义与统一错误处理
+ * API error type definitions and unified error handling
  */
 import i18n from '@/i18n';
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
 
-/** 后端标准错误响应结构 */
+/** Backend standard error response structure */
 export interface ApiErrorResponse {
   code: string
   message: string
   details?: Record<string, unknown>
 }
 
-/** 业务错误码枚举 */
+/** Business error code enum */
 export enum ErrorCode {
-  // 通用
+  // General
   UNKNOWN = 'UNKNOWN',
   NETWORK_ERROR = 'NETWORK_ERROR',
   TIMEOUT = 'TIMEOUT',
   CANCELLED = 'CANCELLED',
 
-  // 认证相关
+  // Authentication related
   UNAUTHORIZED = 'UNAUTHORIZED',
   TOKEN_EXPIRED = 'TOKEN_EXPIRED',
   FORBIDDEN = 'FORBIDDEN',
 
-  // 业务相关
+  // Business related
   VALIDATION_ERROR = 'VALIDATION_ERROR',
   NOT_FOUND = 'NOT_FOUND',
   CONFLICT = 'CONFLICT',
@@ -32,7 +32,7 @@ export enum ErrorCode {
   SERVER_ERROR = 'SERVER_ERROR',
 }
 
-/** 统一的 API 错误类 */
+/** Unified API error class */
 export class ApiError extends Error {
   readonly code: ErrorCode;
   readonly status: number;
@@ -54,18 +54,18 @@ export class ApiError extends Error {
     this.messageKey = messageKey;
   }
 
-  /** 是否为认证错误（需要重新登录） */
+  /** Whether it is an authentication error (requires re-login) */
   get isAuthError(): boolean {
     return this.code === ErrorCode.UNAUTHORIZED || this.code === ErrorCode.TOKEN_EXPIRED;
   }
 
-  /** 是否为网络层错误 */
+  /** Whether it is a network layer error */
   get isNetworkError(): boolean {
     return this.code === ErrorCode.NETWORK_ERROR || this.code === ErrorCode.TIMEOUT;
   }
 }
 
-/** HTTP 状态码 → ErrorCode 映射 */
+/** HTTP status code → ErrorCode mapping */
 const mapHttpStatusToErrorCode = (status: number): ErrorCode => {
   switch (status) {
     case 401:
@@ -95,15 +95,15 @@ const getErrorMessage = (error: ApiError): string => {
 };
 
 /**
- * 全局错误处理器
- * 可通过 setGlobalErrorHandler 替换默认行为
+ * Global error handler
+ * Default behavior can be replaced via setGlobalErrorHandler
  */
 export type ErrorHandler = (error: ApiError) => void
 
 let globalErrorHandler: ErrorHandler = (error: ApiError) => {
   const message = getErrorMessage(error);
 
-  // 默认行为：控制台输出，实际项目中可接入 toast/notification
+  // Default behavior: console output; in real projects can be integrated with toast/notification
   if (error.isAuthError) {
     console.warn('[API]', translateError('console.authWarning'), message);
   } else if (error.isNetworkError) {

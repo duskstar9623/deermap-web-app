@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { Globe } from 'lucide-react';
-import { useI18n } from '@/hooks/useI18n';
+import useI18n from '@/hooks/useI18n';
 import { LANGUAGES } from '@/constants/const';
 import type { Language } from '@/types/common';
 
-export function LanguageSwitcher() {
+export default function LanguageSwitcher() {
   const { currentLanguage, setLanguage } = useI18n();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);

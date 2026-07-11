@@ -16,7 +16,7 @@ interface TabsProps {
  * Horizontal tab bar. Supports both controlled (activeTab + onChange)
  * and uncontrolled (internal state) modes.
  */
-export function Tabs({ tabs, activeTab, onChange, className }: TabsProps) {
+export default function Tabs({ tabs, activeTab, onChange, className }: TabsProps) {
   const [internalActive, setInternalActive] = useState(tabs[0]?.key ?? '');
   const currentTab = activeTab ?? internalActive;
 

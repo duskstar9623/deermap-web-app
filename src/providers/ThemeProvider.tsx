@@ -7,7 +7,7 @@ import { isBrowser } from '@/utils/common';
 import type { Theme } from '@/types/common';
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  // 初始化主题状态，优先从 localStorage 获取用户偏好主题，如果没有则默认使用 LIGHT 主题
+  // Initialize theme state, prefer reading the user's preferred theme from localStorage; default to LIGHT if none exists
   const [theme, setTheme] = useState<Theme>(() => {
     if (!isBrowser()) return THEME.LIGHT;
     return localStorageService.get<Theme>(LOCAL_STORAGE_KEYS.THEME, THEME.LIGHT);
@@ -18,12 +18,12 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
     localStorageService.set<Theme>(LOCAL_STORAGE_KEYS.THEME, theme);
   }, [theme]);
 
-  // 缓存 toggleTheme 函数，避免在每次渲染时创建新的函数实例
+  // Memoize the toggleTheme function to avoid creating a new function instance on every render
   const toggleTheme = useCallback(
     () => setTheme((prev: Theme) => (prev === THEME.LIGHT ? THEME.DARK : THEME.LIGHT)),
     []
   );
-  // 缓存 value 对象，避免在每次渲染时创建新的对象实例，从而减少不必要的重新渲染
+  // Memoize the value object to avoid creating a new object instance on every render, reducing unnecessary re-renders
   const value = useMemo(() => ({ theme, toggleTheme, setTheme }), [theme, toggleTheme]);
 
   return (

@@ -1,6 +1,6 @@
 /**
- * 联系我们 / 表单提交 API
- * @phase Phase 2 — Phase 1 联系表单为静态提交（e.preventDefault()），不集成到应用
+ * Contact us / form submission APIs
+ * @phase Phase 2 — Contact form is a static submission (e.preventDefault()) in Phase 1, not integrated into the app
  */
 import requestService from './request.service';
 import requestsConfig from '@/configs/requests.json';
@@ -15,7 +15,7 @@ export interface ContactFormParams {
   message: string
 }
 
-/** 提交联系表单 */
+/** Submit contact form */
 const submitContactForm = (params: ContactFormParams) => {
   return requestService.post<null>(endpoints.submit, params);
 };

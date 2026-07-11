@@ -1,6 +1,6 @@
 /**
- * 订单相关 API
- * @phase Phase 2 — Phase 1 中为接口存根，不集成到应用
+ * Order-related APIs
+ * @phase Phase 2 — Interface stubs in Phase 1, not integrated into the app
  */
 import requestService from './request.service';
 import requestsConfig from '@/configs/requests.json';
@@ -32,29 +32,29 @@ export interface PaginatedResult<T> {
   pageSize: number
 }
 
-/** 获取订单列表 */
+/** Get order list */
 const getOrders = (params?: OrderListParams) => {
   return requestService.get<PaginatedResult<Order>>(endpoints.list, { params });
 };
 
-/** 获取订单详情 */
+/** Get order details */
 const getOrderDetail = (id: string) => {
   const url = endpoints.detail.replace(':id', id);
   return requestService.get<Order>(url);
 };
 
-/** 创建订单 */
+/** Create order */
 const createOrder = (params: CreateOrderParams) => {
   return requestService.post<Order>(endpoints.create, params);
 };
 
-/** 取消订单 */
+/** Cancel order */
 const cancelOrder = (id: string) => {
   const url = endpoints.cancel.replace(':id', id);
   return requestService.post<Order>(url);
 };
 
-/** 发起支付 */
+/** Initiate payment */
 const payOrder = (id: string, params: PayOrderParams) => {
   const url = endpoints.pay.replace(':id', id);
   return requestService.post<{ paymentUrl: string }>(url, params);

@@ -82,11 +82,11 @@ src/
 ```ts
 import requestService from '@/services/request.service'
 
-// 泛型 T 为 response.data.data 的类型
+// Generic T is the type of response.data.data
 const res = await requestService.get<User[]>('/users')
-const users = res.data.data // 类型为 User[]
+const users = res.data.data // type is User[]
 
-// 所有方法挂在 requestService 上：
+// All methods are exposed on requestService:
 // requestService.get<T>(url, config?) → Promise<AxiosResponse<ApiResponse<T>>>
 // requestService.post<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
 // requestService.put<T>(url, data?, config?) → Promise<AxiosResponse<ApiResponse<T>>>
@@ -99,9 +99,9 @@ const users = res.data.data // 类型为 User[]
 ```ts
 import requestService from '@/services/request.service'
 
-requestService.setToken('eyJhbG...')   // 登录后存储
-requestService.getToken()              // 读取
-requestService.removeToken()           // 登出时清除
+requestService.setToken('eyJhbG...')   // Store after login
+requestService.getToken()              // Read
+requestService.removeToken()           // Clear on logout
 ```
 
 ---
@@ -112,12 +112,12 @@ requestService.removeToken()           // 登出时清除
 
 ```ts
 class ApiError extends Error {
-  code: ErrorCode      // 业务错误码枚举
-  status: number       // HTTP 状态码（无响应时为 0）
-  details?: Record<string, unknown>  // 后端返回的额外信息
+  code: ErrorCode      // Business error code enum
+  status: number       // HTTP status code (0 when no response)
+  details?: Record<string, unknown>  // Extra information returned by the backend
 
-  get isAuthError(): boolean     // 401 / Token 过期
-  get isNetworkError(): boolean  // 网络断开 / 超时
+  get isAuthError(): boolean     // 401 / Token expired
+  get isNetworkError(): boolean  // Network disconnected / timeout
 }
 ```
 
@@ -149,7 +149,7 @@ import { toast } from 'your-toast-library'
 setGlobalErrorHandler((error: ApiError) => {
   if (error.isAuthError) {
     toast.error('登录已过期，请重新登录')
-    // 跳转登录页
+    // Redirect to login page
     return
   }
   if (error.code === ErrorCode.RATE_LIMITED) {
@@ -167,7 +167,7 @@ setGlobalErrorHandler((error: ApiError) => {
 ### 5.1 基本调用
 
 ```ts
-// Phase 2 示例 — auth.service.ts
+// Phase 2 example — auth.service.ts
 import authService from '@/services/auth.service'
 import requestService from '@/services/request.service'
 
@@ -176,14 +176,14 @@ async function handleLogin(phone: string, code: string) {
   const { accessToken, user } = res.data.data
 
   requestService.setToken(accessToken)
-  // 更新用户状态...
+  // Update user state...
 }
 ```
 
 ### 5.2 带错误处理
 
 ```ts
-// Phase 2 示例 — orders.service.ts
+// Phase 2 example — orders.service.ts
 import ordersService from '@/services/orders.service'
 import { ApiError, ErrorCode } from '@/services/error.service'
 
@@ -194,11 +194,11 @@ async function loadOrders() {
   } catch (err) {
     if (err instanceof ApiError) {
       if (err.code === ErrorCode.UNAUTHORIZED) {
-        // 引导用户登录
+        // Guide user to log in
       } else if (err.code === ErrorCode.NOT_FOUND) {
-        // 显示空状态
+        // Show empty state
       }
-      // 其他错误已被全局处理器处理
+      // Other errors have been handled by the global handler
     }
     return null
   }
@@ -210,15 +210,15 @@ async function loadOrders() {
 对于包含 `:id` 占位符的端点，API 方法内部已自动替换：
 
 ```ts
-// orders.ts 内部实现
+// Internal implementation in orders.ts
 export function getOrderDetail(id: string) {
   const url = endpoints.detail.replace(':id', id)
   return get<Order>(url)
 }
 
-// 调用方（Phase 2）
+// Caller (Phase 2)
 await getOrderDetail('order_abc123')
-// 实际请求: GET /api/v1/orders/order_abc123
+// Actual request: GET /api/v1/orders/order_abc123
 ```
 
 ---
@@ -290,7 +290,7 @@ requestService.httpClient.get('/search', {
   signal: controller.signal,
 })
 
-// 取消请求
+// Cancel request
 controller.abort()
 ```
 

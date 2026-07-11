@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CHART_TYPES, getChartI18nKey } from './config';
-import { ROUTES } from '@/router/paths';
+import ROUTES from '@/router/paths';
 import { ASSETS } from '@/constants/assets';
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
 
@@ -20,7 +20,7 @@ function VisualizationListPage() {
           <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-xl text-white/80 max-w-3xl mx-auto mb-8">
             {t('page.subtitle')}
           </motion.p>
-          <motion.button onClick={() => navigate(ROUTES.chartTool)}
+          <motion.button onClick={() => navigate(ROUTES.Visualization.ChartTool)}
             className="px-8 py-3 bg-white text-primary-light rounded-lg font-semibold hover:bg-gray-100 transition-colors"
             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             {t('page.cta')}
@@ -39,7 +39,7 @@ function VisualizationListPage() {
               return (
                 <motion.div key={c.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.03 }} viewport={{ once: true }}
-                  onClick={() => navigate(ROUTES.chartTool)}
+                  onClick={() => navigate(ROUTES.Visualization.ChartTool)}
                   className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all cursor-pointer group">
                   <div className="relative h-40 overflow-hidden bg-gray-50">
                     <img src={c.img} alt={chartName} loading="lazy" decoding="async" width={400} height={160} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
