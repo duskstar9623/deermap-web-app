@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import i18n from '@/i18n';
 import { DEFAULT_LANGUAGE_NAMESPACE } from '@/constants/const';
-import { useRouteHandle } from '@/router/utils/useRouteHandle';
-import useI18n from './useI18n';
+import useRouteHandle from '@/router/utils/useRouteHandle';
+import useI18n from '../../hooks/useI18n';
 
 function resolveTitle(i18nInstance: typeof i18n, titleKey?: string): string {
   if (!titleKey) {

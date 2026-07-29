@@ -1,5 +1,4 @@
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
-import type { LanguageNamespace } from '@/types/common';
 
 import globalData from './Global.json';
 import homeData from './Home.json';
@@ -11,6 +10,8 @@ import pricingData from './Pricing.json';
 import consultingData from './Consulting.json';
 import contactData from './Contact.json';
 import errorsData from './Errors.json';
+
+import type { LanguageNamespace } from '@/types/common';
 
 const enUS: Record<LanguageNamespace, object> = {
   [LANGUAGE_NAMESPACES.GLOBAL]: globalData,

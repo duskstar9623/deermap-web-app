@@ -1,5 +1,5 @@
 /**
- * Global Application Constants.
+ * Global Application Constants
  */
 
 /*** Language Toggle Related ***/

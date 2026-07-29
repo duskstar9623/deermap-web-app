@@ -11,8 +11,8 @@ import { LANGUAGE_NAMESPACES } from '@/constants/const';
 const NAV_LINKS = [
   { path: ROUTES.Home, labelKey: 'nav.home' },
   { path: ROUTES.Bioinformatics, labelKey: 'nav.services' },
-  { path: ROUTES.Visualization.Root, labelKey: 'nav.visualization' },
   { path: ROUTES.Multiomics.Root, labelKey: 'nav.multiomics' },
+  { path: ROUTES.Visualization.Root, labelKey: 'nav.visualization' },
   { path: ROUTES.Academic, labelKey: 'nav.academic' },
   { path: ROUTES.Pricing, labelKey: 'nav.pricing' },
   { path: ROUTES.Contact, labelKey: 'nav.contact' },
@@ -27,7 +27,7 @@ function Navbar() {
     path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to={ROUTES.Home} className="flex items-center space-x-2">

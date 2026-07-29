@@ -28,7 +28,7 @@ const languageBundles = Object.fromEntries(
 
 /************************ Language Feature Actions ************************/
 
-// Lazily load the entire resource bundle for the specified language (skip if already loaded)
+// Lazily load the entire resource bundle for the specified language (skip if already loaded).
 async function loadLanguage(language: Language): Promise<void> {
   if (!(language in LANGUAGES) || language === DEFAULT_LANGUAGE) return;
   if (i18n.hasResourceBundle(language, DEFAULT_LANGUAGE_NAMESPACE)) return;
@@ -41,18 +41,20 @@ async function loadLanguage(language: Language): Promise<void> {
   }
 }
 
-// Unified language switching entry: load bundle -> switch language -> persist to localStorage
+// Unified language switching process: 
+// load bundle -> switch language -> persist to localStorage
 export async function changeLanguage(language: Language): Promise<void> {
   await loadLanguage(language);
   await i18n.changeLanguage(language);
   saveLanguage(language);
 }
 
-// Called at app startup to preload the user's preferred language and avoid first-screen flicker
+// Called at app startup to preload the user's preferred language and avoid first-screen flicker.
 export async function initializeI18n(): Promise<void> {
   const initLanguage = getInitLanguage();
 
-  // If the user's preference is not the default language, load asynchronously before switching so the first screen shows the correct language directly
+  // If the user's preference is not the default language, 
+  // Load asynchronously before switching so that the first screen shows the correct language directly.
   if (initLanguage !== DEFAULT_LANGUAGE) {
     await changeLanguage(initLanguage);
   }

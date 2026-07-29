@@ -6,8 +6,8 @@
   "nav": {
     "home": "首页",
     "services": "生信分析",
-    "visualization": "可视化",
     "multiomics": "多组学",
+    "visualization": "可视化",
     "academic": "学术服务",
     "pricing": "价格",
     "contact": "联系我们"

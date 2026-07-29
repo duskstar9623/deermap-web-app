@@ -10,7 +10,7 @@ import type { RouteHandle } from '../types';
  * route-level custom data. For nested routes, handles are merged from the root
  * down to the leaf, with child values overriding parent values.
  */
-export function useRouteHandle(): RouteHandle {
+export default function useRouteHandle(): RouteHandle {
   const matches = useMatches();
 
   return useMemo(

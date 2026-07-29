@@ -11,7 +11,7 @@ import { LOCAL_STORAGE_KEYS } from '@/constants/const';
  * has already been attempted in this session, the error is re-thrown so it can
  * reach the route `errorElement`.
  */
-export function lazyPage(
+export default function lazyPage(
   importFn: () => Promise<{ default: React.ComponentType }>
 ): NonNullable<AppRouteObject['lazy']> {
   return async () => {

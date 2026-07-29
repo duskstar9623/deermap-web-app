@@ -6,7 +6,7 @@ import type { ComponentType, ReactNode } from 'react';
 
 type AppProvider = ComponentType<{ children: ReactNode }>;
 
-// Order matters: reduceRight preserves Theme -> I18n -> Auth nesting
+// Strict provider loading order Theme -> I18n -> Auth
 const providers: AppProvider[] = [
   ThemeProvider,
   I18nProvider,
@@ -15,7 +15,7 @@ const providers: AppProvider[] = [
 
 /**
  * Composes all global providers in correct nesting order.
- * Add new providers here to keep App.tsx clean.
+ * Add new providers in `providers` in right order.
  */
 const AppProviders = ({ children }: { children: ReactNode }) => {
   return providers.reduceRight(

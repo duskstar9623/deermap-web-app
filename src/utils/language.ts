@@ -4,6 +4,7 @@ import { isBrowser } from '@/utils/common';
 
 import type { Language } from '@/types/common';
 
+// Get the initial language preference from localStorage or default.
 export function getInitLanguage(): Language {
   if (!isBrowser()) return DEFAULT_LANGUAGE;
   const savedLanguage = localStorageService.get<Language>(LOCAL_STORAGE_KEYS.LANGUAGE, DEFAULT_LANGUAGE);
