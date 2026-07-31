@@ -3,7 +3,7 @@ import { ServiceCardsSection } from './components/ServiceCardsSection';
 
 function ServicesPage() {
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <ServicesHeroSection />
       <ServiceCardsSection />
     </div>

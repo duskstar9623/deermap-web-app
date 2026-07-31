@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Check } from 'lucide-react';
+import Icon from '@/components/shared/Icon';
 import ROUTES from '@/router/paths';
 import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 
@@ -52,7 +52,7 @@ export function PricingPlansSection() {
                 <ul className="space-y-3 mb-8">
                   {(t(plan.featuresKey, { returnObjects: true }) as string[]).map(f => (
                     <li key={f} className="flex items-center space-x-3 text-sm text-gray-600">
-                      <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <Icon name="check" size={20} className="text-green-500 flex-shrink-0" />
                       <span>{f}</span>
                     </li>
                   ))}

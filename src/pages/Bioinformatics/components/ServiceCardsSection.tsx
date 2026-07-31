@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Activity, Target, Globe, Microscope, Database, Beaker, Check, FlaskConical as Flask } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import Icon from '@/components/shared/Icon';
+import type { IconfontName } from '@/components/shared/Icon';
 import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 import { ASSETS } from '@/constants/assets';
 
@@ -9,21 +9,21 @@ type ServiceItem = {
   titleKey: string;
   descKey: string;
   featuresKey: string;
-  icon: LucideIcon;
+  icon: IconfontName;
   priceKey: string;
   bgImage: string;
   color: string;
 };
 
 const SERVICES: ServiceItem[] = [
-  { titleKey: 'items.rnaseq.title', descKey: 'items.rnaseq.desc', featuresKey: 'items.rnaseq.features', icon: Activity, priceKey: 'items.rnaseq.price', bgImage: ASSETS.cards.transcriptomics, color: '#e17055' },
-  { titleKey: 'items.chipseq.title', descKey: 'items.chipseq.desc', featuresKey: 'items.chipseq.features', icon: Target, priceKey: 'items.chipseq.price', bgImage: ASSETS.cards.genomics, color: THEME_COLORS.primary },
-  { titleKey: 'items.gwas.title', descKey: 'items.gwas.desc', featuresKey: 'items.gwas.features', icon: Globe, priceKey: 'items.gwas.price', bgImage: ASSETS.cards.genomics, color: THEME_COLORS.primaryLight },
-  { titleKey: 'items.singleCell.title', descKey: 'items.singleCell.desc', featuresKey: 'items.singleCell.features', icon: Microscope, priceKey: 'items.singleCell.price', bgImage: ASSETS.cards.singlecell, color: THEME_COLORS.accent },
-  { titleKey: 'items.methylation.title', descKey: 'items.methylation.desc', featuresKey: 'items.methylation.features', icon: Database, priceKey: 'items.methylation.price', bgImage: ASSETS.cards.methylation, color: THEME_COLORS.accentLight },
-  { titleKey: 'items.metagenome.title', descKey: 'items.metagenome.desc', featuresKey: 'items.metagenome.features', icon: Flask, priceKey: 'items.metagenome.price', bgImage: ASSETS.cards.metagenome, color: '#22c55e' },
-  { titleKey: 'items.proteomics.title', descKey: 'items.proteomics.desc', featuresKey: 'items.proteomics.features', icon: Target, priceKey: 'items.proteomics.price', bgImage: ASSETS.cards.proteomics, color: THEME_COLORS.accentLight },
-  { titleKey: 'items.metabolomics.title', descKey: 'items.metabolomics.desc', featuresKey: 'items.metabolomics.features', icon: Beaker, priceKey: 'items.metabolomics.price', bgImage: ASSETS.cards.metabolomics, color: '#00b894' },
+  { titleKey: 'items.rnaseq.title', descKey: 'items.rnaseq.desc', featuresKey: 'items.rnaseq.features', icon: 'dataAnalysis', priceKey: 'items.rnaseq.price', bgImage: ASSETS.cards.transcriptomics, color: '#e17055' },
+  { titleKey: 'items.chipseq.title', descKey: 'items.chipseq.desc', featuresKey: 'items.chipseq.features', icon: 'informatics', priceKey: 'items.chipseq.price', bgImage: ASSETS.cards.genomics, color: THEME_COLORS.primary },
+  { titleKey: 'items.gwas.title', descKey: 'items.gwas.desc', featuresKey: 'items.gwas.features', icon: 'globe', priceKey: 'items.gwas.price', bgImage: ASSETS.cards.genomics, color: THEME_COLORS.primaryLight },
+  { titleKey: 'items.singleCell.title', descKey: 'items.singleCell.desc', featuresKey: 'items.singleCell.features', icon: 'microorganism', priceKey: 'items.singleCell.price', bgImage: ASSETS.cards.singlecell, color: THEME_COLORS.accent },
+  { titleKey: 'items.methylation.title', descKey: 'items.methylation.desc', featuresKey: 'items.methylation.features', icon: 'dataSecurity', priceKey: 'items.methylation.price', bgImage: ASSETS.cards.methylation, color: THEME_COLORS.accentLight },
+  { titleKey: 'items.metagenome.title', descKey: 'items.metagenome.desc', featuresKey: 'items.metagenome.features', icon: 'biology', priceKey: 'items.metagenome.price', bgImage: ASSETS.cards.metagenome, color: '#22c55e' },
+  { titleKey: 'items.proteomics.title', descKey: 'items.proteomics.desc', featuresKey: 'items.proteomics.features', icon: 'informatics', priceKey: 'items.proteomics.price', bgImage: ASSETS.cards.proteomics, color: THEME_COLORS.accentLight },
+  { titleKey: 'items.metabolomics.title', descKey: 'items.metabolomics.desc', featuresKey: 'items.metabolomics.features', icon: 'biology', priceKey: 'items.metabolomics.price', bgImage: ASSETS.cards.metabolomics, color: '#00b894' },
 ];
 
 export function ServiceCardsSection() {
@@ -51,7 +51,7 @@ export function ServiceCardsSection() {
                   className="absolute top-4 left-4 w-12 h-12 rounded-xl flex items-center justify-center"
                   style={{ backgroundColor: `${s.color}90` }}
                 >
-                  <s.icon className="w-6 h-6 text-white" />
+                  <Icon name={s.icon} size={24} className="text-white" />
                 </div>
               </div>
               <div className="p-6">
@@ -63,7 +63,7 @@ export function ServiceCardsSection() {
                 <div className="grid grid-cols-2 gap-2">
                   {(t(s.featuresKey, { returnObjects: true }) as string[]).map(f => (
                     <div key={f} className="flex items-center space-x-2 text-sm text-gray-600">
-                      <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      <Icon name="check" size={16} className="text-green-500 flex-shrink-0" />
                       <span>{f}</span>
                     </div>
                   ))}

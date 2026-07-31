@@ -10,14 +10,14 @@ function VisualizationListPage() {
   const navigate = useNavigate();
   const { t } = useTranslation(LANGUAGE_NAMESPACES.VISUALIZATION);
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <section className="relative py-20 bg-gradient-to-br from-primary-light to-accent overflow-hidden">
         <div className="absolute inset-0 opacity-15">
           <img src={ASSETS.cards.genomics} alt="" className="w-full h-full object-cover" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-4xl sm:text-5xl font-bold text-white mb-6">{t('page.title')}</motion.h1>
-          <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-xl text-white/80 max-w-3xl mx-auto mb-8">
+          <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-4xl sm:text-5xl font-bold text-white mb-6">{t('page.title')}</motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="text-xl text-white/80 max-w-3xl mx-auto mb-8">
             {t('page.subtitle')}
           </motion.p>
           <motion.button onClick={() => navigate(ROUTES.Visualization.ChartTool)}

@@ -17,11 +17,11 @@ export default function RootLayout() {
   useRouteTitle();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-white">
       {!hideNavbar && <Navbar />}
-      <main className="pt-0">
+      <main className="flex-1 mt-16 flex flex-col">
         <AnimatePresence mode="wait">
-          <PageTransition key={location.pathname}>
+          <PageTransition key={location.pathname} className="flex-1 flex flex-col">
             <Outlet />
           </PageTransition>
         </AnimatePresence>

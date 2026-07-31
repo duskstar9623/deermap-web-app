@@ -1,6 +1,8 @@
 export { default as Badge } from './Badge';
 export { default as Button } from './Button';
 export { default as Card } from './Card';
+export { default as Icon } from './Icon';
+export type { IconProps, IconfontName } from './Icon';
 export { default as Input } from './Input';
 export { default as Modal } from './Modal';
 export { default as OptimizedImage } from './Image';

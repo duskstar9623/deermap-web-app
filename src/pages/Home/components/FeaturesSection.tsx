@@ -1,16 +1,17 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Database, BarChart3, Layers, FileText } from 'lucide-react';
+import Icon from '@/components/shared/Icon';
+import type { IconfontName } from '@/components/shared/Icon';
 import ROUTES from '@/router/paths';
 import { ASSETS } from '@/constants/assets';
 import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
 
-const FEATURES = [
-  { icon: Database, titleKey: 'features.bioinformatics.title', descKey: 'features.bioinformatics.desc', color: THEME_COLORS.primary, bgImage: ASSETS.cards.genomics, route: ROUTES.Bioinformatics },
-  { icon: BarChart3, titleKey: 'features.visualization.title', descKey: 'features.visualization.desc', color: THEME_COLORS.primaryLight, bgImage: ASSETS.cards.transcriptomics, route: ROUTES.Visualization.Root },
-  { icon: Layers, titleKey: 'features.multiomics.title', descKey: 'features.multiomics.desc', color: THEME_COLORS.accent, bgImage: ASSETS.cards.proteomics, route: ROUTES.Multiomics.Root },
-  { icon: FileText, titleKey: 'features.academic.title', descKey: 'features.academic.desc', color: THEME_COLORS.accentLight, bgImage: ASSETS.cards.metabolomics, route: ROUTES.Academic },
+const FEATURES: { icon: IconfontName; titleKey: string; descKey: string; color: string; bgImage: string; route: string }[] = [
+  { icon: 'dataAnalysis', titleKey: 'features.bioinformatics.title', descKey: 'features.bioinformatics.desc', color: THEME_COLORS.primary, bgImage: ASSETS.cards.genomics, route: ROUTES.Bioinformatics },
+  { icon: 'visualization', titleKey: 'features.visualization.title', descKey: 'features.visualization.desc', color: THEME_COLORS.primaryLight, bgImage: ASSETS.cards.transcriptomics, route: ROUTES.Visualization.Root },
+  { icon: 'informatics', titleKey: 'features.multiomics.title', descKey: 'features.multiomics.desc', color: THEME_COLORS.accent, bgImage: ASSETS.cards.proteomics, route: ROUTES.Multiomics.Root },
+  { icon: 'report', titleKey: 'features.academic.title', descKey: 'features.academic.desc', color: THEME_COLORS.accentLight, bgImage: ASSETS.cards.metabolomics, route: ROUTES.Academic },
 ];
 
 export function FeaturesSection() {
@@ -47,7 +48,7 @@ export function FeaturesSection() {
                   className="absolute top-4 left-4 w-12 h-12 rounded-xl flex items-center justify-center"
                   style={{ backgroundColor: `${f.color}90` }}
                 >
-                  <f.icon className="w-6 h-6 text-white" />
+                  <Icon name={f.icon} size={24} className="text-white" />
                 </div>
               </div>
               <div className="p-6">

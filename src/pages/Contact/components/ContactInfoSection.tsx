@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Phone, Globe, MessageSquare } from 'lucide-react';
+import Icon from '@/components/shared/Icon';
 import { LANGUAGE_NAMESPACES } from '@/constants/const';
 
 export function ContactInfoSection() {
@@ -15,7 +15,7 @@ export function ContactInfoSection() {
       <div className="space-y-6">
         <div className="flex items-start space-x-4">
           <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Phone className="w-6 h-6 text-primary" />
+            <Icon name="contact" size={24} className="text-primary" />
           </div>
           <div>
             <h4 className="font-semibold text-primary">{t('info.phone')}</h4>
@@ -24,7 +24,7 @@ export function ContactInfoSection() {
         </div>
         <div className="flex items-start space-x-4">
           <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-            <MessageSquare className="w-6 h-6 text-primary" />
+            <Icon name="email" size={24} className="text-primary" />
           </div>
           <div>
             <h4 className="font-semibold text-primary">{t('info.email')}</h4>
@@ -33,7 +33,7 @@ export function ContactInfoSection() {
         </div>
         <div className="flex items-start space-x-4">
           <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Globe className="w-6 h-6 text-primary" />
+            <Icon name="globe" size={24} className="text-primary" />
           </div>
           <div>
             <h4 className="font-semibold text-primary">{t('info.address')}</h4>

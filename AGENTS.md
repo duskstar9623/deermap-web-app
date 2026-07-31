@@ -1,3 +1,3 @@
 # Deermap AI Instructions
 
-Follow all rules and load all skills defined in `.agent/instructions.md`.
+Follow all rules and load all skills defined in `.github/copilot-instructions.md`.

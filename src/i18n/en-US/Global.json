@@ -28,6 +28,8 @@
   },
   "footer": {
     "description": "A professional bioinformatics analysis service platform providing high-quality data analysis and visualization for research.",
+    "tagline": "Empowering researchers to focus on research.",
+    "reprint": "Original content may be reprinted for non-commercial purposes with proper attribution. Commercial use requires prior written authorization from Deermap.",
     "services": "Services",
     "resources": "Resources",
     "chartTool": "Chart Tool",
@@ -35,6 +37,9 @@
     "contact": "Contact",
     "email": "support@bioinfopro.com",
     "phone": "+86 400-123-4567",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "icp": "ICP 2021018046"
   }
 }

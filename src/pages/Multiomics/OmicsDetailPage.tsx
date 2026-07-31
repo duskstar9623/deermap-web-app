@@ -1,11 +1,8 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import {
-  Dna, BarChart3, Search, Layers, Target, Share2, TrendingUp,
-  ScatterChart, Beaker, ArrowRight
-} from 'lucide-react';
+import Icon from '@/components/shared/Icon';
+import type { IconfontName } from '@/components/shared/Icon';
 import WorkflowSection from '@/components/shared/WorkflowSection';
 import ROUTES from '@/router/paths';
 import { THEME_COLORS, LANGUAGE_NAMESPACES } from '@/constants/const';
@@ -21,7 +18,7 @@ interface OmicsPageConfig {
   bgImage: string
   badgeBg: string
   badgeText: string
-  analysisTypes: { i18nKey: string; tools: string[]; icon: React.ComponentType<{ className?: string }>; image: string }[]
+  analysisTypes: { i18nKey: string; tools: string[]; icon: IconfontName; image: string }[]
   results: { img: string; i18nKey: string }[]
 }
 
@@ -31,10 +28,10 @@ const omicsPageConfigs: Record<string, OmicsPageConfig> = {
     gradientFrom: THEME_COLORS.primary, gradientTo: THEME_COLORS.primaryDark, bgImage: ASSETS.cards.genomics,
     badgeBg: 'bg-blue-50', badgeText: 'text-primary',
     analysisTypes: [
-      { i18nKey: 'genomics.analysisTypes.variant', tools: ['GATK','Samtools','DeepVariant'], icon: Search, image: ASSETS.analysis.genomicsVariant },
-      { i18nKey: 'genomics.analysisTypes.cnv', tools: ['CNVkit','GISTIC2','PennCNV'], icon: Layers, image: ASSETS.analysis.genomicsCnv },
-      { i18nKey: 'genomics.analysisTypes.sv', tools: ['Delly','Lumpy','Manta'], icon: Dna, image: ASSETS.cards.genomics },
-      { i18nKey: 'genomics.analysisTypes.gwas', tools: ['PLINK','GEMMA','GCTA'], icon: Target, image: ASSETS.omics.genomics },
+      { i18nKey: 'genomics.analysisTypes.variant', tools: ['GATK','Samtools','DeepVariant'], icon: 'dataAnalysis', image: ASSETS.analysis.genomicsVariant },
+      { i18nKey: 'genomics.analysisTypes.cnv', tools: ['CNVkit','GISTIC2','PennCNV'], icon: 'informatics', image: ASSETS.analysis.genomicsCnv },
+      { i18nKey: 'genomics.analysisTypes.sv', tools: ['Delly','Lumpy','Manta'], icon: 'biology', image: ASSETS.cards.genomics },
+      { i18nKey: 'genomics.analysisTypes.gwas', tools: ['PLINK','GEMMA','GCTA'], icon: 'informatics', image: ASSETS.omics.genomics },
     ],
     results: [
       { img: ASSETS.charts.manhattan, i18nKey: 'genomics.results.manhattan' },
@@ -47,10 +44,10 @@ const omicsPageConfigs: Record<string, OmicsPageConfig> = {
     gradientFrom: THEME_COLORS.transcriptomics, gradientTo: '#d35400', bgImage: ASSETS.cards.transcriptomics,
     badgeBg: 'bg-orange-50', badgeText: 'text-orange-700',
     analysisTypes: [
-      { i18nKey: 'transcriptomics.analysisTypes.de', tools: ['DESeq2','edgeR','limma'], icon: BarChart3, image: ASSETS.analysis.rnaExpression },
-      { i18nKey: 'transcriptomics.analysisTypes.splicing', tools: ['rMATS','SUPPA','LeafCutter'], icon: ScatterChart, image: ASSETS.analysis.rnaSplicing },
-      { i18nKey: 'transcriptomics.analysisTypes.fusion', tools: ['STAR-Fusion','Arriba','FusionCatcher'], icon: Dna, image: ASSETS.omics.transcriptomics },
-      { i18nKey: 'transcriptomics.analysisTypes.pathway', tools: ['clusterProfiler','GSEA','DAVID'], icon: Target, image: ASSETS.cards.transcriptomics },
+      { i18nKey: 'transcriptomics.analysisTypes.de', tools: ['DESeq2','edgeR','limma'], icon: 'dataAnalysis', image: ASSETS.analysis.rnaExpression },
+      { i18nKey: 'transcriptomics.analysisTypes.splicing', tools: ['rMATS','SUPPA','LeafCutter'], icon: 'visualization', image: ASSETS.analysis.rnaSplicing },
+      { i18nKey: 'transcriptomics.analysisTypes.fusion', tools: ['STAR-Fusion','Arriba','FusionCatcher'], icon: 'biology', image: ASSETS.omics.transcriptomics },
+      { i18nKey: 'transcriptomics.analysisTypes.pathway', tools: ['clusterProfiler','GSEA','DAVID'], icon: 'informatics', image: ASSETS.cards.transcriptomics },
     ],
     results: [
       { img: ASSETS.charts.volcano, i18nKey: 'transcriptomics.results.volcano' },
@@ -63,10 +60,10 @@ const omicsPageConfigs: Record<string, OmicsPageConfig> = {
     gradientFrom: '#5b2c6f', gradientTo: '#7d3c98', bgImage: ASSETS.cards.proteomics,
     badgeBg: 'bg-purple-50', badgeText: 'text-purple-700',
     analysisTypes: [
-      { i18nKey: 'proteomics.analysisTypes.identification', tools: ['MaxQuant','MSFragger','DIA-NN'], icon: Search, image: ASSETS.analysis.proteinMs },
-      { i18nKey: 'proteomics.analysisTypes.ptm', tools: ['pFind','AScore','MaxQuant-PTM'], icon: Target, image: ASSETS.analysis.proteinPtm },
-      { i18nKey: 'proteomics.analysisTypes.ppi', tools: ['STRING','Cytoscape','BioGRID'], icon: Share2, image: ASSETS.omics.proteomics },
-      { i18nKey: 'proteomics.analysisTypes.integration', tools: ['MOFA','mixOmics','DIABLO'], icon: Layers, image: ASSETS.cards.proteomics },
+      { i18nKey: 'proteomics.analysisTypes.identification', tools: ['MaxQuant','MSFragger','DIA-NN'], icon: 'dataAnalysis', image: ASSETS.analysis.proteinMs },
+      { i18nKey: 'proteomics.analysisTypes.ptm', tools: ['pFind','AScore','MaxQuant-PTM'], icon: 'informatics', image: ASSETS.analysis.proteinPtm },
+      { i18nKey: 'proteomics.analysisTypes.ppi', tools: ['STRING','Cytoscape','BioGRID'], icon: 'informatics', image: ASSETS.omics.proteomics },
+      { i18nKey: 'proteomics.analysisTypes.integration', tools: ['MOFA','mixOmics','DIABLO'], icon: 'dataSecurity', image: ASSETS.cards.proteomics },
     ],
     results: [
       { img: ASSETS.charts.heatmap, i18nKey: 'proteomics.results.heatmap' },
@@ -79,10 +76,10 @@ const omicsPageConfigs: Record<string, OmicsPageConfig> = {
     gradientFrom: '#0e6655', gradientTo: '#17a589', bgImage: ASSETS.cards.metabolomics,
     badgeBg: 'bg-teal-50', badgeText: 'text-teal-700',
     analysisTypes: [
-      { i18nKey: 'metabolomics.analysisTypes.identification', tools: ['XCMS','MS-DIAL','MetaboAnalyst'], icon: Beaker, image: ASSETS.analysis.metabolite },
-      { i18nKey: 'metabolomics.analysisTypes.pathway', tools: ['KEGG','MetaboAnalyst','SMPDB'], icon: Target, image: ASSETS.analysis.metabolismPathway },
-      { i18nKey: 'metabolomics.analysisTypes.lipidomics', tools: ['LipidSearch','LipidMaps','MS-DIAL'], icon: Layers, image: ASSETS.cards.metabolomics },
-      { i18nKey: 'metabolomics.analysisTypes.flux', tools: ['IsoCor','Metran','13CFLUX2'], icon: TrendingUp, image: ASSETS.omics.metabolomics },
+      { i18nKey: 'metabolomics.analysisTypes.identification', tools: ['XCMS','MS-DIAL','MetaboAnalyst'], icon: 'biology', image: ASSETS.analysis.metabolite },
+      { i18nKey: 'metabolomics.analysisTypes.pathway', tools: ['KEGG','MetaboAnalyst','SMPDB'], icon: 'informatics', image: ASSETS.analysis.metabolismPathway },
+      { i18nKey: 'metabolomics.analysisTypes.lipidomics', tools: ['LipidSearch','LipidMaps','MS-DIAL'], icon: 'dataSecurity', image: ASSETS.cards.metabolomics },
+      { i18nKey: 'metabolomics.analysisTypes.flux', tools: ['IsoCor','Metran','13CFLUX2'], icon: 'dataAnalysis', image: ASSETS.omics.metabolomics },
     ],
     results: [
       { img: ASSETS.charts.heatmap, i18nKey: 'metabolomics.results.heatmap' },
@@ -105,17 +102,17 @@ function OmicsDetailPage() {
   if (!cfg) return null;
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       {/* Hero */}
       <section className="relative py-20 overflow-hidden" style={{ background: `linear-gradient(to bottom right, ${cfg.gradientFrom}, ${cfg.gradientTo})` }}>
         <div className="absolute inset-0 opacity-20"><img src={cfg.bgImage} alt="" className="w-full h-full object-cover" fetchPriority="high" /></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => navigate(ROUTES.Multiomics.Root)}
             className="flex items-center space-x-2 text-white/80 hover:text-white mb-6 transition-colors">
-            <ArrowRight className="w-4 h-4 rotate-180" /><span>{t('detailPage.backButton')}</span>
+            <Icon name="arrowRight" size={16} className="rotate-180" /><span>{t('detailPage.backButton')}</span>
           </motion.button>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-4xl sm:text-5xl font-bold text-white mb-6">{t(`${cfg.i18nKey}.title`)}</motion.h1>
-          <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-xl text-white/80 max-w-3xl">{t(`${cfg.i18nKey}.subtitle`)}</motion.p>
+          <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-4xl sm:text-5xl font-bold text-white mb-6">{t(`${cfg.i18nKey}.title`)}</motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="text-xl text-white/80 max-w-3xl">{t(`${cfg.i18nKey}.subtitle`)}</motion.p>
         </div>
       </section>
 
@@ -136,7 +133,7 @@ function OmicsDetailPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   <div className="absolute bottom-4 left-4 flex items-center space-x-3">
                     <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(to bottom right, ${cfg.gradientFrom}, ${cfg.gradientTo})` }}>
-                      <item.icon className="w-5 h-5 text-white" />
+                      <Icon name={item.icon} size={20} className="text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-white">{t(`${item.i18nKey}.title`)}</h3>
                   </div>

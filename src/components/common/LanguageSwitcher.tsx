@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Globe } from 'lucide-react';
+import Icon from '@/components/shared/Icon';
 import useI18n from '@/hooks/useI18n';
 import { LANGUAGES } from '@/constants/const';
 import type { Language } from '@/types/common';
@@ -35,7 +35,7 @@ export default function LanguageSwitcher() {
         aria-label="Switch currentLanguage"
         aria-expanded={open}
       >
-        <Globe className="w-4 h-4" />
+        <Icon name="globe" size={16} />
         <span>{current.shortLabel}</span>
       </button>
 

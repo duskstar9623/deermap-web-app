@@ -3,7 +3,7 @@ import { AcademicServicesSection } from './components/AcademicServicesSection';
 
 function AcademicPage() {
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <AcademicHeroSection />
       <AcademicServicesSection />
     </div>

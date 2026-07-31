@@ -1,3 +1,6 @@
+/* iconfont project 4685754 — 切换本地资源时只需替换此 URL */
+@import url('https://at.alicdn.com/t/c/font_4685754_ew4nm1ipcp8.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,11 +8,11 @@
 @layer base {
   :root {
     /* Brand colors (RGB values for Tailwind alpha support) */
-    --color-primary: 26 31 113;
-    --color-primary-light: 75 91 171;
-    --color-primary-dark: 15 18 68;
-    --color-accent: 99 102 241;
-    --color-accent-light: 139 92 246;
+    --color-primary: 79 70 229;           /* indigo-600 — vibrant, not heavy */
+    --color-primary-light: 129 140 248;   /* indigo-400 — bright hover/light surfaces */
+    --color-primary-dark: 49 46 129;      /* indigo-900 — deep for footer / dark surfaces */
+    --color-accent: 6 182 212;            /* cyan-500 — fresh, scientific energy */
+    --color-accent-light: 34 211 238;     /* cyan-400 */
 
     /* Semantic colors */
     --color-background: 255 255 255;
@@ -18,25 +21,25 @@
     --color-border: 243 244 246;
 
     /* Omics domain colors */
-    --color-genomics: 26 31 113;
+    --color-genomics: 79 70 229;
     --color-transcriptomics: 192 57 43;
     --color-proteomics: 108 92 231;
     --color-metabolomics: 0 184 148;
   }
 
   [data-theme="dark"] {
-    --color-primary: 139 147 255;
-    --color-primary-light: 165 172 255;
-    --color-primary-dark: 75 91 171;
-    --color-accent: 139 92 246;
-    --color-accent-light: 167 139 250;
+    --color-primary: 129 140 248;         /* indigo-400 */
+    --color-primary-light: 165 180 252;   /* indigo-300 */
+    --color-primary-dark: 99 102 241;     /* indigo-500 */
+    --color-accent: 34 211 238;           /* cyan-400 */
+    --color-accent-light: 103 232 249;    /* cyan-300 */
 
     --color-background: 17 24 39;
     --color-foreground: 243 244 246;
     --color-muted: 156 163 175;
     --color-border: 55 65 81;
 
-    --color-genomics: 139 147 255;
+    --color-genomics: 129 140 248;
     --color-transcriptomics: 231 76 60;
     --color-proteomics: 165 148 249;
     --color-metabolomics: 0 206 166;

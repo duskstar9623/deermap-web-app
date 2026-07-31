@@ -4,7 +4,7 @@ import { ContactFormSection } from './components/ContactFormSection';
 
 function ContactPage() {
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <ContactHeroSection />
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
